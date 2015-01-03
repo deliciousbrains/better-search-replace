@@ -16,12 +16,29 @@ class Better_Search_Replace_DB {
 	private $wpdb;
 
 	/**
+	 * The main report used.
+	 * @var array
+	 */
+	public $report;
+
+	/**
 	 * Initializes the class and its properties.
 	 * @access public
 	 */
 	public function __construct() {
+		
 		global $wpdb;
 		$this->wpdb = $wpdb;
+
+		$this->report = array(
+			'tables' 		=> 0,
+			'change' 		=> 0,
+			'updates'		=> 0,
+			'errors'		=> 0,
+			'start' 		=> microtime(),
+			'end'			=> microtime(),
+			'table_reports' => array()
+		);
 	}
 
 	/**
@@ -40,12 +57,20 @@ class Better_Search_Replace_DB {
 	 * @param  $tables 	The tables to run the search/replace on.
 	 * @param  $search 	The string to search for.
 	 * @param  $replace The string to replace with.
+	 * @return array
 	 */
-	public function run( $tables = array(), $search, $replace ) {
+	public function run( $tables = array(), $search, $replace, $skip_guids, $dry_run ) {
 		if ( count( $tables ) !== 0 ) {
+
+			// Run the search replace.
 			foreach ( $tables as $table ) {
-				$this->srdb( $table, $search, $replace );
+				$this->report['tables']++;
+				$this->report['table_reports'][$table] = $this->srdb( $table, $search, $replace, $skip_guids, $dry_run );
 			}
+
+			// Return the results.
+			$this->report['end'] = microtime();
+			return $this->report;
 		}
 	}
 
@@ -56,12 +81,22 @@ class Better_Search_Replace_DB {
 	 * @link https://interconnectit.com/products/search-and-replace-for-wordpress-databases/
 	 * 
 	 * @access public
-	 * @param  string $table 	The table to run the replacement on.
-	 * @param  string $search 	The string to replace.
-	 * @param  string $replace 	The string to replace with.
-	 * @return array   			Collection of information gathered during the run.
+	 * @param  string 	$table 		The table to run the replacement on.
+	 * @param  string 	$search 	The string to replace.
+	 * @param  string 	$replace 	The string to replace with.
+	 * @param  boolean 	$skip_guids Whether to skip the GUID column
+	 * @param  boolean 	$dry_run 	Whether to run as a dry run
+	 * @return array   	Collection of information gathered during the run.
 	 */
-	public function srdb( $table, $search = '', $replace = '' ) {
+	public function srdb( $table, $search = '', $replace = '', $skip_guids, $dry_run ) {
+
+		$table_report = array(
+			'change' 	=> 0,
+			'updates' 	=> 0,
+			'start' 	=> microtime(),
+			'end'		=> microtime(),
+			'errors' 	=> array()
+		);
 
 		// Get a list of columns in this table.
 		$columns = array();
@@ -74,8 +109,9 @@ class Better_Search_Replace_DB {
 		// Count the number of rows we have in the table if large we'll split into blocks, This is a mod from Simon Wheatley
 		$this->wpdb->get_results( 'SELECT COUNT(*) FROM ' . $table );
 		$row_count = $this->wpdb->num_rows;
-		if ( $row_count == 0 )
+		if ( $row_count == 0 ) {
 			continue;
+		}
 
 		$page_size 	= 50000;
 		$pages 		= ceil( $row_count / $page_size );
@@ -99,6 +135,10 @@ class Better_Search_Replace_DB {
 				foreach( $columns as $column => $primary_key ) {
 					$edited_data = $data_to_fix = $row[ $column ];
 
+					if ( $skip_guids === true && $column === 'guid' ) {
+						continue;
+					}
+
 					// Run a search replace on the data that'll respect the serialisation.
 					$edited_data = $this->recursive_unserialize_replace( $search, $replace, $data_to_fix );
 
@@ -106,34 +146,42 @@ class Better_Search_Replace_DB {
 					if ( $edited_data != $data_to_fix ) {
 						$update_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $edited_data ) . '"';
 						$upd = true;
+						$this->report['change']++;
+						$table_report['change']++;
 					}
 
-					if ( $primary_key )
+					if ( $primary_key ) {
 						$where_sql[] = $column . ' = "' .  $this->mysql_escape_mimic( $data_to_fix ) . '"';
+					}
 				}
 
-				if ( $upd && ! empty( $where_sql ) ) {
-					$sql = 'UPDATE ' . $table . ' SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
+				// Determine what to do with updates.
+				if ( $dry_run === true ) {
+					// Don't do anything if a dry run
+				} elseif ( $upd && ! empty( $where_sql ) ) {
+					// If there are changes to make, run the query.
+					$sql 	= 'UPDATE ' . $table . ' SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
 					$result = $this->wpdb->query( $sql );
+
 					if ( ! $result ) {
-						$error_msg 	= sprintf( __( 'Error updating the table: %s.', 'better-search-replace' ), $table );
+						$this->report['errors']++;
+						$table_report['errors'][] = 'Error updating row: ' . $current_row . '.';
+					} else {
+						$this->report['updates']++;
+						$table_report['updates']++;
 					}
-					$success_msg = sprintf( __( 'Successfully updated %s fields on table: %s.', 'better-search-replace' ), count( $update_sql ), $table );
+
 				} elseif ( $upd ) {
-					$error_msg = sprintf( __( 'The table "%s" has no primary key. Manual change needed on row %s.', 'better-search-replace' ), $table, $current_row );
+					$this->report['errors']++;
+					$table_report['errors'][] = 'Row ' . $current_row . ' has no primary key, manual change needed.';
 				}
 			}
 		}
 		
-		// Flush the results.
+		// Flush the results and return the report.
+		$table_report['end'] = microtime();
 		$this->wpdb->flush();
-
-		// Return the resulting message for this table.
-		if ( isset( $error_msg ) ) {
-			return $error_msg;
-		} elseif ( isset( $success_msg ) ) {
-			return $success_msg;
-		}
+		return $table_report;
 	}
 
 	/**
@@ -182,12 +230,14 @@ class Better_Search_Replace_DB {
 			}
 			
 			else {
-				if ( is_string( $data ) )
+				if ( is_string( $data ) ) {
 					$data = str_replace( $from, $to, $data );
+				}
 			}
 
-			if ( $serialised )
+			if ( $serialised ) {
 				return serialize( $data );
+			}
 
 		} catch( Exception $error ) {
 
@@ -203,11 +253,10 @@ class Better_Search_Replace_DB {
 	 * @param  string $input The string to escape.
 	 */
 	public function mysql_escape_mimic( $input ) {
-
-	    if( is_array( $input ) ) 
+	    if ( is_array( $input ) ) {
 	        return array_map( __METHOD__, $input ); 
-
-	    if( ! empty( $input ) && is_string( $input ) ) { 
+	    }
+	    if ( ! empty( $input ) && is_string( $input ) ) { 
 	        return str_replace( array( '\\', "\0", "\n", "\r", "'", '"', "\x1a" ), array( '\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z' ), $input ); 
 	    } 
 

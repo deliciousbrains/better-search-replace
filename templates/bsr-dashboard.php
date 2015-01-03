@@ -55,7 +55,7 @@ $bsr_db = new Better_Search_Replace_DB();
 				<td><label><strong><?php _e( 'Skip GUIDs<a href="http://codex.wordpress.org/Changing_The_Site_URL#Important_GUID_Note" target="_blank">?</a>', 'better-search-replace' ); ?></strong></label></td>
 				<td>
 					<input id="skip_guids" type="checkbox" name="skip_guids" />
-					<label for="skip_guids"><span class="description"><?php _e( 'If checked, all database columns titled "GUID" will be skipped.', 'better-search-replace' ); ?></span></label>
+					<label for="skip_guids"><span class="description"><?php _e( 'If checked, all database columns titled \'guid\' will be skipped.', 'better-search-replace' ); ?></span></label>
 				</td>
 			</tr>
 

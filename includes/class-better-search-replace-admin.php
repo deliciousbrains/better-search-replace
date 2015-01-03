@@ -96,11 +96,27 @@ class Better_Search_Replace_Admin {
 
 			// Run the actual search/replace.
 			if ( isset( $_POST['select_tables'] ) && is_array( $_POST['select_tables'] ) ) {
-				echo 'Running replace...';
+
 				$db = new Better_Search_Replace_DB();
-				var_dump( $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'] ) );
+
+				// Check if we are skipping the 'guid' column.
+				if ( isset( $_POST['skip_guids'] ) ) {
+					$skip_guids = true;
+				} else {
+					$skip_guids = false;
+				}
+
+				// Check if this is a dry run.
+				if ( isset( $_POST['dry_run'] ) ) {
+					$dry_run = true;
+				} else {
+					$dry_run = false;
+				}
+
+				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $skip_guids, $dry_run );
+				var_dump( $result['table_reports']['wp_posts'] );
 			} else {
-				echo 'Debug only...';
+				// Do something here.
 			}
 		}
 	}
