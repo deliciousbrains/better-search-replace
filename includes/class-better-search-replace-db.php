@@ -81,14 +81,14 @@ class Better_Search_Replace_DB {
 	 * @link https://interconnectit.com/products/search-and-replace-for-wordpress-databases/
 	 * 
 	 * @access public
-	 * @param  string 	$table 		The table to run the replacement on.
-	 * @param  string 	$search 	The string to replace.
-	 * @param  string 	$replace 	The string to replace with.
-	 * @param  boolean 	$skip_guids Whether to skip the GUID column
-	 * @param  boolean 	$dry_run 	Whether to run as a dry run
-	 * @return array   	Collection of information gathered during the run.
+	 * @param  string 	$table 			The table to run the replacement on.
+	 * @param  string 	$search 		The string to replace.
+	 * @param  string 	$replace 		The string to replace with.
+	 * @param  boolean 	$replace_guids 	Whether to skip the GUID column
+	 * @param  boolean 	$dry_run 		Whether to run as a dry run
+	 * @return array
 	 */
-	public function srdb( $table, $search = '', $replace = '', $skip_guids, $dry_run ) {
+	public function srdb( $table, $search = '', $replace = '', $replace_guids, $dry_run ) {
 
 		$table_report = array(
 			'change' 	=> 0,
@@ -135,7 +135,7 @@ class Better_Search_Replace_DB {
 				foreach( $columns as $column => $primary_key ) {
 					$edited_data = $data_to_fix = $row[ $column ];
 
-					if ( $skip_guids === true && $column === 'guid' ) {
+					if ( $replace_guids !== true && $column === 'guid' ) {
 						continue;
 					}
 

@@ -100,10 +100,10 @@ class Better_Search_Replace_Admin {
 				$db = new Better_Search_Replace_DB();
 
 				// Check if we are skipping the 'guid' column.
-				if ( isset( $_POST['skip_guids'] ) ) {
-					$skip_guids = true;
+				if ( isset( $_POST['replace'] ) ) {
+					$replace_guids = true;
 				} else {
-					$skip_guids = false;
+					$replace_guids = false;
 				}
 
 				// Check if this is a dry run.
@@ -113,7 +113,7 @@ class Better_Search_Replace_Admin {
 					$dry_run = false;
 				}
 
-				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $skip_guids, $dry_run );
+				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $replace_guids, $dry_run );
 				var_dump( $result['table_reports']['wp_posts'] );
 			} else {
 				// Do something here.

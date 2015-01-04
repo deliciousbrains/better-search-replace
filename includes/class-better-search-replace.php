@@ -120,7 +120,7 @@ class Better_Search_Replace {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bsr_menu_pages' );
-		$this->loader->add_action( 'admin_post', $plugin_admin, 'process_search_replace' );
+		$this->loader->add_action( 'admin_post_bsr_process_search_replace', $plugin_admin, 'process_search_replace' );
 	}
 
 	/**
