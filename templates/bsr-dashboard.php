@@ -18,6 +18,7 @@ $bsr_db = new Better_Search_Replace_DB();
 <div class="wrap">
 
 	<h2><?php _e( 'Better Search Replace', 'better-search-replace' ); ?></h2>
+	<?php Better_Search_Replace_Admin::render_result(); ?>
 	<p><?php _e( 'This tool allows you to search and replace text in your database (supports serialized arrays and objects).', 'better-search-replace' ); ?></p>
 	<p><?php _e( 'To get started, use the form below to enter the text to be replaced and select the tables to update.', 'better-search-replace' ); ?></p>
 	<p><?php _e( '<strong>WARNING:</strong> Make sure you backup your database before using this plugin!', 'better-search-replace' ); ?></p>

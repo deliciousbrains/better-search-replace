@@ -94,6 +94,12 @@ class Better_Search_Replace_Admin {
 		// Only process form data if properly nonced.
 		if ( ! empty( $_POST ) && check_admin_referer( 'process_search_replace', 'bsr_nonce' ) ) {
 
+			// Don't run if there isn't a search string.
+			if ( !isset( $_POST['search_for'] ) || $_POST['search_for'] == '' ) {
+				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&error=no_search_str' );
+				exit();
+			}
+
 			// Run the actual search/replace.
 			if ( isset( $_POST['select_tables'] ) && is_array( $_POST['select_tables'] ) ) {
 
@@ -114,10 +120,55 @@ class Better_Search_Replace_Admin {
 				}
 
 				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $replace_guids, $dry_run );
-				var_dump( $result['table_reports']['wp_posts'] );
+				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
+				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&result=true&dry_run=' . $dry_run );
 			} else {
-				// Do something here.
+				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&error=no_tables' );
 			}
+			exit();
+		}
+	}
+
+	/**
+	 * Renders the result or error onto the better-search-replace admin page.
+	 * @access public
+	 */
+	public static function render_result() {
+		if ( isset( $_GET['error'] ) ) {
+			echo '<div class="error"><p>';
+			switch ( $_GET['error'] ) {
+				case 'no_search_str':
+					_e( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' );
+					break;
+				case 'no_tables':
+					_e( 'Please select the tables that you want to update.', 'better-search-replace' );
+					break;
+			}
+			echo '</p></div>';
+		} elseif ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+			$result = get_transient( 'bsr_results' );
+			echo '<div class="updated">';
+			
+			if ( isset( $_GET['dry_run'] ) && $_GET['dry_run'] == true ) {
+				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p>Click here for more details, or click here to run the search/replace.</p>', 'better-search-replace' ),
+					$result['tables'],
+					$result['change'],
+					$result['updates']
+				);
+			} else {
+				$msg = sprintf( __( '<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p>Click here for more details.</p>', 'better-search-replace' ),
+					$result['tables'],
+					$result['change'],
+					$result['updates']
+				);
+			}
+
+			echo $msg;
+
+			echo '</div>';
+			delete_transient( 'bsr_results' );
+		} else {
+			// Do nothing.
 		}
 	}
 
