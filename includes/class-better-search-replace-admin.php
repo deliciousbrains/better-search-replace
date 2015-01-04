@@ -11,10 +11,10 @@
  */
 
 /**
- * The dashboard-specific functionality of the plugin.
+ * The dashboard-specific functionality of this plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the dashboard-specific stylesheet and JavaScript.
+ * Registers styles and scripts, adds the custom administration page,
+ * and processes user input on the "search/replace" form.
  *
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/admin

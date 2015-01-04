@@ -57,16 +57,6 @@ if ( ! defined( 'BSR_URL' ) ) {
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-better-search-replace-activator.php
- */
-function activate_better_search_replace() {
-	require_once plugin_dir_path( BSR_FILE ) . 'includes/class-better-search-replace-activator.php';
-	Better_Search_Replace_Activator::activate();
-}
-register_activation_hook( BSR_FILE, 'activate_better_search_replace' );
-
-/**
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
