@@ -29,12 +29,12 @@ $bsr_db = new Better_Search_Replace_DB();
 			
 			<tr>
 				<td><label for="search_for"><strong><?php _e( 'Search for', 'better-search-replace' ); ?></strong></label></td>
-				<td><input id="search_for" class="regular-text" type="text" name="search_for" /></td>
+				<td><input id="search_for" class="regular-text" type="text" name="search_for" value="<?php Better_Search_Replace_Admin::prefill_value( 'search' ); ?>" /></td>
 			</tr>
 			
 			<tr>
 				<td><label for="replace_with"><strong><?php _e( 'Replace with', 'better-search-replace' ); ?></strong></label></td>
-				<td><input id="replace_with" class="regular-text" type="text" name="replace_with" /></td>
+				<td><input id="replace_with" class="regular-text" type="text" name="replace_with" value="<?php Better_Search_Replace_Admin::prefill_value( 'replace' ); ?>" /></td>
 			</tr>
 
 			<tr>

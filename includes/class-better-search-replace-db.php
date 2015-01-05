@@ -37,6 +37,8 @@ class Better_Search_Replace_DB {
 			'errors'		=> 0,
 			'start' 		=> microtime(),
 			'end'			=> microtime(),
+			'search'		=> '',
+			'replace'		=> '',
 			'table_reports' => array()
 		);
 	}
@@ -61,6 +63,10 @@ class Better_Search_Replace_DB {
 	 */
 	public function run( $tables = array(), $search, $replace, $skip_guids, $dry_run ) {
 		if ( count( $tables ) !== 0 ) {
+
+			// Store search & replace strings for later.
+			$this->report['search'] 	= $search;
+			$this->report['replace'] 	= $replace;
 
 			// Run the search replace.
 			foreach ( $tables as $table ) {

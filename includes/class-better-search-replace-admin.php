@@ -100,6 +100,9 @@ class Better_Search_Replace_Admin {
 				exit();
 			}
 
+			// Clear the results of the last run.
+			delete_transient( 'bsr_results' );
+
 			// Run the actual search/replace.
 			if ( isset( $_POST['select_tables'] ) && is_array( $_POST['select_tables'] ) ) {
 
@@ -163,12 +166,18 @@ class Better_Search_Replace_Admin {
 				);
 			}
 
-			echo $msg;
-
-			echo '</div>';
-			delete_transient( 'bsr_results' );
+			echo $msg . '</div>';
 		} else {
-			// Do nothing.
+			// There is nothing to do here.
+		}
+	}
+
+	public static function prefill_value( $value ) {
+		if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+			$report = get_transient( 'bsr_results' );
+			if ( $report[$value] ) {
+				echo $report[$value];
+			}
 		}
 	}
 
