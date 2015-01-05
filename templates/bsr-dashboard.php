@@ -45,7 +45,7 @@
 			<tr>
 				<td><label><strong><?php _e( 'Replace GUIDs<a href="http://codex.wordpress.org/Changing_The_Site_URL#Important_GUID_Note" target="_blank">?</a>', 'better-search-replace' ); ?></strong></label></td>
 				<td>
-					<input id="replace_guids" type="checkbox" name="replace_guids" />
+					<input id="replace_guids" type="checkbox" name="replace_guids" <?php Better_Search_Replace_Admin::prefill_value( 'replace_guids', 'checkbox' ); ?> />
 					<label for="replace_guids"><span class="description"><?php _e( 'If left unchecked, all database columns titled \'guid\' will be skipped.', 'better-search-replace' ); ?></span></label>
 				</td>
 			</tr>
@@ -53,7 +53,7 @@
 			<tr>
 				<td><label><strong><?php _e( 'Run as dry run?', 'better-search-replace' ); ?></strong></label></td>
 				<td>
-					<input id="dry_run" type="checkbox" name="dry_run" />
+					<input id="dry_run" type="checkbox" name="dry_run" <?php Better_Search_Replace_Admin::prefill_value( 'dry_run', 'checkbox' ); ?> />
 					<label for="dry_run"><span class="description"><?php _e( 'If checked, no changes will be made to the database, allowing you to check the results beforehand.', 'better-search-replace' ); ?></span></label>
 				</td>
 			</tr>

@@ -40,6 +40,8 @@ class Better_Search_Replace_DB {
 			'end'			=> microtime(),
 			'search'		=> '',
 			'replace'		=> '',
+			'dry_run'		=> false,
+			'replace_guids' => false,
 			'table_reports' => array()
 		);
 	}
@@ -58,22 +60,27 @@ class Better_Search_Replace_DB {
 	/**
 	 * Runs the search replace.
 	 * @access public
-	 * @param  $tables 	The tables to run the search/replace on.
-	 * @param  $search 	The string to search for.
-	 * @param  $replace The string to replace with.
+	 * @param  array 	$tables 		The tables to run the search/replace on.
+	 * @param  string 	$search 		The string to search for.
+	 * @param  string 	$replace 		The string to replace with.
+	 * @param  boolean 	$replace_guids	If GUIDs should be replaced.
+	 * @param  boolean  $dry_run		If this is a dry run.
 	 * @return array
 	 */
-	public function run( $tables = array(), $search, $replace, $skip_guids, $dry_run ) {
+	public function run( $tables = array(), $search, $replace, $replace_guids, $dry_run ) {
 		if ( count( $tables ) !== 0 ) {
 
-			// Store search & replace strings for later.
-			$this->report['search'] 	= $search;
-			$this->report['replace'] 	= $replace;
+			// Store info about the run for later.
+			$this->report['search'] 		= $search;
+			$this->report['replace'] 		= $replace;
+			$this->report['replace_guids'] 	= $replace_guids;
+			$this->report['dry_run'] 		= $dry_run;
+			
 
 			// Run the search replace.
 			foreach ( $tables as $table ) {
 				$this->report['tables']++;
-				$this->report['table_reports'][$table] = $this->srdb( $table, $search, $replace, $skip_guids, $dry_run );
+				$this->report['table_reports'][$table] = $this->srdb( $table, $search, $replace, $replace_guids, $dry_run );
 			}
 
 			// Return the results.
@@ -143,6 +150,7 @@ class Better_Search_Replace_DB {
 				foreach( $columns as $column => $primary_key ) {
 					$edited_data = $data_to_fix = $row[ $column ];
 
+					// Skip GUIDs by default.
 					if ( $replace_guids !== true && $column === 'guid' ) {
 						continue;
 					}

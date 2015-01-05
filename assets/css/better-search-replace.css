@@ -3,4 +3,12 @@
  * 
  * Custom CSS for the Better Search Replace administration page.
  */
- 
+ #bsr-results-table th {
+ 	font-weight: bold;
+ }
+ #bsr-results-table tbody tr:nth-child(odd) {
+ 	background-color: #F9F9F9;
+ }
+ .bsr-second, .bsr-third, .bsr-fourth {
+ 	text-align: center !important;
+ }

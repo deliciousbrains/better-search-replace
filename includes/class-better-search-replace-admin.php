@@ -53,25 +53,22 @@ class Better_Search_Replace_Admin {
 	}
 
 	/**
-	 * Register the stylesheets for the Dashboard.
-	 *
+	 * Register any CSS and JS used by the plugin.
 	 * @since    1.0.0
+	 * @access 	 public
+	 * @param    string $hook Used for determining which page(s) to load our scripts.
 	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( $this->better_search_replace, plugin_dir_url( __FILE__ ) . 'css/better-search-replace.css', array(), $this->version, 'all' );
-	}
-
-	/**
-	 * Register the JavaScript for the dashboard.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( $this->better_search_replace, plugin_dir_url( __FILE__ ) . 'js/better-search-replace.js', array( 'jquery' ), $this->version, false );
+	public function enqueue_scripts( $hook ) {
+		if ( $hook === 'tools_page_better-search-replace' ) {
+			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), '2015', 'all' );
+			wp_enqueue_style( 'thickbox' );
+			wp_enqueue_script( 'thickbox' );
+		}
 	}
 
 	/**
 	 * Register any menu pages used by the plugin.
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
@@ -109,7 +106,7 @@ class Better_Search_Replace_Admin {
 				$db = new Better_Search_Replace_DB();
 
 				// Check if we are skipping the 'guid' column.
-				if ( isset( $_POST['replace'] ) ) {
+				if ( isset( $_POST['replace_guids'] ) ) {
 					$replace_guids = true;
 				} else {
 					$replace_guids = false;
@@ -152,17 +149,19 @@ class Better_Search_Replace_Admin {
 			$result = get_transient( 'bsr_results' );
 			echo '<div class="updated">';
 			
-			if ( isset( $_GET['dry_run'] ) && $_GET['dry_run'] == true ) {
-				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p>Click here for more details, or click here to run the search/replace.</p>', 'better-search-replace' ),
+			if ( isset( $result['dry_run'] ) && $result['dry_run'] === true ) {
+				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or click the submit button below to run the search/replace.</p>', 'better-search-replace' ),
 					$result['tables'],
 					$result['change'],
-					$result['updates']
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=600&height=500'
 				);
 			} else {
-				$msg = sprintf( __( '<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p>Click here for more details.</p>', 'better-search-replace' ),
+				$msg = sprintf( __( '<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a href="%s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>', 'better-search-replace' ),
 					$result['tables'],
 					$result['change'],
-					$result['updates']
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=600&height=500'
 				);
 			}
 
@@ -175,12 +174,18 @@ class Better_Search_Replace_Admin {
 	/**
 	 * Prefills the given value if on a results page (dry run or live run).
 	 * @access public
+	 * @param  string $value The value to check for.
+	 * @param  string $type  The type of value we're filling.
 	 */
-	public static function prefill_value( $value ) {
+	public static function prefill_value( $value, $type = 'text' ) {
 		if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
 			$report = get_transient( 'bsr_results' );
-			if ( $report[$value] ) {
-				echo $report[$value];
+			if ( isset( $report[$value] ) ) {
+				if ( $type === 'checkbox' && $report[$value] !== false ) {
+					echo 'checked';
+				} else {
+					echo $report[$value];
+				}
 			}
 		}
 	}
@@ -207,6 +212,39 @@ class Better_Search_Replace_Admin {
 			}
 		}
 		echo '</select>';
+	}
+
+	/**
+	 * Loads the result details (via Thickbox).
+	 * @access public
+	 */
+	public function load_details() {
+		if ( get_transient( 'bsr_results' ) ) {
+			$results 		= get_transient( 'bsr_results' );
+			$styles_url 	= get_admin_url() . "load-styles.php?c=0&dir=ltr&load=dashicons,admin-bar,wp-admin,buttons,wp-auth-check";
+			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css';
+			?>
+			<link href="<?php echo $styles_url; ?>" rel="stylesheet" type="text/css">
+			<link href="<?php echo $bsr_styles; ?>" rel="stylesheet" type="text/css">
+
+			<div class="container" style="padding:10px;">
+			<table id="bsr-results-table" class="widefat">
+				<thead>
+					<tr><th class="bsr-first">Table</th><th class="bsr-second">Changes Found</th><th class="bsr-third">Rows Updated</th><th class="bsr-fourth">Time</th></tr>
+				</thead>
+				<tbody>
+				<?php
+					foreach ( $results['table_reports'] as $table_name => $report ) {
+						$time = $report['end'] - $report['start'];
+						echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . ' seconds</td></tr>';
+					}
+				?>
+				</tbody>
+			</table>
+			</div>
+
+			<?php
+		}
 	}
 
 }
