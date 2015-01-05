@@ -172,6 +172,10 @@ class Better_Search_Replace_Admin {
 		}
 	}
 
+	/**
+	 * Prefills the given value if on a results page (dry run or live run).
+	 * @access public
+	 */
 	public static function prefill_value( $value ) {
 		if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
 			$report = get_transient( 'bsr_results' );
@@ -179,6 +183,30 @@ class Better_Search_Replace_Admin {
 				echo $report[$value];
 			}
 		}
+	}
+
+	/**
+	 * Loads the tables available to run a search replace, prefilling if already
+	 * selected the tables.
+	 * @access public
+	 */
+	public static function load_tables() {
+		$tables = Better_Search_Replace_DB::get_tables();
+		
+		echo '<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;">';
+		foreach ( $tables as $table ) {
+			if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+				$result = get_transient( 'bsr_results' );
+				if ( isset( $result['table_reports'][$table] ) ) {
+					echo "<option value='$table' selected>$table</option>";
+				} else {
+					echo "<option value='$table'>$table</option>";
+				}
+			} else {
+				echo "<option value='$table'>$table</option>";
+			}
+		}
+		echo '</select>';
 	}
 
 }

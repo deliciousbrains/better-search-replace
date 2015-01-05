@@ -10,9 +10,6 @@
  * @subpackage Better_Search_Replace/templates
  */
 
-// Load the main database class.
-$bsr_db = new Better_Search_Replace_DB();
-
 ?>
 
 <div class="wrap">
@@ -40,14 +37,7 @@ $bsr_db = new Better_Search_Replace_DB();
 			<tr>
 				<td><label for="select_tables"><strong><?php _e( 'Select tables', 'better-search-replace' ); ?></strong></label></td>
 				<td>
-					<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;">
-					<?php
-						// Loads the current database tables.
-						foreach ( $bsr_db->get_tables() as $table ) {
-							echo "<option value='$table'>$table</option>";
-						}
-					?>
-					</select>
+					<?php Better_Search_Replace_Admin::load_tables(); ?>
 					<p class="description"><?php _e( 'Select multiple tables with Ctrl-Click for Windows or Cmd-Click for Mac.', 'better-search-replace' ); ?></p>
 				</td>
 			</tr>

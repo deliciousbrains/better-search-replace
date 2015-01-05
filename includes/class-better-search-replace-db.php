@@ -7,6 +7,7 @@
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/includes
  */
+
 class Better_Search_Replace_DB {
 
 	/**
@@ -48,8 +49,9 @@ class Better_Search_Replace_DB {
 	 * @access public
 	 * @return array
 	 */
-	public function get_tables() {
-		$tables = $this->wpdb->get_col( 'SHOW TABLES' );
+	public static function get_tables() {
+		global $wpdb;
+		$tables = $wpdb->get_col( 'SHOW TABLES' );
 		return $tables;
 	}
 
