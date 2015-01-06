@@ -1,8 +1,6 @@
 # Better Search Replace #
 **Contributors:** ExpandedFronts
   
-**Donate link:** http://expandedfronts.com
-  
 **Tags:** search replace, update urls, database, search replace database, update database urls, update live url
   
 **Requires at least:** 3.0.1
