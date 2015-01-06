@@ -39,19 +39,22 @@ Upload Method:
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Using Better Search Replace =
 
-An answer to that question.
+Once activated, Better Search Replace will add a page under the "Tools" menu page in your WordPress admin.
 
-= What about foo bar? =
+= Is my host supported? =
 
-Answer to foo bar dilemma.
+Yes, this plugin should be compatible with any host.
+
+= Can I damage my site with this plugin? =
+
+Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always adviseable to have a backup of your database before using this plugin.
 
 == Screenshots ==
 
 1. The Better Search Replace page added to the "Tools" menu
 2. After running a search/replace dry-run.
-3. After running a successful search/replace on the database.
 
 == Changelog ==
 

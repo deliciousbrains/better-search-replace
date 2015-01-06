@@ -236,6 +236,15 @@ class Better_Search_Replace_Admin {
 				<?php
 					foreach ( $results['table_reports'] as $table_name => $report ) {
 						$time = $report['end'] - $report['start'];
+						
+						if ( $report['change'] != 0 ) {
+							$report['change'] = '<strong>' . $report['change'] . '</strong>';
+						}
+
+						if ( $report['updates'] != 0 ) {
+							$report['updates'] = '<strong>' . $report['updates'] . '</strong>';
+						}
+
 						echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . ' seconds</td></tr>';
 					}
 				?>
