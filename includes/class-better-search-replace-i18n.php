@@ -1,19 +1,6 @@
 <?php
 
 /**
- * Define the internationalization functionality
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
- * @link       http://expandedfronts.com/better-search-replace
- * @since      1.0.0
- *
- * @package    Better_Search_Replace
- * @subpackage Better_Search_Replace/includes
- */
-
-/**
  * Define the internationalization functionality.
  *
  * Loads and defines the internationalization files for this plugin
@@ -24,6 +11,7 @@
  * @subpackage Better_Search_Replace/includes
  * @author     Expanded Fronts <support@expandedfronts.com>
  */
+
 class Better_Search_Replace_i18n {
 
 	/**

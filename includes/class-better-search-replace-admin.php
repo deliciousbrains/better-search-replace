@@ -2,24 +2,18 @@
 
 /**
  * The dashboard-specific functionality of the plugin.
+ * 
+ * Registers styles and scripts, adds the custom administration page,
+ * and processes user input on the "search/replace" form.
  *
  * @link       http://expandedfronts.com/better-search-replace
  * @since      1.0.0
  *
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/includes
+ * @author     Expanded Fronts, LLC
  */
 
-/**
- * The dashboard-specific functionality of this plugin.
- *
- * Registers styles and scripts, adds the custom administration page,
- * and processes user input on the "search/replace" form.
- *
- * @package    Better_Search_Replace
- * @subpackage Better_Search_Replace/admin
- * @author     Expanded Fronts <support@expandedfronts.com>
- */
 class Better_Search_Replace_Admin {
 
 	/**

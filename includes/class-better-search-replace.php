@@ -1,14 +1,6 @@
 <?php
 
 /**
- * The main plugin class, loads dependencies and sets up the plugin.
- * @since      1.0
- *
- * @package    Better_Search_Replace
- * @subpackage Better_Search_Replace/includes
- */
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, dashboard-specific hooks, and
