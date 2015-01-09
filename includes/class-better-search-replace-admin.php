@@ -122,10 +122,13 @@ class Better_Search_Replace_Admin {
 				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $replace_guids, $dry_run );
 				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&result=true&dry_run=' . $dry_run );
+				exit();
 			} else {
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&error=no_tables' );
+				exit();
 			}
-			exit();
+		} else {
+			wp_die( 'Cheatin&#8217; uh?', 'better-search-replace' );
 		}
 	}
 
