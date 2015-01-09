@@ -58,6 +58,7 @@ class Better_Search_Replace_i18n {
 	 */
 	public function set_domain( $domain ) {
 		$this->domain = $domain;
+		$this->load_plugin_textdomain();
 	}
 
 }
