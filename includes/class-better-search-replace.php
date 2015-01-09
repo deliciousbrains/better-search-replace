@@ -1,14 +1,6 @@
 <?php
 
 /**
- * The main plugin class, loads dependencies and sets up the plugin.
- * @since      1.0
- *
- * @package    Better_Search_Replace
- * @subpackage Better_Search_Replace/includes
- */
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, dashboard-specific hooks, and
@@ -105,7 +97,6 @@ class Better_Search_Replace {
 	private function set_locale() {
 		$plugin_i18n = new Better_Search_Replace_i18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
 	/**

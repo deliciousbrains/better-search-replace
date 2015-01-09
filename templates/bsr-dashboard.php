@@ -53,7 +53,7 @@
 			<tr>
 				<td><label><strong><?php _e( 'Run as dry run?', 'better-search-replace' ); ?></strong></label></td>
 				<td>
-					<input id="dry_run" type="checkbox" name="dry_run" <?php Better_Search_Replace_Admin::prefill_value( 'dry_run', 'checkbox' ); ?> />
+					<input id="dry_run" type="checkbox" name="dry_run" checked />
 					<label for="dry_run"><span class="description"><?php _e( 'If checked, no changes will be made to the database, allowing you to check the results beforehand.', 'better-search-replace' ); ?></span></label>
 				</td>
 			</tr>

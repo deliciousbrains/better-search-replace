@@ -1,0 +1,116 @@
+# Copyright (C) 2015 Better Search Replace
+# This file is distributed under the same license as the Better Search Replace package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Better Search Replace 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-search-replace\n"
+"POT-Creation-Date: 2015-01-08 01:07:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-better-search-replace-admin.php:141
+msgid ""
+"No search string was defined, please enter a URL or string to search for."
+msgstr ""
+
+#: includes/class-better-search-replace-admin.php:144
+msgid "Please select the tables that you want to update."
+msgstr ""
+
+#: includes/class-better-search-replace-admin.php:153
+msgid ""
+"<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, "
+"<strong>%d</strong> cells were found that need to be updated, and <strong>"
+"%d</strong> changes were made.</p><p><a href=\"%s\" class=\"thickbox\" title="
+"\"Dry Run Details\">Click here</a> for more details, or click the submit "
+"button below to run the search/replace.</p>"
+msgstr ""
+
+#: includes/class-better-search-replace-admin.php:160
+msgid ""
+"<p>During the search/replace, <strong>%d</strong> tables were searched, with "
+"<strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a "
+"href=\"%s\" class=\"thickbox\" title=\"Search/Replace Details\">Click here</"
+"a> for more details.</p>"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Better Search Replace 1.0.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: templates/bsr-dashboard.php:17
+msgid "Better Search Replace"
+msgstr ""
+
+#: templates/bsr-dashboard.php:19
+msgid ""
+"This tool allows you to search and replace text in your database (supports "
+"serialized arrays and objects)."
+msgstr ""
+
+#: templates/bsr-dashboard.php:20
+msgid ""
+"To get started, use the form below to enter the text to be replaced and "
+"select the tables to update."
+msgstr ""
+
+#: templates/bsr-dashboard.php:21
+msgid ""
+"<strong>WARNING:</strong> Make sure you backup your database before using "
+"this plugin!"
+msgstr ""
+
+#: templates/bsr-dashboard.php:28
+msgid "Search for"
+msgstr ""
+
+#: templates/bsr-dashboard.php:33
+msgid "Replace with"
+msgstr ""
+
+#: templates/bsr-dashboard.php:38
+msgid "Select tables"
+msgstr ""
+
+#: templates/bsr-dashboard.php:41
+msgid ""
+"Select multiple tables with Ctrl-Click for Windows or Cmd-Click for Mac."
+msgstr ""
+
+#: templates/bsr-dashboard.php:46
+msgid ""
+"Replace GUIDs<a href=\"http://codex.wordpress.org/"
+"Changing_The_Site_URL#Important_GUID_Note\" target=\"_blank\">?</a>"
+msgstr ""
+
+#: templates/bsr-dashboard.php:49
+msgid "If left unchecked, all database columns titled 'guid' will be skipped."
+msgstr ""
+
+#: templates/bsr-dashboard.php:54
+msgid "Run as dry run?"
+msgstr ""
+
+#: templates/bsr-dashboard.php:57
+msgid ""
+"If checked, no changes will be made to the database, allowing you to check "
+"the results beforehand."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://expandedfronts.com/better-search-replace"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A small plugin for running a search/replace on your WordPress database."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Expanded Fronts"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://expandedfronts.com"
+msgstr ""

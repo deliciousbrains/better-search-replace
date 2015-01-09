@@ -36,8 +36,8 @@ class Better_Search_Replace_DB {
 			'change' 		=> 0,
 			'updates'		=> 0,
 			'errors'		=> 0,
-			'start' 		=> microtime(),
-			'end'			=> microtime(),
+			'start' 		=> microtime( true ),
+			'end'			=> microtime( true ),
 			'search'		=> '',
 			'replace'		=> '',
 			'dry_run'		=> false,
@@ -53,7 +53,13 @@ class Better_Search_Replace_DB {
 	 */
 	public static function get_tables() {
 		global $wpdb;
-		$tables = $wpdb->get_col( 'SHOW TABLES' );
+		
+		if ( is_multisite() ) {
+			$tables = $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->prefix . "%'" );
+		} else {
+			$tables = $wpdb->get_col( 'SHOW TABLES' );
+		}
+		
 		return $tables;
 	}
 
@@ -84,7 +90,7 @@ class Better_Search_Replace_DB {
 			}
 
 			// Return the results.
-			$this->report['end'] = microtime();
+			$this->report['end'] = microtime( true );
 			return $this->report;
 		}
 	}
@@ -108,8 +114,8 @@ class Better_Search_Replace_DB {
 		$table_report = array(
 			'change' 	=> 0,
 			'updates' 	=> 0,
-			'start' 	=> microtime(),
-			'end'		=> microtime(),
+			'start' 	=> microtime( true ),
+			'end'		=> microtime( true ),
 			'errors' 	=> array()
 		);
 
@@ -195,7 +201,7 @@ class Better_Search_Replace_DB {
 		}
 		
 		// Flush the results and return the report.
-		$table_report['end'] = microtime();
+		$table_report['end'] = microtime( true );
 		$this->wpdb->flush();
 		return $table_report;
 	}

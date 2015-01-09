@@ -2,24 +2,18 @@
 
 /**
  * The dashboard-specific functionality of the plugin.
+ * 
+ * Registers styles and scripts, adds the custom administration page,
+ * and processes user input on the "search/replace" form.
  *
  * @link       http://expandedfronts.com/better-search-replace
  * @since      1.0.0
  *
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/includes
+ * @author     Expanded Fronts, LLC
  */
 
-/**
- * The dashboard-specific functionality of this plugin.
- *
- * Registers styles and scripts, adds the custom administration page,
- * and processes user input on the "search/replace" form.
- *
- * @package    Better_Search_Replace
- * @subpackage Better_Search_Replace/admin
- * @author     Expanded Fronts <support@expandedfronts.com>
- */
 class Better_Search_Replace_Admin {
 
 	/**
@@ -122,10 +116,13 @@ class Better_Search_Replace_Admin {
 				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $replace_guids, $dry_run );
 				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&result=true&dry_run=' . $dry_run );
+				exit();
 			} else {
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&error=no_tables' );
+				exit();
 			}
-			exit();
+		} else {
+			wp_die( 'Cheatin&#8217; uh?', 'better-search-replace' );
 		}
 	}
 
