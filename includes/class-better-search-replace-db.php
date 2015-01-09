@@ -53,7 +53,13 @@ class Better_Search_Replace_DB {
 	 */
 	public static function get_tables() {
 		global $wpdb;
-		$tables = $wpdb->get_col( 'SHOW TABLES' );
+		
+		if ( is_multisite() ) {
+			$tables = $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->prefix . "%'" );
+		} else {
+			$tables = $wpdb->get_col( 'SHOW TABLES' );
+		}
+		
 		return $tables;
 	}
 
