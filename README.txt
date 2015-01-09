@@ -44,11 +44,15 @@ Once activated, Better Search Replace will add a page under the "Tools" menu pag
 
 = Is my host supported? =
 
-Yes, this plugin should be compatible with any host.
+Yes! This plugin should be compatible with any host.
 
 = Can I damage my site with this plugin? =
 
 Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always adviseable to have a backup of your database before using this plugin.
+
+= How does this work on WordPress Multisite? =
+
+When running this plugin on a WordPress Multisite installation, it will only be loaded and visible for Network admins. Network admins can go to the dashboard of any subsite to run a search/replace on just the tables for that subsite, or go to the dashboard of the main/base site to run a search/replace on all tables.
 
 == Screenshots ==
 
@@ -56,6 +60,12 @@ Yes! Entering a wrong search or replace string could damage your database. Becau
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.0.1 =
+* Fixed issue with loading translations and added Spanish translation (props Eduardo Larequi)
+* Fixed bug with reporting timing
+* Updated to use "Dry Run" as default
+* Added support for WordPress Multisite (see FAQs for more info)
 
 = 1.0 =
 * Initial release
