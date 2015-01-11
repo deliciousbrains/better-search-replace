@@ -66,7 +66,7 @@ class Better_Search_Replace_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		add_submenu_page( 'tools.php', 'Better Search Replace', 'Better Search Replace', 'manage_options', 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
+		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), 'manage_options', 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
 	/**
@@ -147,7 +147,7 @@ class Better_Search_Replace_Admin {
 			echo '<div class="updated">';
 			
 			if ( isset( $result['dry_run'] ) && $result['dry_run'] === true ) {
-				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or click the submit button below to run the search/replace.</p>', 'better-search-replace' ),
+				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>', 'better-search-replace' ),
 					$result['tables'],
 					$result['change'],
 					$result['updates'],
