@@ -60,7 +60,7 @@ if ( ! defined( 'BSR_URL' ) ) {
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( BSR_FILE ) . 'includes/class-better-search-replace.php';
+require BSR_PATH . 'includes/class-better-search-replace.php';
 
 /**
  * Begins execution of the plugin.
