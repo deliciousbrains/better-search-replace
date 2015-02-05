@@ -45,5 +45,14 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.0.2 ###
+* Fixed untranslateable strings on submit button and submenu page.
+
+### 1.0.1 ###
+* Fixed issue with loading translations and added Spanish translation (props Eduardo Larequi)
+* Fixed bug with reporting timing
+* Updated to use "Dry Run" as default
+* Added support for WordPress Multisite (see FAQs for more info)
+
 ### 1.0 ###
 * Initial release

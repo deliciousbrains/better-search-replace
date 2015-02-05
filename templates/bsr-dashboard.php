@@ -63,7 +63,7 @@
 		<br>
 		<?php wp_nonce_field( 'process_search_replace', 'bsr_nonce' ); ?>
 		<input type="hidden" name="action" value="bsr_process_search_replace" />
-		<button id="bsr-submit" type="submit" class="button button-primary">Run Search/Replace</button>
+		<button id="bsr-submit" type="submit" class="button button-primary"><?php _e( 'Run Search/Replace', 'better-search-replace' ); ?></button>
 
 	</form>
 

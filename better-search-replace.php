@@ -13,7 +13,7 @@
  * Plugin Name:       Better Search Replace
  * Plugin URI:        http://expandedfronts.com/better-search-replace
  * Description:       A small plugin for running a search/replace on your WordPress database.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Expanded Fronts
  * Author URI:        http://expandedfronts.com
  * License:           GPL-3.0
@@ -60,7 +60,7 @@ if ( ! defined( 'BSR_URL' ) ) {
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( BSR_FILE ) . 'includes/class-better-search-replace.php';
+require BSR_PATH . 'includes/class-better-search-replace.php';
 
 /**
  * Begins execution of the plugin.
