@@ -113,7 +113,11 @@ class Better_Search_Replace_Admin {
 					$dry_run = false;
 				}
 
-				$result = $db->run( $_POST['select_tables'], $_POST['search_for'], $_POST['replace_with'], $replace_guids, $dry_run );
+				// Remove slashes from search and replace strings.
+				$search_for 	= stripslashes( stripslashes( $_POST['search_for'] ) );
+				$replace_with 	= stripslashes( stripslashes( $_POST['replace_with'] ) );
+
+				$result = $db->run( $_POST['select_tables'], $search_for, $replace_with, $replace_guids, $dry_run );
 				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&result=true&dry_run=' . $dry_run );
 				exit();
