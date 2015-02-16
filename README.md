@@ -45,6 +45,9 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.0.3 ###
+* Fixed issue with searching for special characters like '\'
+
 ### 1.0.2 ###
 * Fixed untranslateable strings on submit button and submenu page.
 
