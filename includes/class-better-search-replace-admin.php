@@ -114,8 +114,8 @@ class Better_Search_Replace_Admin {
 				}
 
 				// Remove slashes from search and replace strings.
-				$search_for 	= stripslashes( stripslashes( $_POST['search_for'] ) );
-				$replace_with 	= stripslashes( stripslashes( $_POST['replace_with'] ) );
+				$search_for 	= stripslashes( $_POST['search_for'] );
+				$replace_with 	= stripslashes( $_POST['replace_with'] );
 
 				$result = $db->run( $_POST['select_tables'], $search_for, $replace_with, $replace_guids, $dry_run );
 				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
