@@ -21,6 +21,15 @@ When moving your WordPress site to a new domain or server, you will likely run i
 
 The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
+** Supported Languages **
+
+* English
+* Spanish
+
+** Want to contribute? **
+
+Feel free to open an issue or submit a pull request on [GitHub](https://github.com/ExpandedFronts/Better-Search-Replace).
+
 == Installation ==
 
 Install Better Search Replace like you would install any other WordPress plugin.
@@ -69,7 +78,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 = I get a white screen when using this plugin? =
 
-This is likely an issue with your PHP memory limit. Try temporarily increasing it by defining the memory limit in your `wp-config.php` file as shown [here](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP).
+This is likely an issue with your PHP memory limit. Try temporarily increasing it by defining the memory limit in your `wp-config.php` file as shown [here](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP). Alternatively, if you were searching across multiple tables, try searching on fewer tables to load less into memory.
 
 == Screenshots ==
 
