@@ -1,18 +1,18 @@
 # Better Search Replace #
 **Contributors:** ExpandedFronts
-  
+
 **Tags:** search replace, update urls, database, search replace database, update database urls, update live url
-  
+
 **Requires at least:** 3.0.1
-  
+
 **Tested up to:** 4.1
-  
+
 **Stable tag:** trunk
-  
+
 **License:** GPLv3 or later
-  
+
 **License URI:** http://www.gnu.org/licenses/gpl-3.0.html
-  
+
 
 A simple plugin for updating URLs or other text in a database.
 
@@ -44,6 +44,9 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.0.4 ###
+* Potential security fixes
 
 ### 1.0.3 ###
 * Fixed issue with searching for special characters like '\'

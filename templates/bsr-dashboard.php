@@ -10,6 +10,9 @@
  * @subpackage Better_Search_Replace/templates
  */
 
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
+
 ?>
 
 <div class="wrap">
@@ -21,14 +24,14 @@
 	<p><?php _e( '<strong>WARNING:</strong> Make sure you backup your database before using this plugin!', 'better-search-replace' ); ?></p>
 
 	<form action="<?php echo get_admin_url() . 'admin-post.php'; ?>" method="POST">
-		
+
 		<table class="form-table">
-			
+
 			<tr>
 				<td><label for="search_for"><strong><?php _e( 'Search for', 'better-search-replace' ); ?></strong></label></td>
 				<td><input id="search_for" class="regular-text" type="text" name="search_for" value="<?php Better_Search_Replace_Admin::prefill_value( 'search' ); ?>" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="replace_with"><strong><?php _e( 'Replace with', 'better-search-replace' ); ?></strong></label></td>
 				<td><input id="replace_with" class="regular-text" type="text" name="replace_with" value="<?php Better_Search_Replace_Admin::prefill_value( 'replace' ); ?>" /></td>

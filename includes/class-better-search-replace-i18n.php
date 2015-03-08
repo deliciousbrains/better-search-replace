@@ -12,6 +12,9 @@
  * @author     Expanded Fronts <support@expandedfronts.com>
  */
 
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
+
 class Better_Search_Replace_i18n {
 
 	/**

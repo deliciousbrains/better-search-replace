@@ -8,6 +8,9 @@
  * @subpackage Better_Search_Replace/includes
  */
 
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
+
 class Better_Search_Replace_DB {
 
 	/**
@@ -27,7 +30,7 @@ class Better_Search_Replace_DB {
 	 * @access public
 	 */
 	public function __construct() {
-		
+
 		global $wpdb;
 		$this->wpdb = $wpdb;
 
@@ -53,13 +56,13 @@ class Better_Search_Replace_DB {
 	 */
 	public static function get_tables() {
 		global $wpdb;
-		
+
 		if ( is_multisite() ) {
 			$tables = $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->prefix . "%'" );
 		} else {
 			$tables = $wpdb->get_col( 'SHOW TABLES' );
 		}
-		
+
 		return $tables;
 	}
 
@@ -81,7 +84,7 @@ class Better_Search_Replace_DB {
 			$this->report['replace'] 		= $replace;
 			$this->report['replace_guids'] 	= $replace_guids;
 			$this->report['dry_run'] 		= $dry_run;
-			
+
 
 			// Run the search replace.
 			foreach ( $tables as $table ) {
@@ -98,9 +101,9 @@ class Better_Search_Replace_DB {
 	/**
 	 * Adapated from interconnect/it's search/replace script.
 	 * Modified to use WordPress wpdb functions instead of PHP's native mysql/pdo functions.
-	 * 
+	 *
 	 * @link https://interconnectit.com/products/search-and-replace-for-wordpress-databases/
-	 * 
+	 *
 	 * @access public
 	 * @param  string 	$table 			The table to run the replacement on.
 	 * @param  string 	$search 		The string to replace.
@@ -142,10 +145,10 @@ class Better_Search_Replace_DB {
 			$current_row 	= 0;
 			$start 			= $page * $page_size;
 			$end 			= $start + $page_size;
-			
+
 			// Grab the content of the table.
 			$data = $this->wpdb->get_results( "SELECT * FROM $table LIMIT $start, $end", ARRAY_A );
-			
+
 			// Loop through the data.
 			foreach ( $data as $row ) {
 				$current_row++;
@@ -199,7 +202,7 @@ class Better_Search_Replace_DB {
 				}
 			}
 		}
-		
+
 		// Flush the results and return the report.
 		$table_report['end'] = microtime( true );
 		$this->wpdb->flush();
@@ -208,12 +211,12 @@ class Better_Search_Replace_DB {
 
 	/**
 	 * Adapated from interconnect/it's search/replace script.
-	 * 
+	 *
 	 * @link https://interconnectit.com/products/search-and-replace-for-wordpress-databases/
-	 * 
+	 *
 	 * Take a serialised array and unserialise it replacing elements as needed and
 	 * unserialising any subordinate arrays and performing the replace on those too.
-	 * 
+	 *
 	 * @access private
 	 * @param  string $from       String we're looking to replace.
 	 * @param  string $to         What we want it to be replaced with
@@ -251,7 +254,7 @@ class Better_Search_Replace_DB {
 				$data = $_tmp;
 				unset( $_tmp );
 			}
-			
+
 			else {
 				if ( is_string( $data ) ) {
 					$data = str_replace( $from, $to, $data );
@@ -277,13 +280,13 @@ class Better_Search_Replace_DB {
 	 */
 	public function mysql_escape_mimic( $input ) {
 	    if ( is_array( $input ) ) {
-	        return array_map( __METHOD__, $input ); 
+	        return array_map( __METHOD__, $input );
 	    }
-	    if ( ! empty( $input ) && is_string( $input ) ) { 
-	        return str_replace( array( '\\', "\0", "\n", "\r", "'", '"', "\x1a" ), array( '\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z' ), $input ); 
-	    } 
+	    if ( ! empty( $input ) && is_string( $input ) ) {
+	        return str_replace( array( '\\', "\0", "\n", "\r", "'", '"', "\x1a" ), array( '\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z' ), $input );
+	    }
 
-	    return $input; 
+	    return $input;
 	}
 
 }

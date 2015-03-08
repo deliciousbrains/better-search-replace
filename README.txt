@@ -21,12 +21,12 @@ When moving your WordPress site to a new domain or server, you will likely run i
 
 The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
-** Supported Languages **
+**Supported Languages**
 
 * English
 * Spanish
 
-** Want to contribute? **
+**Want to contribute?**
 
 Feel free to open an issue or submit a pull request on [GitHub](https://github.com/ExpandedFronts/Better-Search-Replace).
 
@@ -86,6 +86,9 @@ This is likely an issue with your PHP memory limit. Try temporarily increasing i
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.0.4 =
+* Potential security fixes
 
 = 1.0.3 =
 * Fixed issue with searching for special characters like '\'

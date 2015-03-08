@@ -2,7 +2,7 @@
 
 /**
  * The dashboard-specific functionality of the plugin.
- * 
+ *
  * Registers styles and scripts, adds the custom administration page,
  * and processes user input on the "search/replace" form.
  *
@@ -13,6 +13,9 @@
  * @subpackage Better_Search_Replace/includes
  * @author     Expanded Fronts, LLC
  */
+
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
 
 class Better_Search_Replace_Admin {
 
@@ -149,7 +152,7 @@ class Better_Search_Replace_Admin {
 		} elseif ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
 			$result = get_transient( 'bsr_results' );
 			echo '<div class="updated">';
-			
+
 			if ( isset( $result['dry_run'] ) && $result['dry_run'] === true ) {
 				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>', 'better-search-replace' ),
 					$result['tables'],
@@ -198,7 +201,7 @@ class Better_Search_Replace_Admin {
 	 */
 	public static function load_tables() {
 		$tables = Better_Search_Replace_DB::get_tables();
-		
+
 		echo '<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;">';
 		foreach ( $tables as $table ) {
 			if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
@@ -237,7 +240,7 @@ class Better_Search_Replace_Admin {
 				<?php
 					foreach ( $results['table_reports'] as $table_name => $report ) {
 						$time = $report['end'] - $report['start'];
-						
+
 						if ( $report['change'] != 0 ) {
 							$report['change'] = '<strong>' . $report['change'] . '</strong>';
 						}

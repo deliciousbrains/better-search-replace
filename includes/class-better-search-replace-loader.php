@@ -10,6 +10,9 @@
  * @subpackage Better_Search_Replace/includes
  */
 
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
+
 /**
  * Register all actions and filters for the plugin.
  *

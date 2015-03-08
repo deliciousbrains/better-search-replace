@@ -14,6 +14,10 @@
  * @subpackage Better_Search_Replace/includes
  * @author     Expanded Fronts <support@expandedfronts.com>
  */
+
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) exit;
+
 class Better_Search_Replace {
 
 	/**
