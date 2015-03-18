@@ -188,7 +188,7 @@ class Better_Search_Replace_Admin {
 				if ( $type === 'checkbox' && $report[$value] !== false ) {
 					echo 'checked';
 				} else {
-					echo $report[$value];
+					echo esc_attr( $report[$value] );
 				}
 			}
 		}
