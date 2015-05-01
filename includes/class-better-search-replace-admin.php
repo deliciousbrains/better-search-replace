@@ -100,27 +100,17 @@ class Better_Search_Replace_Admin {
 			// Run the actual search/replace.
 			if ( isset( $_POST['select_tables'] ) && is_array( $_POST['select_tables'] ) ) {
 
-				$db = new Better_Search_Replace_DB();
-
-				// Check if we are skipping the 'guid' column.
-				if ( isset( $_POST['replace_guids'] ) ) {
-					$replace_guids = true;
-				} else {
-					$replace_guids = false;
-				}
-
-				// Check if this is a dry run.
-				if ( isset( $_POST['dry_run'] ) ) {
-					$dry_run = true;
-				} else {
-					$dry_run = false;
-				}
+				// Initialize the settings for this run.
+				$db 				= new Better_Search_Replace_DB();
+				$case_insensitive 	= isset( $_POST['case_insensitive'] ) ? true : false;
+				$replace_guids 		= isset( $_POST['replace_guids'] ) ? true : false;
+				$dry_run 			= isset( $_POST['dry_run'] ) ? true : false;
 
 				// Remove slashes from search and replace strings.
 				$search_for 	= stripslashes( $_POST['search_for'] );
 				$replace_with 	= stripslashes( $_POST['replace_with'] );
 
-				$result = $db->run( $_POST['select_tables'], $search_for, $replace_with, $replace_guids, $dry_run );
+				$result = $db->run( $_POST['select_tables'], $search_for, $replace_with, $replace_guids, $dry_run, $case_insensitive );
 				set_transient( 'bsr_results', $result, HOUR_IN_SECONDS );
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&result=true&dry_run=' . $dry_run );
 				exit();

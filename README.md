@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.1
+**Tested up to:** 4.2
 
 **Stable tag:** trunk
 
@@ -44,6 +44,8 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.0.5 ###
 
 ### 1.0.4 ###
 * Potential security fixes

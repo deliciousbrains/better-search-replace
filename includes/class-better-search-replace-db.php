@@ -69,27 +69,29 @@ class Better_Search_Replace_DB {
 	/**
 	 * Runs the search replace.
 	 * @access public
-	 * @param  array 	$tables 		The tables to run the search/replace on.
-	 * @param  string 	$search 		The string to search for.
-	 * @param  string 	$replace 		The string to replace with.
-	 * @param  boolean 	$replace_guids	If GUIDs should be replaced.
-	 * @param  boolean  $dry_run		If this is a dry run.
+	 * @param  array 	$tables 			The tables to run the search/replace on.
+	 * @param  string 	$search 			The string to search for.
+	 * @param  string 	$replace 			The string to replace with.
+	 * @param  boolean 	$replace_guids		If GUIDs should be replaced.
+	 * @param  boolean  $dry_run			If this is a dry run.
+	 * @param  boolean  $case_insensitive 	If we should ignore case.
 	 * @return array
 	 */
-	public function run( $tables = array(), $search, $replace, $replace_guids, $dry_run ) {
+	public function run( $tables = array(), $search, $replace, $replace_guids, $dry_run, $case_insensitive ) {
 		if ( count( $tables ) !== 0 ) {
 
 			// Store info about the run for later.
-			$this->report['search'] 		= $search;
-			$this->report['replace'] 		= $replace;
-			$this->report['replace_guids'] 	= $replace_guids;
-			$this->report['dry_run'] 		= $dry_run;
+			$this->report['search'] 			= $search;
+			$this->report['replace'] 			= $replace;
+			$this->report['replace_guids'] 		= $replace_guids;
+			$this->report['dry_run'] 			= $dry_run;
+			$this->report['case_insensitive'] 	= $case_insensitive;
 
 
 			// Run the search replace.
 			foreach ( $tables as $table ) {
 				$this->report['tables']++;
-				$this->report['table_reports'][$table] = $this->srdb( $table, $search, $replace, $replace_guids, $dry_run );
+				$this->report['table_reports'][$table] = $this->srdb( $table, $search, $replace, $replace_guids, $dry_run, $case_insensitive );
 			}
 
 			// Return the results.
@@ -105,14 +107,15 @@ class Better_Search_Replace_DB {
 	 * @link https://interconnectit.com/products/search-and-replace-for-wordpress-databases/
 	 *
 	 * @access public
-	 * @param  string 	$table 			The table to run the replacement on.
-	 * @param  string 	$search 		The string to replace.
-	 * @param  string 	$replace 		The string to replace with.
-	 * @param  boolean 	$replace_guids 	Whether to skip the GUID column
-	 * @param  boolean 	$dry_run 		Whether to run as a dry run
+	 * @param  string 	$table 				The table to run the replacement on.
+	 * @param  string 	$search 			The string to replace.
+	 * @param  string 	$replace 			The string to replace with.
+	 * @param  boolean 	$replace_guids 		Whether to skip the GUID column
+	 * @param  boolean 	$dry_run 			Whether to run as a dry run
+	 * @param  boolean  $case_insensitive 	If we should ignore case.
 	 * @return array
 	 */
-	public function srdb( $table, $search = '', $replace = '', $replace_guids, $dry_run ) {
+	public function srdb( $table, $search = '', $replace = '', $replace_guids, $dry_run, $case_insensitive ) {
 
 		$table_report = array(
 			'change' 	=> 0,
@@ -157,15 +160,16 @@ class Better_Search_Replace_DB {
 				$upd 		= false;
 
 				foreach( $columns as $column => $primary_key ) {
-					$edited_data = $data_to_fix = $row[ $column ];
+
+					$data_to_fix = $row[ $column ];
 
 					// Skip GUIDs by default.
-					if ( $replace_guids !== true && $column === 'guid' ) {
+					if ( true !== $replace_guids && 'guid' == $column ) {
 						continue;
 					}
 
 					// Run a search replace on the data that'll respect the serialisation.
-					$edited_data = $this->recursive_unserialize_replace( $search, $replace, $data_to_fix );
+					$edited_data = $this->recursive_unserialize_replace( $search, $replace, $data_to_fix, false, $case_insensitive );
 
 					// Something was changed
 					if ( $edited_data != $data_to_fix ) {
@@ -218,24 +222,25 @@ class Better_Search_Replace_DB {
 	 * unserialising any subordinate arrays and performing the replace on those too.
 	 *
 	 * @access private
-	 * @param  string $from       String we're looking to replace.
-	 * @param  string $to         What we want it to be replaced with
-	 * @param  array  $data       Used to pass any subordinate arrays back to in.
-	 * @param  bool   $serialised Does the array passed via $data need serialising.
+	 * @param  string 		$from       		String we're looking to replace.
+	 * @param  string 		$to         		What we want it to be replaced with
+	 * @param  array  		$data       		Used to pass any subordinate arrays back to in.
+	 * @param  boolean   	$serialised 		Does the array passed via $data need serialising.
+	 * @param  boolean  	$case_insensitive 	If we should ignore case.
 	 *
 	 * @return array	The original array with all elements replaced as needed.
 	 */
-	public function recursive_unserialize_replace( $from = '', $to = '', $data = '', $serialised = false ) {
+	public function recursive_unserialize_replace( $from = '', $to = '', $data = '', $serialised = false, $case_insensitive = false ) {
 		try {
 
 			if ( is_string( $data ) && ( $unserialized = @unserialize( $data ) ) !== false ) {
-				$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true );
+				$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true, $case_insensitive );
 			}
 
 			elseif ( is_array( $data ) ) {
 				$_tmp = array( );
 				foreach ( $data as $key => $value ) {
-					$_tmp[ $key ] = $this->recursive_unserialize_replace( $from, $to, $value, false );
+					$_tmp[ $key ] = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 				}
 
 				$data = $_tmp;
@@ -248,7 +253,7 @@ class Better_Search_Replace_DB {
 				$_tmp = $data; // new $data_class( );
 				$props = get_object_vars( $data );
 				foreach ( $props as $key => $value ) {
-					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false );
+					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 				}
 
 				$data = $_tmp;
@@ -257,7 +262,13 @@ class Better_Search_Replace_DB {
 
 			else {
 				if ( is_string( $data ) ) {
-					$data = str_replace( $from, $to, $data );
+
+					if ( $case_insensitive ) {
+						$data = str_ireplace( $from, $to, $data );
+					} else {
+						$data = str_replace( $from, $to, $data );
+					}
+
 				}
 			}
 
