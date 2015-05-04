@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Better Search Replace en español\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 14:04+0100\n"
-"PO-Revision-Date: 2015-03-31 14:05+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/better-search-replace\n"
+"POT-Creation-Date: 2015-05-01 02:38:09+00:00\n"
+"PO-Revision-Date: 2015-05-02 22:26+0100\n"
 "Last-Translator: zork media <info@zork-media.de>\n"
 "Language-Team: PNTE <blogs@educacion.navarra.es>\n"
 "MIME-Version: 1.0\n"
@@ -19,26 +19,26 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#. #-#-#-#-#  plugin.pot (Better Search Replace 1.0.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
 #: includes/class-better-search-replace-admin.php:72
 #: templates/bsr-dashboard.php:20
 msgid "Better Search Replace"
 msgstr "Better Search Replace "
 
-#: includes/class-better-search-replace-admin.php:145
+#: includes/class-better-search-replace-admin.php:135
 msgid "No search string was defined, please enter a URL or string to search for."
 msgstr "Bitte gib ein, wonach die Datenbank durchsucht werden soll (z. B. eine URL)."
 
-#: includes/class-better-search-replace-admin.php:148
+#: includes/class-better-search-replace-admin.php:138
 msgid "Please select the tables that you want to update."
 msgstr "Bitte wähle die Tabellen aus, die durchsucht werden sollen."
 
-#: includes/class-better-search-replace-admin.php:157
-#, php-format
+#: includes/class-better-search-replace-admin.php:147
 msgid "<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href=\"%s\" class=\"thickbox\" title=\"Dry Run Details\">Click here</a> for more details, or use the form below to run the search/replace.</p>"
 msgstr "<p><strong>TESTLAUF:</strong> <strong>%d</strong> Tabellen wurden durchsucht, <strong>%d</strong> Tabellenzellen wurden gefunden, die aktualisiert werden sollen. <strong>%d</strong> Änderungen wurden vorgenommen.</p><p>Für mehr Details zum Testlauf <a href=\"%s\" class=\"thickbox\" title=\"Details des Testlaufes\">hier klicken</a>.</p>"
 
-#: includes/class-better-search-replace-admin.php:164
-#, php-format
+#: includes/class-better-search-replace-admin.php:154
 msgid "<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a href=\"%s\" class=\"thickbox\" title=\"Search/Replace Details\">Click here</a> for more details.</p>"
 msgstr "<p>Beim Suchen/Ersetzen wurden <strong>%d</strong> Tabellen mit insgesamt <strong>%d</strong> Zellen durchsucht. <strong>%d</strong> Aktualisierungen wurden vorgenommen.</p><p>Für mehr Details zur Aktualisierung <a href=\"%s\" class=\"thickbox\" title=\"Details zur Aktualisierung\">hier klicken</a>.</p>"
 
@@ -71,22 +71,46 @@ msgid "Select multiple tables with Ctrl-Click for Windows or Cmd-Click for Mac."
 msgstr "Steurungs-/Befehlstaste (Win/Mac) oder SHIFT gedrückt halten, um mehrere Tabellen auszuwählen."
 
 #: templates/bsr-dashboard.php:49
+msgid "Case-Insensitive?"
+msgstr "Groß -und Kleinschreibung ignorieren?"
+
+#: templates/bsr-dashboard.php:52
+msgid "Searches are case-sensitive by default."
+msgstr "Groß- und Kleinschreibung wird bei der Suche standardmäßig beachtet"
+
+#: templates/bsr-dashboard.php:57
 msgid "Replace GUIDs<a href=\"http://codex.wordpress.org/Changing_The_Site_URL#Important_GUID_Note\" target=\"_blank\">?</a>"
 msgstr "Auch <a href=\"http://codex.wordpress.org/Changing_The_Site_URL#Important_GUID_Note\" target=\"_blank\">GUIDs ersetzen?</a>"
 
-#: templates/bsr-dashboard.php:52
+#: templates/bsr-dashboard.php:60
 msgid "If left unchecked, all database columns titled 'guid' will be skipped."
 msgstr "Lasse das Feld frei, um alle Datenbank-Spalten mit dem Titel 'guid' beim Suchen/Ersetzen zu überspringen (empfohlen)."
 
-#: templates/bsr-dashboard.php:57
+#: templates/bsr-dashboard.php:65
 msgid "Run as dry run?"
 msgstr "Testlauf?"
 
-#: templates/bsr-dashboard.php:60
+#: templates/bsr-dashboard.php:68
 msgid "If checked, no changes will be made to the database, allowing you to check the results beforehand."
 msgstr "Beim Testlauf wird die Datenbank nicht verändert. So kannst Du vorher prüfen, welche Ersetzungen vorgenommen werden."
 
-#: templates/bsr-dashboard.php:69
+#: templates/bsr-dashboard.php:77
 msgid "Run Search/Replace"
 msgstr "Suchen/Ersetzen starten"
+
+#. Plugin URI of the plugin/theme
+msgid "http://expandedfronts.com/better-search-replace"
+msgstr "http://expandedfronts.com/better-search-replace"
+
+#. Description of the plugin/theme
+msgid "A small plugin for running a search/replace on your WordPress database."
+msgstr "Ein PlugIn, um in Deiner WordPress Datenbank Zeichenketten zu suchen und zu ersetzen"
+
+#. Author of the plugin/theme
+msgid "Expanded Fronts"
+msgstr "Expanded Fronts"
+
+#. Author URI of the plugin/theme
+msgid "http://expandedfronts.com"
+msgstr "http://expandedfronts.com"
 
