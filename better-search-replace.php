@@ -13,7 +13,7 @@
  * Plugin Name:       Better Search Replace
  * Plugin URI:        http://expandedfronts.com/better-search-replace
  * Description:       A small plugin for running a search/replace on your WordPress database.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Expanded Fronts
  * Author URI:        http://expandedfronts.com
  * License:           GPL-3.0
