@@ -46,6 +46,8 @@ Upload Method:
 ## Changelog ##
 
 ### 1.0.5 ###
+* Added support for case-insensitive searches
+* Added German translation (props @Linus Ziegenhagen)
 
 ### 1.0.4 ###
 * Potential security fixes

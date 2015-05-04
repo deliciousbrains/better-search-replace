@@ -25,6 +25,7 @@ The search/replace functionality is heavily based on interconnect/it's great and
 
 * English
 * Spanish
+* German
 
 **Want to contribute?**
 
@@ -78,7 +79,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 = I get a white screen when using this plugin? =
 
-This is likely an issue with your PHP memory limit. Try temporarily increasing it by defining the memory limit in your `wp-config.php` file as shown [here](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP). Alternatively, if you were searching across multiple tables, try searching on fewer tables to load less into memory.
+This is likely an issue with your PHP memory limit. Try temporarily increasing it by defining the memory limit in your `wp-config.php` file as shown [here](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP). Alternatively, if you were searching across multiple tables, try searching on fewer tables at a time to load less into memory.
 
 == Screenshots ==
 
@@ -89,6 +90,7 @@ This is likely an issue with your PHP memory limit. Try temporarily increasing i
 
 = 1.0.5 =
 * Added support for case-insensitive searches
+* Added German translation (props @Linus Ziegenhagen)
 
 = 1.0.4 =
 * Potential security fixes
