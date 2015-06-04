@@ -45,6 +45,10 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.0.6 ###
+* Added table sizes to the database table listing
+* Added French translation (props @Jean Philippe)
+
 ### 1.0.5 ###
 * Added support for case-insensitive searches
 * Added German translation (props @Linus Ziegenhagen)

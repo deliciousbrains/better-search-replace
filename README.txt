@@ -24,8 +24,9 @@ The search/replace functionality is heavily based on interconnect/it's great and
 **Supported Languages**
 
 * English
-* Spanish
+* French
 * German
+* Spanish
 
 **Want to contribute?**
 
@@ -87,6 +88,10 @@ This is likely an issue with your PHP memory limit. Try temporarily increasing i
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.0.6 =
+* Added table sizes to the database table listing
+* Added French translation (props @Jean Philippe)
 
 = 1.0.5 =
 * Added support for case-insensitive searches
