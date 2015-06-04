@@ -67,6 +67,29 @@ class Better_Search_Replace_DB {
 	}
 
 	/**
+	 * Returns an array containing the size of each database table.
+	 * @access public
+	 * @return array
+	 */
+	public static function get_sizes() {
+		global $wpdb;
+
+		$sizes 	= array();
+		$tables	= $wpdb->get_results( 'SHOW TABLE STATUS', ARRAY_A );
+
+		if ( is_array( $tables ) && ! empty( $tables ) ) {
+			
+			foreach ( $tables as $table ) {
+				$size = round( $table['Data_length'] / 1024 / 1024, 2 );
+				$sizes[$table['Name']] = sprintf( __( '(%s MB)', 'revisr' ), $size );
+			}
+
+		}
+
+		return $sizes;
+	}
+
+	/**
 	 * Runs the search replace.
 	 * @access public
 	 * @param  array 	$tables 			The tables to run the search/replace on.

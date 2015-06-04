@@ -190,21 +190,34 @@ class Better_Search_Replace_Admin {
 	 * @access public
 	 */
 	public static function load_tables() {
+		
+		// Get the tables and their sizes.
 		$tables = Better_Search_Replace_DB::get_tables();
+		$sizes 	= Better_Search_Replace_DB::get_sizes();
 
 		echo '<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;">';
+		
 		foreach ( $tables as $table ) {
+
+			// Try to get the size for this specific table.
+			$table_size = isset( $sizes[$table] ) ? $sizes[$table] : '';
+
 			if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+				
 				$result = get_transient( 'bsr_results' );
+				
 				if ( isset( $result['table_reports'][$table] ) ) {
-					echo "<option value='$table' selected>$table</option>";
+					echo "<option value='$table' selected>$table $table_size</option>";
 				} else {
-					echo "<option value='$table'>$table</option>";
+					echo "<option value='$table'>$table $table_size</option>";
 				}
+
 			} else {
-				echo "<option value='$table'>$table</option>";
+				echo "<option value='$table'>$table $table_size</option>";
 			}
+			
 		}
+		
 		echo '</select>';
 	}
 
