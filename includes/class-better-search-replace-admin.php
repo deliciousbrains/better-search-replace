@@ -69,7 +69,8 @@ class Better_Search_Replace_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), 'read', 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
+		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
 	/**
