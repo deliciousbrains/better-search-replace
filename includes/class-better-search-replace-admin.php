@@ -261,6 +261,9 @@ class Better_Search_Replace_Admin {
 			</div>
 
 			<?php
+
+		} else {
+			_e( 'There was an error retrieving the results. Please try again.', 'better-search-replace' );
 		}
 	}
 
