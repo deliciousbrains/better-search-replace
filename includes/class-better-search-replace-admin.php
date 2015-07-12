@@ -129,8 +129,11 @@ class Better_Search_Replace_Admin {
 	 * @access public
 	 */
 	public static function render_result() {
+
 		if ( isset( $_GET['error'] ) ) {
+
 			echo '<div class="error"><p>';
+
 			switch ( $_GET['error'] ) {
 				case 'no_search_str':
 					_e( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' );
@@ -138,9 +141,14 @@ class Better_Search_Replace_Admin {
 				case 'no_tables':
 					_e( 'Please select the tables that you want to update.', 'better-search-replace' );
 					break;
+				default:
+					_e( 'An unknown error occurred. Please contact support.', 'better-search-replace' );
 			}
+
 			echo '</p></div>';
+
 		} elseif ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+
 			$result = get_transient( 'bsr_results' );
 			echo '<div class="updated">';
 
@@ -161,6 +169,7 @@ class Better_Search_Replace_Admin {
 			}
 
 			echo $msg . '</div>';
+
 		} else {
 			// There is nothing to do here.
 		}
@@ -238,7 +247,7 @@ class Better_Search_Replace_Admin {
 			<div class="container" style="padding:10px;">
 			<table id="bsr-results-table" class="widefat">
 				<thead>
-					<tr><th class="bsr-first">Table</th><th class="bsr-second">Changes Found</th><th class="bsr-third">Rows Updated</th><th class="bsr-fourth">Time</th></tr>
+					<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
 				</thead>
 				<tbody>
 				<?php

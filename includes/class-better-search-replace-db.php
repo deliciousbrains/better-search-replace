@@ -78,7 +78,7 @@ class Better_Search_Replace_DB {
 		$tables	= $wpdb->get_results( 'SHOW TABLE STATUS', ARRAY_A );
 
 		if ( is_array( $tables ) && ! empty( $tables ) ) {
-			
+
 			foreach ( $tables as $table ) {
 				$size = round( $table['Data_length'] / 1024 / 1024, 2 );
 				$sizes[$table['Name']] = sprintf( __( '(%s MB)', 'better-search-replace' ), $size );
@@ -217,7 +217,7 @@ class Better_Search_Replace_DB {
 
 					if ( ! $result ) {
 						$this->report['errors']++;
-						$table_report['errors'][] = 'Error updating row: ' . $current_row . '.';
+						$table_report['errors'][] = sprintf( __( 'Error updating row: %d.', 'better-search-replace' ), $current_row );
 					} else {
 						$this->report['updates']++;
 						$table_report['updates']++;
@@ -225,7 +225,7 @@ class Better_Search_Replace_DB {
 
 				} elseif ( $upd ) {
 					$this->report['errors']++;
-					$table_report['errors'][] = 'Row ' . $current_row . ' has no primary key, manual change needed.';
+					$table_report['errors'][] = sprintf( __( 'Row %d has no primary key, manual change needed.', 'better-search-replace' ), $current_row );
 				}
 			}
 		}
