@@ -57,7 +57,7 @@ class Better_Search_Replace_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 		if ( $hook === 'tools_page_better-search-replace' ) {
-			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), '2015', 'all' );
+			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
 		}
@@ -86,11 +86,12 @@ class Better_Search_Replace_Admin {
 	 * @access public
 	 */
 	public function process_search_replace() {
+
 		// Only process form data if properly nonced.
 		if ( ! empty( $_POST ) && check_admin_referer( 'process_search_replace', 'bsr_nonce' ) ) {
 
 			// Don't run if there isn't a search string.
-			if ( !isset( $_POST['search_for'] ) || $_POST['search_for'] == '' ) {
+			if ( ! isset( $_POST['search_for'] ) || $_POST['search_for'] == '' ) {
 				wp_redirect( get_admin_url() . 'tools.php?page=better-search-replace&error=no_search_str' );
 				exit();
 			}
@@ -122,6 +123,7 @@ class Better_Search_Replace_Admin {
 		} else {
 			wp_die( 'Cheatin&#8217; uh?', 'better-search-replace' );
 		}
+
 	}
 
 	/**
