@@ -19,6 +19,14 @@ When moving your WordPress site to a new domain or server, you will likely run i
 * No server requirements aside from a running installation of WordPress
 * WordPress Multisite support
 
+**Sign up for pro to get these great features:**
+
+* View details on changes for both dry runs and live runs
+* Backup and import the database while running a search/replace
+* Priority email support from the developer of the plugin
+* Save or load custom profiles for quickly repeating a search/replace in the future
+* Support and updates for 1 year
+
 The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
 **Supported Languages**
@@ -88,6 +96,10 @@ This is likely an issue with your PHP memory limit. Try temporarily increasing i
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.1 =
+* Added ability to change capability required to use plugin
+* Small bugfixes and translation fixes
 
 = 1.0.6 =
 * Added table sizes to the database table listing
