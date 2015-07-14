@@ -269,6 +269,10 @@ class Better_Search_Replace_Admin {
 				?>
 				</tbody>
 			</table>
+
+			<p style="text-align:center;"><strong><?php _e( 'Want even more details, easy database migrations, and saved search/replace profiles?', 'better-search-replace' ); ?><br>
+			<a href="https://expandedfronts.com/downloads/better-search-replace" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
+
 			</div>
 
 			<?php
