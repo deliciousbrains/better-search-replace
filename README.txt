@@ -2,7 +2,7 @@
 Contributors: ExpandedFronts
 Tags: search replace, update urls, database, search replace database, update database urls, update live url
 Requires at least: 3.0.1
-Tested up to: 4.2
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,13 +19,15 @@ When moving your WordPress site to a new domain or server, you will likely run i
 * No server requirements aside from a running installation of WordPress
 * WordPress Multisite support
 
-**Sign up for pro to get these great features:**
+**Premium features available in the Pro version:**
 
-* View details on changes for both dry runs and live runs
+* View exactly what changed during a search/replace
 * Backup and import the database while running a search/replace
 * Priority email support from the developer of the plugin
 * Save or load custom profiles for quickly repeating a search/replace in the future
 * Support and updates for 1 year
+
+[Learn more about Better Search Replace Pro](https://expandedfronts.com/downloads/better-search-replace-pro/)
 
 The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
@@ -88,7 +90,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 = I get a white screen when using this plugin? =
 
-This is likely an issue with your PHP memory limit. Try temporarily increasing it by defining the memory limit in your `wp-config.php` file as shown [here](http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP). Alternatively, if you were searching across multiple tables, try searching on fewer tables at a time to load less into memory.
+Just go back in your browser and try decreasing the "Max Page Size" setting via the plugin settings tab.
 
 == Screenshots ==
 
@@ -96,6 +98,10 @@ This is likely an issue with your PHP memory limit. Try temporarily increasing i
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.1.1 =
+* Added ability to change max page size
+* Decreased default page size to prevent white screen issue on some environments
 
 = 1.1 =
 * Added ability to change capability required to use plugin

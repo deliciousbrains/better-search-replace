@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.2
+**Tested up to:** 4.2.2
 
 **Stable tag:** trunk
 
@@ -44,6 +44,14 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.1.1 ###
+* Added ability to change max page size
+* Decreased default page size to prevent white screen issue on some environments
+
+### 1.1 ###
+* Added ability to change capability required to use plugin
+* Small bugfixes and translation fixes
 
 ### 1.0.6 ###
 * Added table sizes to the database table listing
