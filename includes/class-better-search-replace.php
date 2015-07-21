@@ -59,7 +59,7 @@ class Better_Search_Replace {
 	 */
 	public function __construct() {
 		$this->plugin_name 	= 'better-search-replace';
-		$this->version 		= '1.1';
+		$this->version 		= BSR_VERSION;
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -116,6 +116,7 @@ class Better_Search_Replace {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bsr_menu_pages' );
 		$this->loader->add_action( 'admin_post_bsr_process_search_replace', $plugin_admin, 'process_search_replace' );
 		$this->loader->add_action( 'admin_post_bsr_view_details', $plugin_admin, 'load_details' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_option' );
 	}
 
 	/**

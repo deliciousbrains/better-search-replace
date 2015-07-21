@@ -1,14 +1,14 @@
 /**
  * better-search-replace.css
- * 
+ *
  * Custom CSS for the Better Search Replace administration page.
  */
- #bsr-results-table th {
- 	font-weight: bold;
- }
- #bsr-results-table tbody tr:nth-child(odd) {
- 	background-color: #F9F9F9;
- }
- .bsr-second, .bsr-third, .bsr-fourth {
- 	text-align: center !important;
- }
+
+#bsr-results-table th { font-weight: bold; }
+#bsr-results-table tbody tr:nth-child(odd) { background-color: #F9F9F9; }
+.bsr-second, .bsr-third, .bsr-fourth { text-align: center !important; }
+#bsr-details-view { table-layout: fixed; }
+.bsr-old-val { background-color: #fdd; }
+.bsr-new-val { background-color: #cfc; }
+.bsr-change { width: 400px !important; }
+#bsr-slider { width: 23em; }

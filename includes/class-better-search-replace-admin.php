@@ -58,8 +58,16 @@ class Better_Search_Replace_Admin {
 	public function enqueue_scripts( $hook ) {
 		if ( $hook === 'tools_page_better-search-replace' ) {
 			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'jquery-style', BSR_URL . 'assets/css/jquery-ui.min.css', array(), $this->version, 'all' );
+			wp_enqueue_script( 'better-search-replace', BSR_URL . 'assets/js/better-search-replace.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
+			wp_enqueue_script( 'jquery-ui-core' );
+			wp_enqueue_script( 'jquery-ui-slider' );
+
+			wp_localize_script( 'better-search-replace', 'bsr_object_vars', array(
+				'page_size' => get_option( 'bsr_page_size' ) ? get_option( 'bsr_page_size' ) : 20000
+			) );
 		}
 	}
 
@@ -104,9 +112,9 @@ class Better_Search_Replace_Admin {
 
 				// Initialize the settings for this run.
 				$db 				= new Better_Search_Replace_DB();
-				$case_insensitive 	= isset( $_POST['case_insensitive'] ) ? true : false;
-				$replace_guids 		= isset( $_POST['replace_guids'] ) ? true : false;
-				$dry_run 			= isset( $_POST['dry_run'] ) ? true : false;
+				$case_insensitive 	= isset( $_POST['case_insensitive'] );
+				$replace_guids 		= isset( $_POST['replace_guids'] );
+				$dry_run 			= isset( $_POST['dry_run'] );
 
 				// Remove slashes from search and replace strings.
 				$search_for 	= stripslashes( $_POST['search_for'] );
@@ -280,6 +288,14 @@ class Better_Search_Replace_Admin {
 		} else {
 			_e( 'There was an error retrieving the results. Please try again.', 'better-search-replace' );
 		}
+	}
+
+	/**
+	 * Registers our settings in the options table.
+	 * @access public
+	 */
+	public function register_option() {
+		register_setting( 'bsr_settings_fields', 'bsr_page_size', 'absint' );
 	}
 
 }
