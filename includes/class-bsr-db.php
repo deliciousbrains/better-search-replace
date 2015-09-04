@@ -14,16 +14,22 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 class BSR_DB {
 
 	/**
-	 * The WordPress database class.
-	 * @var WPDB
+	 * The page size used throughout the plugin.
+	 * @var int
 	 */
-	private $wpdb;
+	public $page_size;
 
 	/**
 	 * The name of the backup file.
 	 * @var string
 	 */
 	public $file;
+
+	/**
+	 * The WordPress database class.
+	 * @var WPDB
+	 */
+	private $wpdb;
 
 	/**
 	 * Initializes the class and its properties.
@@ -33,6 +39,8 @@ class BSR_DB {
 
 		global $wpdb;
 		$this->wpdb = $wpdb;
+
+		$this->page_size = $this->get_page_size();
 
 		$upload_dir = wp_upload_dir();
 		$this->file = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'bsr_db_backup.sql';
@@ -89,37 +97,38 @@ class BSR_DB {
 	}
 
 	/**
+	 * Returns the number of pages in a table.
+	 * @access public
+	 * @return int
+	 */
+	public function get_pages_in_table( $table ) {
+		$table 	= esc_sql( $table );
+		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM $table" );
+		$pages 	= ceil( $rows / $this->page_size );
+		return absint( $pages );
+	}
+
+	/**
 	 * Gets the total number of pages in the DB.
 	 * @access public
 	 * @return int
 	 */
 	public function get_total_pages( $tables ) {
-
-		// Some defaults
-		$total_pages 	= 0;
-		$page_size 		= $this->get_page_size();
+		$total_pages = 0;
 
 		foreach ( $tables as $table ) {
 
 			// Get the number of rows & pages in the table.
-			$table 		= esc_sql( $table );
-			$rows 		= $this->wpdb->get_var( "SELECT COUNT(*) FROM $table" );
-			$pages 		= ceil( $rows / $page_size );
+			$pages = $this->get_pages_in_table( $table );
 
-			/**
-			 * Always include table in total_pages,
-			 * because even if no results we still
-			 * have to create the schema, etc.
-			 */
+			// Always include 1 page in case we have to create schemas, etc.
 			if ( $pages == 0 ) {
 				$pages = 1;
 			}
 
-			// Increment total number of pages.
 			$total_pages += $pages;
 		}
 
-		// Return the total amount of pages.
 		return absint( $total_pages );
 	}
 
@@ -142,9 +151,7 @@ class BSR_DB {
 		// Load up the default settings for this chunk.
 		$table 			= esc_sql( $table );
 		$current_page 	= absint( $page );
-		$row_count 		= $this->wpdb->get_var( "SELECT COUNT(*) FROM $table" );
-		$page_size 		= $this->get_page_size();
-		$pages 			= absint( ceil( $row_count / $page_size ) );
+		$pages 			= $this->get_pages_in_table( $table );
 		$done 			= false;
 
 		$table_report = array(
@@ -164,8 +171,8 @@ class BSR_DB {
 		$this->wpdb->flush();
 
 		$current_row 	= 0;
-		$start 			= $page * $page_size;
-		$end 			= $page_size;
+		$start 			= $page * $this->page_size;
+		$end 			= $this->page_size;
 
 		// Grab the content of the table.
 		$data = $this->wpdb->get_results( "SELECT * FROM $table LIMIT $start, $end", ARRAY_A );
@@ -312,9 +319,8 @@ class BSR_DB {
 
 			// Submitted by Tina Matter
 			elseif ( is_object( $data ) ) {
-				// $data_class = get_class( $data );
-				$_tmp = $data; // new $data_class( );
-				$props = get_object_vars( $data );
+				$_tmp 	= $data;
+				$props 	= get_object_vars( $data );
 				foreach ( $props as $key => $value ) {
 					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false );
 				}
@@ -366,6 +372,7 @@ class BSR_DB {
 	 * @link   http://php.net/manual/en/function.mysql-real-escape-string.php#101248
 	 * @access public
 	 * @param  string $input The string to escape.
+	 * @return string
 	 */
 	public function mysql_escape_mimic( $input ) {
 	    if ( is_array( $input ) ) {

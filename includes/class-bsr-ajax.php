@@ -48,11 +48,6 @@ class BSR_AJAX {
 				define( 'DOING_AJAX', true );
 			}
 
-			// Define a custom "BSR_DOING_AJAX" constant.
-			if ( ! defined( 'BSR_DOING_AJAX' ) ) {
-				define( 'BSR_DOING_AJAX', true );
-			}
-
 			// Prevent notices from breaking AJAX functionality.
 			if ( ! WP_DEBUG || ( WP_DEBUG && ! WP_DEBUG_DISPLAY ) ) {
 				@ini_set( 'display_errors', 0 );
@@ -147,7 +142,7 @@ class BSR_AJAX {
 			$result = $db->srdb( $args['select_tables'][$step], $page, $args );
 			$this->append_report( $args['select_tables'][$step], $result['table_report'], $args );
 
-			if ( false == $result['table_complete'] ) {
+			if ( false === $result['table_complete'] ) {
 				$page++;
 			} else {
 				$step++;

@@ -97,27 +97,7 @@ class BSR_Admin {
 	 */
 	public static function render_result() {
 
-		if ( isset( $_GET['error'] ) ) {
-
-			echo '<div class="error"><p>';
-
-			switch ( $_GET['error'] ) {
-				case 'no_search_str':
-					_e( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' );
-					break;
-				case 'no_tables':
-					_e( 'Please select the tables that you want to update.', 'better-search-replace' );
-					break;
-				default:
-					_e( 'An unknown error occurred. Please contact support.', 'better-search-replace' );
-			}
-
-			echo '</p></div>';
-
-		} elseif ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
-
-			$result = get_transient( 'bsr_results' );
-			echo '<div class="updated">';
+		if ( isset( $_GET['result'] ) && $result = get_transient( 'bsr_results' ) ) {
 
 			if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
 				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>', 'better-search-replace' ),
@@ -135,11 +115,10 @@ class BSR_Admin {
 				);
 			}
 
-			echo $msg . '</div>';
+			echo '<div class="updated">' . $msg . '</div>';
 
-		} else {
-			// There is nothing to do here.
 		}
+
 	}
 
 	/**
