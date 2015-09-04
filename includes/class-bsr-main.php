@@ -68,13 +68,6 @@ class Better_Search_Replace {
 	/**
 	 * Load the required dependencies for this plugin.
 	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Better_Search_Replace_Loader. Orchestrates the hooks of the plugin.
-	 * - Better_Search_Replace_i18n. Defines internationalization functionality.
-	 * - Better_Search_Replace_Admin. Defines all hooks for the dashboard.
-	 * - Better_Search_Replace_Public. Defines all hooks for the public side of the site.
-	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
@@ -82,24 +75,26 @@ class Better_Search_Replace {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once BSR_PATH . 'includes/class-better-search-replace-loader.php';
-		require_once BSR_PATH . 'includes/class-better-search-replace-i18n.php';
-		require_once BSR_PATH . 'includes/class-better-search-replace-admin.php';
-		require_once BSR_PATH . 'includes/class-better-search-replace-db.php';
-		$this->loader = new Better_Search_Replace_Loader();
+		require_once BSR_PATH . 'includes/class-bsr-loader.php';
+		require_once BSR_PATH . 'includes/class-bsr-i18n.php';
+		require_once BSR_PATH . 'includes/class-bsr-admin.php';
+		require_once BSR_PATH . 'includes/class-bsr-ajax.php';
+		require_once BSR_PATH . 'includes/class-bsr-db.php';
+		require_once BSR_PATH . 'includes/class-bsr-compatibility.php';
+		$this->loader = new BSR_Loader();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Better_Search_Replace_i18n class in order to set the domain and to register the hook
+	 * Uses the BSR_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0
 	 * @access   private
 	 */
 	private function set_locale() {
-		$plugin_i18n = new Better_Search_Replace_i18n();
+		$plugin_i18n = new BSR_i18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
 	}
 
@@ -111,12 +106,18 @@ class Better_Search_Replace {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Better_Search_Replace_Admin( $this->get_plugin_name(), $this->get_version() );
+
+		// Initialize the admin class.
+		$plugin_admin = new BSR_Admin( $this->get_plugin_name(), $this->get_version() );
+
+		/// Register the admin pages and scripts.
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bsr_menu_pages' );
-		$this->loader->add_action( 'admin_post_bsr_process_search_replace', $plugin_admin, 'process_search_replace' );
-		$this->loader->add_action( 'admin_post_bsr_view_details', $plugin_admin, 'load_details' );
+
+		// Other admin actions.
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_option' );
+		$this->loader->add_action( 'admin_post_bsr_view_details', $plugin_admin, 'load_details' );
+		$this->loader->add_action( 'admin_post_bsr_download_sysinfo', $plugin_admin, 'download_sysinfo' );
 	}
 
 	/**

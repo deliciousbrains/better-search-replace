@@ -15,7 +15,7 @@
 // Prevent direct access.
 if ( ! defined( 'BSR_PATH' ) ) exit;
 
-class Better_Search_Replace_i18n {
+class BSR_i18n {
 
 	/**
 	 * The domain specified for this plugin.

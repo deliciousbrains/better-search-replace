@@ -74,7 +74,7 @@ function run_better_search_replace() {
 		 * The core plugin class that is used to define internationalization,
 		 * dashboard-specific hooks, and public-facing site hooks.
 		 */
-		require BSR_PATH . 'includes/class-better-search-replace.php';
+		require BSR_PATH . 'includes/class-bsr-main.php';
 		$plugin = new Better_Search_Replace();
 		$plugin->run();
 

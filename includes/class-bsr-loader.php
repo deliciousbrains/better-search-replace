@@ -24,7 +24,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
  * @subpackage Better_Search_Replace/includes
  * @author     Expanded Fronts <support@expandedfronts.com>
  */
-class Better_Search_Replace_Loader {
+class BSR_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

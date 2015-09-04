@@ -12,3 +12,7 @@
 .bsr-new-val { background-color: #cfc; }
 .bsr-change { width: 400px !important; }
 #bsr-slider { width: 23em; }
+.bsr-progress-wrap { width: 100%; height: 12px; background-color: #eee; margin-top: 15px; }
+.bsr-progress { width: 0%; height: 100%; background-color: #0073aa; }
+#bsr-search-replace-wrap { margin-top: 10px; }
+.bsr-description { margin-bottom: 15px; }
