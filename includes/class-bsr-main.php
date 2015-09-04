@@ -26,7 +26,7 @@ class Better_Search_Replace {
 	 *
 	 * @since    1.0
 	 * @access   protected
-	 * @var      Better_Search_Replace_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      BSR_Loader   $loader   Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 

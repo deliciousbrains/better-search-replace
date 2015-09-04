@@ -21,8 +21,8 @@ class BSR_AJAX {
 	 * @access public
 	 */
 	public function init() {
-		add_action( 'init', array( $this, 'define_ajax' ), 0 );
-		add_action( 'init', array( $this, 'do_bsr_ajax' ), 1 );
+		add_action( 'init', array( $this, 'define_ajax' ), -1 );
+		add_action( 'init', array( $this, 'do_bsr_ajax' ), 0 );
 		$this->add_ajax_actions();
 	}
 
@@ -112,37 +112,27 @@ class BSR_AJAX {
 		}
 
 		$args = array();
-		parse_str( $_POST['bsr_data'], $args );
+
+		if ( isset( $_POST['bsr_data'] ) ) {
+			parse_str( $_POST['bsr_data'], $args );
+		}
 
 		// Initialize the DB class.
 		$db 				= new BSR_DB();
 		$tables 			= $db->get_tables();
-		$step 				= absint( $_REQUEST['bsr_step'] );
-		$page 				= isset( $_REQUEST['bsr_page'] ) ? absint( $_REQUEST['bsr_page'] ) : 0;
+		$step 				= isset( $_POST['bsr_step' ] ) ? absint( $_POST['bsr_step'] ) : 0;
+		$page 				= isset( $_POST['bsr_page'] ) ? absint( $_POST['bsr_page'] ) : 0;
 
 		// Build the arguements for this run.
-		$tables 			= isset( $args['select_tables'] ) ? $args['select_tables'] : array();
-		$case_insensitive 	= isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off';
-		$replace_guids 		= isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off';
-		$dry_run 			= isset( $args['dry_run'] ) ? $args['dry_run'] : 'off';
-		$save_profile		= isset( $args['profile_name'] ) ? $args['profile_name'] : '';
-		$completed_pages 	= isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0;
-		$table_reports 		= isset( $args['table_reports'] ) ? $args['table_reports'] : array();
-		$total_pages 		= isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $tables );
-
-		// Remove slashes from search and replace strings.
-		$search_for 		= stripslashes( $args['search_for'] );
-		$replace_with 		= stripslashes( $args['replace_with'] );
-
 		$args = array(
-			'select_tables' 	=> $tables,
-			'case_insensitive' 	=> $case_insensitive,
-			'replace_guids' 	=> $replace_guids,
-			'dry_run' 			=> $dry_run,
-			'search_for' 		=> $search_for,
-			'replace_with' 		=> $replace_with,
-			'total_pages' 		=> $total_pages,
-			'completed_pages' 	=> $completed_pages,
+			'select_tables' 	=> isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
+			'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
+			'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
+			'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
+			'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
+			'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
+			'total_pages' 		=> isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $tables ),
+			'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 		);
 
 		// Any operations that should only be performed at the beginning.
@@ -152,10 +142,10 @@ class BSR_AJAX {
 		}
 
 		// Start processing data.
-		if ( isset( $tables[$step] ) ) {
+		if ( isset( $args['select_tables'][$step] ) ) {
 
-			$result = $db->srdb( $tables[$step], $page, $args );
-			$this->append_report( $tables[$step], $result['table_report'], $args );
+			$result = $db->srdb( $args['select_tables'][$step], $page, $args );
+			$this->append_report( $args['select_tables'][$step], $result['table_report'], $args );
 
 			if ( false == $result['table_complete'] ) {
 				$page++;
@@ -165,7 +155,7 @@ class BSR_AJAX {
 			}
 
 			$args['completed_pages']++;
-			$percentage = $completed_pages / $total_pages * 100 . '%';
+			$percentage = $args['completed_pages'] / $args['total_pages'] * 100 . '%';
 
 		} else {
 			$db->maybe_update_site_url();
@@ -177,7 +167,6 @@ class BSR_AJAX {
 		$result = array(
 			'step' 				=> $step,
 			'page' 				=> $page,
-			'completed_pages' 	=> $completed_pages,
 			'percentage'		=> $percentage,
 			'url' 				=> get_admin_url() . 'tools.php?page=better-search-replace&tab=bsr_search_replace&result=true',
 			'bsr_data' 			=> http_build_query( $args )
