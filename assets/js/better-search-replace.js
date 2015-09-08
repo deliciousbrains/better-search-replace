@@ -68,17 +68,25 @@
 	function bsr_search_replace() {
 
 		var search_replace_submit = $( '#bsr-submit' );
+		var bsr_error_wrap = $( '#bsr-error-wrap' );
 		search_replace_submit.click( function( e ) {
 
 			e.preventDefault();
 
 			if ( ! search_replace_submit.hasClass( 'button-disabled' ) ) {
 
-				var data = $( '.bsr-action-form' ).serialize();
+				if ( ! $( '#search_for' ).val() ) {
+					bsr_error_wrap.html( '<div class="error"><p>' + bsr_object_vars.no_search + '</p></div>' );
+				} else if ( ! $( '#select_tables' ).val() ) {
+					bsr_error_wrap.html( '<div class="error"><p>' + bsr_object_vars.no_tables + '</p></div>' );
+				} else {
+					var data = $( '.bsr-action-form' ).serialize();
+					bsr_error_wrap.html('');
+					search_replace_submit.addClass( 'bsr-disabled button-disabled' );
+					$( '#bsr-submit-wrap' ).append('<div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div>');
+					bsr_process_step( 'process_search_replace', 0, 0, data );
+				}
 
-				search_replace_submit.addClass( 'bsr-disabled button-disabled' );
-				$( '#bsr-submit-wrap' ).append('<div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div>');
-				bsr_process_step( 'process_search_replace', 0, 0, data );
 			}
 
 		});

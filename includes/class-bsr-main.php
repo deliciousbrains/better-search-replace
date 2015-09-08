@@ -118,6 +118,7 @@ class Better_Search_Replace {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_option' );
 		$this->loader->add_action( 'admin_post_bsr_view_details', $plugin_admin, 'load_details' );
 		$this->loader->add_action( 'admin_post_bsr_download_sysinfo', $plugin_admin, 'download_sysinfo' );
+		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'meta_upgrade_link', 10, 2 );
 	}
 
 	/**

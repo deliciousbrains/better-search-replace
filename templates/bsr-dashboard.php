@@ -26,7 +26,10 @@ if ( 'bsr_settings' === $active_tab ) {
 
 <div class="wrap">
 
-	<h2><?php _e( 'Better Search Replace', 'better-search-replace' ); ?></h2>
+	<h1 id="bsr-title"><?php _e( 'Better Search Replace', 'better-search-replace' ); ?></h1>
+
+	<div id="bsr-error-wrap"></div>
+
 	<?php BSR_Admin::render_result(); ?>
 
 	<h2 class="nav-tab-wrapper">
@@ -43,7 +46,7 @@ if ( 'bsr_settings' === $active_tab ) {
 		if ( file_exists( BSR_PATH . 'templates/' . $bsr_template ) ) {
 			include BSR_PATH . 'templates/' . $bsr_template;
 		} else {
-			include BSR_PATH . 'templates/' . 'bsr-search-replace.php';
+			include BSR_PATH . 'templates/bsr-search-replace.php';
 		}
 	?>
 

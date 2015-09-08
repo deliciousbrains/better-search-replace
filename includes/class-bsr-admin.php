@@ -67,7 +67,11 @@ class BSR_Admin {
 			wp_localize_script( 'better-search-replace', 'bsr_object_vars', array(
 				'page_size' 	=> get_option( 'bsr_page_size' ) ? get_option( 'bsr_page_size' ) : 20000,
 				'endpoint' 		=> BSR_AJAX::get_endpoint(),
-				'ajax_nonce' 	=> wp_create_nonce( 'bsr_ajax_nonce' )
+				'ajax_nonce' 	=> wp_create_nonce( 'bsr_ajax_nonce' ),
+				'no_search' 	=> __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
+				'no_tables' 	=> __( 'Please select the tables that you want to update.', 'better-search-replace' ),
+				'unknown' 		=> __( 'An unknown error occurred. Please contact support.', 'better-search-replace' )
+
 			) );
 
 		}
@@ -261,6 +265,24 @@ class BSR_Admin {
 
 		echo wp_strip_all_tags( $_POST['bsr-sysinfo'] );
 		die();
+	}
+
+	/**
+	 * Displays the link to upgrade to BSR Pro
+	 * @access public
+	 * @param array $links The links assigned to the plugin.
+	 */
+	public function meta_upgrade_link( $links, $file ) {
+		$plugin = plugin_basename( BSR_FILE );
+
+		if ( $file == $plugin ) {
+			return array_merge(
+				$links,
+				array( '<a href="https://expandedfronts.com/downloads/better-search-replace-pro/">' . __( 'Upgrade to Pro', 'better-search-replace' ) . '</a>' )
+			);
+		}
+
+  		return $links;
 	}
 
 }
