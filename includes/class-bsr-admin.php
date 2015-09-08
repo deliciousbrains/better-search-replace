@@ -56,11 +56,11 @@ class BSR_Admin {
 	 * @param    string $hook Used for determining which page(s) to load our scripts.
 	 */
 	public function enqueue_scripts( $hook ) {
-		if ( $hook === 'tools_page_better-search-replace' ) {
+		if ( 'tools_page_better-search-replace' === $hook ) {
 			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'jquery-style', BSR_URL . 'assets/css/jquery-ui.min.css', array(), $this->version, 'all' );
 			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'better-search-replace', BSR_URL . 'assets/js/better-search-replace.js', array( 'jquery' ), $this->version, true );
+			wp_enqueue_script( 'better-search-replace', BSR_URL . 'assets/js/better-search-replace.min.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
 
@@ -70,10 +70,8 @@ class BSR_Admin {
 				'ajax_nonce' 	=> wp_create_nonce( 'bsr_ajax_nonce' ),
 				'no_search' 	=> __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
 				'no_tables' 	=> __( 'Please select the tables that you want to update.', 'better-search-replace' ),
-				'unknown' 		=> __( 'An unknown error occurred. Please contact support.', 'better-search-replace' )
-
+				'unknown' 		=> __( 'An error occurred processing your request. Try decreasing the "Max Page Size", or contact support.', 'better-search-replace' ),
 			) );
-
 		}
 	}
 

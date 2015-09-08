@@ -55,8 +55,12 @@
 
 			}
 		}).fail(function (response) {
+			$('.bsr-spinner').remove();
+			$('.bsr-progress-wrap').remove();
+			$('.bsr-disabled').removeClass('bsr-disabled button-disabled' );
+			$('#bsr-error-wrap').html( '<div class="error"><p>' + bsr_object_vars.unknown + '</p></div>' );
 			if ( window.console && window.console.log ) {
-				console.log( response );
+				console.log(response);
 			}
 		});
 
