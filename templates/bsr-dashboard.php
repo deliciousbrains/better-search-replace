@@ -35,7 +35,7 @@ if ( 'bsr_settings' === $active_tab ) {
 	<h2 class="nav-tab-wrapper">
 	    <a href="?page=better-search-replace&tab=bsr_search_replace" class="nav-tab <?php echo $active_tab == 'bsr_search_replace' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Search/Replace', 'better-search-replace' ); ?></a>
 	    <a href="?page=better-search-replace&tab=bsr_settings" class="nav-tab <?php echo $active_tab == 'bsr_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Settings', 'better-search-replace' ); ?></a>
-	    <a href="?page=better-search-replace&tab=bsr_info" class="nav-tab <?php echo $active_tab == 'bsr_info' ? 'nav-tab-active' : ''; ?>"><?php _e( 'System Info', 'better-search-replace' ); ?></a>
+	    <a href="?page=better-search-replace&tab=bsr_help" class="nav-tab <?php echo $active_tab == 'bsr_help' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Help', 'better-search-replace' ); ?></a>
 	</h2>
 
 	<form class="bsr-action-form" action="<?php echo $action; ?>" method="POST">
