@@ -200,7 +200,6 @@ class BSR_AJAX {
 
 		// Sum the values of the new and existing reports.
 		$results['change'] 	= isset( $results['change'] ) ? $results['change'] + $report['change'] : $report['change'];
-		$results['errors'] 	= isset( $results['errors'] ) ? $results['errors'] + $report['errors'] : $report['errors'];
 		$results['updates'] = isset( $results['updates'] ) ? $results['updates'] + $report['updates'] : $report['updates'];
 
 		// Append the table report, or create a new one if necessary.
