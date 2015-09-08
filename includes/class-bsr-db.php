@@ -231,21 +231,7 @@ class BSR_DB {
 				if ( $edited_data != $data_to_fix ) {
 					$update_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $edited_data ) . '"';
 					$upd = true;
-
 					$table_report['change']++;
-
-					// Log changes
-					if ( $table_report['change'] <= 20 ) {
-
-						$table_report['changes'][] = array(
-							'row' 		=> $current_row,
-							'column' 	=> $column,
-							'from' 		=> utf8_encode( $data_to_fix ),
-							'to' 		=> utf8_encode( $edited_data )
-						);
-
-					}
-
 				}
 
 				if ( $primary_key ) {

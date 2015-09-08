@@ -204,15 +204,9 @@ class BSR_AJAX {
 
 		// Append the table report, or create a new one if necessary.
 		if ( isset( $results['table_reports'] ) && isset( $results['table_reports'][$table] ) ) {
-
 			$results['table_reports'][$table]['change'] 	= $results[$table]['change'] + $report['change'];
 			$results['table_reports'][$table]['updates'] 	= $results[$table]['updates'] + $report['updates'];
 			$results['table_reports'][$table]['end'] 		= $report['end'];
-
-			if ( count( $results['table_reports'][$table]['changes'] ) < 20 ) {
-				$results['table_reports'][$table]['changes'] = array_merge( $results[$table]['changes'], $report['changes'] );
-			}
-
 		} else {
 			$results['table_reports'][$table] = $report;
 		}
