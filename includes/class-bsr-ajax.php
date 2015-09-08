@@ -114,7 +114,6 @@ class BSR_AJAX {
 
 		// Initialize the DB class.
 		$db 				= new BSR_DB();
-		$tables 			= $db->get_tables();
 		$step 				= isset( $_POST['bsr_step' ] ) ? absint( $_POST['bsr_step'] ) : 0;
 		$page 				= isset( $_POST['bsr_page'] ) ? absint( $_POST['bsr_page'] ) : 0;
 
@@ -126,9 +125,10 @@ class BSR_AJAX {
 			'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
 			'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
 			'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
-			'total_pages' 		=> isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $tables ),
 			'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 		);
+
+		$args['total_pages'] = $db->get_total_pages( $args['select_tables'] );
 
 		// Any operations that should only be performed at the beginning.
 		if ( $step === 0 && $page === 0 ) {

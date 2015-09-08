@@ -99,6 +99,10 @@ Just go back in your browser and try decreasing the "Max Page Size" setting via 
 
 == Changelog ==
 
+= 1.2.1 =
+* Fixed minor issue with display of progress bar
+* Updated translation file
+
 = 1.2 =
 * Switched to AJAX bulk processing for search/replaces
 * Decreased minimum "Max Page Size" to 1000
