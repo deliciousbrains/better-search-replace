@@ -30,7 +30,7 @@ class BSR_Compatibility {
 		$return .= 'Home URL:                 ' . home_url() . "\n";
 		$return .= 'Multisite:                ' . ( is_multisite() ? 'Yes' : 'No' ) . "\n";
 		$return .= 'Version:                  ' . get_bloginfo( 'version' ) . "\n";
-		$return .= 'Language:                 ' . ( defined( 'WPLANG' ) && WPLANG ? WPLANG : 'en_US' ) . "\n";
+		$return .= 'Language:                 ' . get_locale() . "\n";
 		$return .= 'Table Prefix:             ' . 'Length: ' . strlen( $wpdb->prefix ) . "\n";
 		$return .= 'WP_DEBUG:                 ' . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set' ) . "\n";
 		$return .= 'Memory Limit:             ' . WP_MEMORY_LIMIT . "\n";
