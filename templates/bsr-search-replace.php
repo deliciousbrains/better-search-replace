@@ -46,7 +46,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 				<td><label for="case_insensitive"><strong><?php _e( 'Case-Insensitive?', 'better-search-replace' ); ?></strong></label></td>
 				<td>
 					<input id="case_insensitive" type="checkbox" name="case_insensitive" <?php BSR_Admin::prefill_value( 'case_insensitive', 'checkbox' ); ?> />
-					<label for="case_insensitive"><span class="description"><?php _e( 'Searches are case-sensitive by default.', 'revisr' ); ?></span></label>
+					<label for="case_insensitive"><span class="description"><?php _e( 'Searches are case-sensitive by default.', 'better-search-replace' ); ?></span></label>
 				</td>
 			</tr>
 
