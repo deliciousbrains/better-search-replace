@@ -209,7 +209,7 @@ class BSR_Admin {
 
 				<table id="bsr-results-table" class="widefat">
 					<thead>
-						<tr><th class="bsr-first">Table</th><th class="bsr-second">Changes Found</th><th class="bsr-third">Rows Updated</th><th class="bsr-fourth">Time</th></tr>
+						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
 					</thead>
 					<tbody>
 					<?php

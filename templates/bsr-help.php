@@ -26,5 +26,5 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 <p class="submit">
 	<input type="hidden" name="action" value="bsr_download_sysinfo" />
-	<?php submit_button( 'Download System Info', 'primary', 'bsr-download-sysinfo', false ); ?>
+	<?php submit_button( __( 'Download System Info', 'better-search-replace' ), 'primary', 'bsr-download-sysinfo', false ); ?>
 </p>
