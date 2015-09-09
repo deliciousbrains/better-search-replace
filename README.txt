@@ -88,16 +88,18 @@ If you're moving your site from one server to another and changing the URL of yo
 
 More information on moving WordPress can be found [here](http://codex.wordpress.org/Moving_WordPress).
 
-= I get a white screen when using this plugin? =
-
-Just go back in your browser and try decreasing the "Max Page Size" setting via the plugin settings tab.
-
 == Screenshots ==
 
 1. The Better Search Replace page added to the "Tools" menu
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.2.2 =
+* Fixed AJAX conflict with WooCommerce
+* Fixed a few issues with translations
+* Tweaked "System Info" to use get_locale() instead of WP_LANG constant
+* Updated German translation (props @Linus Ziegenhagen)
 
 = 1.2.1 =
 * Fixed minor issue with display of progress bar

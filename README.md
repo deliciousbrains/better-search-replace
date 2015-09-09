@@ -57,6 +57,12 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.2.2 ###
+* Fixed AJAX conflict with WooCommerce
+* Fixed a few issues with translations
+* Tweaked "System Info" to use get_locale() instead of WP_LANG constant
+* Updated German translation (props @Linus Ziegenhagen)
+
 ### 1.2.1 ###
 * Fixed minor issue with display of progress bar
 * Updated translation file
