@@ -21,8 +21,8 @@ class BSR_AJAX {
 	 * @access public
 	 */
 	public function init() {
-		add_action( 'init', array( $this, 'define_ajax' ), -1 );
-		add_action( 'init', array( $this, 'do_bsr_ajax' ), 0 );
+		add_action( 'init', array( $this, 'define_ajax' ), 1 );
+		add_action( 'init', array( $this, 'do_bsr_ajax' ), 2 );
 		$this->add_ajax_actions();
 	}
 
