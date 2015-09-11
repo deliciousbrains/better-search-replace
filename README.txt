@@ -1,13 +1,13 @@
 === Better Search Replace ===
-Contributors: ExpandedFronts
-Tags: search replace, update urls, database, search replace database, update database urls, update live url
+Contributors: ExpandedFronts, mattshaw
+Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
 Tested up to: 4.3
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A simple plugin for updating URLs or other text in a database.
+A simple plugin to update URLs or other text in a database.
 
 == Description ==
 
@@ -29,7 +29,7 @@ When moving your WordPress site to a new domain or server, you will likely run i
 
 [Learn more about Better Search Replace Pro](https://expandedfronts.com/downloads/better-search-replace-pro/)
 
-The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
+The search and replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
 **Supported Languages**
 
