@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Better Search Replace en español\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2015-09-08 05:43:47+00:00\n"
-"PO-Revision-Date: 2015-09-08 15:41+0100\n"
+"POT-Creation-Date: 2015-09-09 01:51:36+00:00\n"
+"PO-Revision-Date: 2015-09-10 01:27+0100\n"
 "Last-Translator: zork media <info@zork-media.de>\n"
 "Language-Team: PNTE <blogs@educacion.navarra.es>\n"
 "MIME-Version: 1.0\n"
@@ -29,9 +29,9 @@ msgstr "Bitte wähle die Tabellen aus, die durchsucht werden sollen."
 
 #: includes/class-bsr-admin.php:73
 msgid "An error occurred processing your request. Try decreasing the \"Max Page Size\", or contact support."
-msgstr "Ein Fehler ist aufgetreten. Versuche entweder die \"Max. Seiten-Anzahl\" zu verringern, der wende Dich an unseren Support."
+msgstr "Ein Fehler ist aufgetreten. Versuche entweder die \"Max. Seiten-Anzahl\" zu verringern, oder wende dich an unseren Support."
 
-#. #-#-#-#-#  plugin.pot (Better Search Replace 1.2)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Better Search Replace 1.2.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-bsr-admin.php:85
 #: templates/bsr-dashboard.php:29
@@ -46,13 +46,29 @@ msgstr "<p><strong>TESTLAUF:</strong> <strong>%d</strong> Tabellen wurden durchs
 msgid "<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a href=\"%s\" class=\"thickbox\" title=\"Search/Replace Details\">Click here</a> for more details.</p>"
 msgstr "<p>Beim Suchen/Ersetzen wurden <strong>%d</strong> Tabellen mit insgesamt <strong>%d</strong> Zellen durchsucht. <strong>%d</strong> Aktualisierungen wurden vorgenommen.</p><p>Für mehr Details zur Aktualisierung <a href=\"%s\" class=\"thickbox\" title=\"Details zur Aktualisierung\">hier klicken</a>.</p>"
 
+#: includes/class-bsr-admin.php:212
+msgid "Table"
+msgstr "Tabelle"
+
+#: includes/class-bsr-admin.php:212
+msgid "Changes Found"
+msgstr "Änderungen gefunden"
+
+#: includes/class-bsr-admin.php:212
+msgid "Rows Updated"
+msgstr "Zeilen aktualisiert"
+
+#: includes/class-bsr-admin.php:212
+msgid "Time"
+msgstr "Zeit"
+
 #: includes/class-bsr-admin.php:233
 msgid "Want even more details, easy database migrations, and saved search/replace profiles?"
 msgstr "Du möchtest noch mehr Einstellungsmöglichkeiten, eine einfache Datenbank-Migration und die Möglichkeit Suchen/Ersetzen-Profile anzulegen?"
 
 #: includes/class-bsr-admin.php:234
 msgid "Learn more about the pro version"
-msgstr "Mehr über die Pro-Version"
+msgstr "Lerne die Pro-Version kennen"
 
 #: includes/class-bsr-admin.php:279
 msgid "Upgrade to Pro"
@@ -92,15 +108,19 @@ msgstr "Kostenlosen Support gibt es im <a href=\"%s\">Plugin Support-Forum</a>."
 
 #: templates/bsr-help.php:21
 msgid "For premium features and priority email support, <a href=\"%s\" style=\"font-weight:bold;\">upgrade to pro</a>."
-msgstr "Weitere Premium-Features and schnellen Support per E-Mail: <a href=\"%s\" style=\"font-weight:bold;\">Upgrade auf die Pro-Version</a>."
+msgstr "Weitere Premium-Features und schneller Support per E-Mail: <a href=\"%s\" style=\"font-weight:bold;\">Upgrade auf die Pro-Version</a>."
 
 #: templates/bsr-help.php:23
 msgid "Found a bug or have a feature request? Please submit an issue on <a href=\"%s\">GitHub</a>!"
-msgstr "Du hast einen Fehler gefunden? Du wünschst Dir eine erweiterte Funktionalität? Schreibe uns Dein Anliegen auf <a href=\"%s\">GitHub</a>!"
+msgstr "Du hast einen Fehler gefunden? Du wünschst dir eine neue Funktion? Schreib uns auf <a href=\"%s\">GitHub</a>!"
+
+#: templates/bsr-help.php:29
+msgid "Download System Info"
+msgstr "System-Info herunterladen"
 
 #: templates/bsr-search-replace.php:21
 msgid "This tool allows you to search and replace text in your database (supports serialized arrays and objects)."
-msgstr "Mit diesem Tool kannst Du Zeichenketten in der Datenbank suchen und durch andere ersetzen (serialisierte Arrays und Objekte werden unterstützt)."
+msgstr "Mit diesem Tool kannst du Zeichenketten in der Datenbank suchen und durch andere ersetzen (serialisierte Arrays und Objekte werden unterstützt)."
 
 #: templates/bsr-search-replace.php:22
 msgid "To get started, use the form below to enter the text to be replaced and select the tables to update."
@@ -108,7 +128,7 @@ msgstr "Gib im Formular an, welche Zeichenkette gesucht und ersetzt werden soll.
 
 #: templates/bsr-search-replace.php:23
 msgid "<strong>WARNING:</strong> Make sure you backup your database before using this plugin!"
-msgstr "<strong>Achtung:</strong> Mach' bitte ein Backup von Deiner Datenbank bevor Du dieses Plugin benutzt."
+msgstr "<strong>Achtung:</strong> Mach' bitte ein Backup von deiner Datenbank bevor du dieses Plugin benutzt!"
 
 #: templates/bsr-search-replace.php:28
 msgid "Search for"
@@ -148,7 +168,7 @@ msgstr "Testlauf?"
 
 #: templates/bsr-search-replace.php:65
 msgid "If checked, no changes will be made to the database, allowing you to check the results beforehand."
-msgstr "Beim Testlauf wird die Datenbank nicht verändert. So kannst Du vorher prüfen, welche Ersetzungen vorgenommen werden."
+msgstr "Beim Testlauf wird die Datenbank nicht verändert. So kannst du vorher prüfen, welche Ersetzungen vorgenommen werden."
 
 #: templates/bsr-search-replace.php:76
 msgid "Run Search/Replace"
@@ -164,7 +184,7 @@ msgstr "Aktuelle Einstellung: "
 
 #: templates/bsr-settings.php:33
 msgid "If you're noticing timeouts or getting a white screen while running a search replace, try decreasing this value."
-msgstr "Verringere diesen Wert, wenn Dein Datenbank-Server ein Timeout zurückmeldet oder Du nur einen weißen Screen siehst, während das Suchen/Ersetzen läuft. "
+msgstr "Verringere diesen Wert, wenn dein Datenbank-Server ein Timeout zurückmeldet oder du nur einen weißen Screen siehst, während das Suchen/Ersetzen läuft. "
 
 #. Plugin URI of the plugin/theme
 msgid "http://expandedfronts.com/better-search-replace"
@@ -172,7 +192,7 @@ msgstr "http://expandedfronts.com/better-search-replace"
 
 #. Description of the plugin/theme
 msgid "A small plugin for running a search/replace on your WordPress database."
-msgstr "Ein PlugIn, um in Deiner WordPress Datenbank Zeichenketten zu suchen und zu ersetzen"
+msgstr "Ein Plugin mit dem Zeichenketten in deiner WordPress-Datenbank gesucht und ersetzt werden können."
 
 #. Author of the plugin/theme
 msgid "Expanded Fronts"
