@@ -123,8 +123,8 @@ class BSR_AJAX {
 			'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
 			'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
 			'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
-			'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
-			'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
+			'search_for' 		=> isset( $args['search_for'] ) ? $args['search_for'] : '',
+			'replace_with' 		=> isset( $args['replace_with'] ) ? $args['replace_with'] : '',
 			'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 		);
 
@@ -204,8 +204,8 @@ class BSR_AJAX {
 
 		// Append the table report, or create a new one if necessary.
 		if ( isset( $results['table_reports'] ) && isset( $results['table_reports'][$table] ) ) {
-			$results['table_reports'][$table]['change'] 	= $results[$table]['change'] + $report['change'];
-			$results['table_reports'][$table]['updates'] 	= $results[$table]['updates'] + $report['updates'];
+			$results['table_reports'][$table]['change'] 	= $results['table_reports'][$table]['change'] + $report['change'];
+			$results['table_reports'][$table]['updates'] 	= $results['table_reports'][$table]['updates'] + $report['updates'];
 			$results['table_reports'][$table]['end'] 		= $report['end'];
 		} else {
 			$results['table_reports'][$table] = $report;
