@@ -133,6 +133,29 @@ class BSR_DB {
 	}
 
 	/**
+	 * Gets the columns in a table.
+	 * @access public
+	 * @param  string $table The table to check.
+	 * @return array
+	 */
+	public function get_columns( $table ) {
+		$primary_key 	= null;
+		$columns 		= array();
+		$fields  		= $this->wpdb->get_results( 'DESCRIBE ' . $table );
+
+		if ( is_array( $fields ) ) {
+			foreach ( $fields as $column ) {
+				$columns[] = $column->Field;
+				if ( $column->Key == 'PRI' ) {
+					$primary_key = $column->Field;
+				}
+			}
+		}
+
+		return array( $primary_key, $columns );
+	}
+
+	/**
 	 * Adapated from interconnect/it's search/replace script.
 	 *
 	 * Modified to use WordPress wpdb functions instead of PHP's native mysql/pdo functions,
@@ -159,16 +182,18 @@ class BSR_DB {
 			'updates' 	=> 0,
 			'start' 	=> microtime( true ),
 			'end'		=> microtime( true ),
-			'errors' 	=> array()
+			'errors' 	=> array(),
+			'skipped' 	=> false
 		);
 
 		// Get a list of columns in this table.
-		$columns = array();
-		$fields  = $this->wpdb->get_results( 'DESCRIBE ' . $table );
-		foreach ( $fields as $column ) {
-			$columns[$column->Field] = $column->Key == 'PRI' ? true : false;
+		list( $primary_key, $columns ) = $this->get_columns( $table );
+
+		// Bail out early if there isn't a primary key.
+		if ( null === $primary_key ) {
+			$table_report['skipped'] = true;
+			return array( true, $table_report );
 		}
-		$this->wpdb->flush();
 
 		$current_row 	= 0;
 		$start 			= $page * $this->page_size;
@@ -184,9 +209,14 @@ class BSR_DB {
 			$where_sql 	= array();
 			$upd 		= false;
 
-			foreach( $columns as $column => $primary_key ) {
+			foreach( $columns as $column ) {
 
 				$data_to_fix = $row[ $column ];
+
+				if ( $column == $primary_key ) {
+					$where_sql[] = $column . ' = "' .  $this->mysql_escape_mimic( $data_to_fix ) . '"';
+					continue;
+				}
 
 				// Skip GUIDs by default.
 				if ( 'on' !== $args['replace_guids'] && 'guid' == $column ) {
@@ -234,9 +264,6 @@ class BSR_DB {
 					$table_report['change']++;
 				}
 
-				if ( $primary_key ) {
-					$where_sql[] = $column . ' = "' .  $this->mysql_escape_mimic( $data_to_fix ) . '"';
-				}
 			}
 
 			// Determine what to do with updates.
@@ -253,8 +280,6 @@ class BSR_DB {
 					$table_report['updates']++;
 				}
 
-			} elseif ( $upd ) {
-				$table_report['errors'][] = sprintf( __( 'Row %d has no primary key, manual change needed.', 'better-search-replace' ), $current_row );
 			}
 
 		} // end row loop
