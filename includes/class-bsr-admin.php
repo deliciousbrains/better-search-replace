@@ -202,8 +202,8 @@ class BSR_Admin {
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=1.1';
 
 			?>
-			<link href="<?php echo $styles_url; ?>" rel="stylesheet" type="text/css">
-			<link href="<?php echo $bsr_styles; ?>" rel="stylesheet" type="text/css">
+			<link href="<?php echo esc_url( $styles_url ); ?>" rel="stylesheet" type="text/css">
+			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
 			<div class="container" style="padding:10px;">
 
