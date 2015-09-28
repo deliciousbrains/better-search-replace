@@ -16,3 +16,5 @@
 .bsr-progress { width: 0%; height: 100%; background-color: #0073aa; }
 #bsr-search-replace-wrap { margin-top: 10px; }
 .bsr-description { margin-bottom: 15px; }
+#bsr-nav-tab-wrapper { margin-top: 0 !important; padding: 0 0 0 10px !important; font-size: 23px !important; }
+#bsr-help-heading { font-size: 1.3em !important; padding: 0 !important; }

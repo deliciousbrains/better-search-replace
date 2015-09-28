@@ -231,7 +231,7 @@ class BSR_Admin {
 				</table>
 
 				<p style="text-align:center;"><strong><?php _e( 'Want even more details, easy database migrations, and saved search/replace profiles?', 'better-search-replace' ); ?><br>
-				<a href="https://expandedfronts.com/downloads/better-search-replace-pro/" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
+				<a href="https://expandedfronts.com/products/better-search-replace-pro/" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
 
 			</div>
 			<?php
@@ -276,7 +276,7 @@ class BSR_Admin {
 		if ( $file == $plugin ) {
 			return array_merge(
 				$links,
-				array( '<a href="https://expandedfronts.com/downloads/better-search-replace-pro/">' . __( 'Upgrade to Pro', 'better-search-replace' ) . '</a>' )
+				array( '<a href="https://expandedfronts.com/products/better-search-replace-pro/">' . __( 'Upgrade to Pro', 'better-search-replace' ) . '</a>' )
 			);
 		}
 

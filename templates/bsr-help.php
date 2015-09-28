@@ -14,11 +14,11 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 ?>
 
-<h3><?php _e( 'Help & Troubleshooting', 'better-search-replace' ); ?></h3>
+<h3 id="bsr-help-heading"><?php _e( 'Help & Troubleshooting', 'better-search-replace' ); ?></h3>
 
 <p><?php printf( __( 'Free support is available on the <a href="%s">plugin support forums</a>.', 'better-search-replace' ), 'https://wordpress.org/support/plugin/better-search-replace' ); ?></p>
 
-<p><?php printf( __( 'For premium features and priority email support, <a href="%s" style="font-weight:bold;">upgrade to pro</a>.', 'better-search-replace' ), 'https://expandedfronts.com/downloads/better-search-replace-pro/' ); ?></p>
+<p><?php printf( __( 'For premium features and priority email support, <a href="%s" style="font-weight:bold;">upgrade to pro</a>.', 'better-search-replace' ), 'https://expandedfronts.com/products/better-search-replace-pro/' ); ?></p>
 
 <p><?php printf( __( 'Found a bug or have a feature request? Please submit an issue on <a href="%s">GitHub</a>!', 'better-search-replace' ), 'https://github.com/expandedfronts/better-search-replace' ); ?></p>
 
