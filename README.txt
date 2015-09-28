@@ -27,7 +27,7 @@ When moving your WordPress site to a new domain or server, you will likely run i
 * Save or load custom profiles for quickly repeating a search/replace in the future
 * Support and updates for 1 year
 
-[Learn more about Better Search Replace Pro](https://expandedfronts.com/downloads/better-search-replace-pro/)
+[Learn more about Better Search Replace Pro](https://expandedfronts.com/products/better-search-replace-pro/)
 
 The search and replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
@@ -94,6 +94,12 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.2.3 =
+* Fixed bug with searching for backslashes
+* Fixed potential bug with getting tables in large multisites
+* Fixed potential notice in append_report
+* Improved handling of missing primary keys
 
 = 1.2.2 =
 * Fixed AJAX conflict with WooCommerce
