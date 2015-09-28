@@ -55,7 +55,14 @@ class BSR_DB {
 		global $wpdb;
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-			$tables = $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->prefix . "%'" );
+
+			if ( is_main_site() ) {
+				$tables 	= $wpdb->get_col( 'SHOW TABLES' );
+			} else {
+				$blog_id 	= get_current_blog_id();
+				$tables 	= $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->base_prefix . absint( $blog_id ) . "\_%'" );
+			}
+
 		} else {
 			$tables = $wpdb->get_col( 'SHOW TABLES' );
 		}
