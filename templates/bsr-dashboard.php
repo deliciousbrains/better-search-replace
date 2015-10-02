@@ -16,10 +16,10 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 // Determines which tab to display.
 $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'bsr_search_replace';
 
-if ( 'bsr_settings' === $active_tab ) {
-	$action = get_admin_url() . 'options.php';
+if ( 'bsr_search_replace' !== $active_tab ) {
+	$action = 'action="' . get_admin_url() . 'options.php' . '"';
 } else {
-	$action = get_admin_url() . 'admin-post.php';
+	$action = '';
 }
 
 ?>
@@ -44,7 +44,7 @@ if ( 'bsr_settings' === $active_tab ) {
 				    <a href="?page=better-search-replace&tab=bsr_help" class="nav-tab <?php echo $active_tab == 'bsr_help' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Help', 'better-search-replace' ); ?></a>
 				</h2>
 
-				<form class="bsr-action-form" action="<?php echo $action; ?>" method="POST">
+				<form class="bsr-action-form" <?php echo $action; ?> method="POST">
 
 				<?php
 					// Include the correct tab template.

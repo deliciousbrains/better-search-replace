@@ -144,7 +144,7 @@ class BSR_Admin {
 			if ( 'checkbox' === $type && 'on' === $values[$value] ) {
 				echo 'checked';
 			} else {
-				echo esc_attr( $values[$value] );
+				echo str_replace( '#BSR_BACKSLASH#', '\\', esc_attr( $values[$value] ) );
 			}
 
 		}

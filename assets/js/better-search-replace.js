@@ -84,7 +84,9 @@
 				} else if ( ! $( '#select_tables' ).val() ) {
 					bsr_error_wrap.html( '<div class="error"><p>' + bsr_object_vars.no_tables + '</p></div>' );
 				} else {
-					var data = $( '.bsr-action-form' ).serialize();
+					var str 	= $( '.bsr-action-form' ).serialize();
+					var data 	= str.replace(/%5C/g, "#BSR_BACKSLASH#" );
+
 					bsr_error_wrap.html('');
 					search_replace_submit.addClass( 'bsr-disabled button-disabled' );
 					$( '#bsr-submit-wrap' ).append('<div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div>');
