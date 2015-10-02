@@ -112,6 +112,7 @@ class BSR_AJAX {
 			parse_str( $_POST['bsr_data'], $args );
 		}
 
+
 		// Initialize the DB class.
 		$db 				= new BSR_DB();
 		$step 				= isset( $_POST['bsr_step' ] ) ? absint( $_POST['bsr_step'] ) : 0;
