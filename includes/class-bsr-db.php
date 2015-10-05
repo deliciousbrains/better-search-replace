@@ -184,6 +184,9 @@ class BSR_DB {
 		$pages 			= $this->get_pages_in_table( $table );
 		$done 			= false;
 
+		$args['search_for'] 	= str_replace( '#BSR_BACKSLASH#', '\\', $args['search_for'] );
+		$args['replace_with'] 	= str_replace( '#BSR_BACKSLASH#', '\\', $args['replace_with'] );
+
 		$table_report = array(
 			'change' 	=> 0,
 			'updates' 	=> 0,

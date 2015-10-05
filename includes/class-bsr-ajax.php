@@ -124,8 +124,8 @@ class BSR_AJAX {
 			'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
 			'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
 			'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
-			'search_for' 		=> isset( $args['search_for'] ) ? $args['search_for'] : '',
-			'replace_with' 		=> isset( $args['replace_with'] ) ? $args['replace_with'] : '',
+			'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
+			'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
 			'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 		);
 

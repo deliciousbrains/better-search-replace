@@ -57,6 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.2.4 ###
+* Added "Settings saved" notice when saving settings
+* Fixed bug with wp_magic_quotes interfering with some search strings
+
 ### 1.2.3 ###
 * Fixed bug with searching for backslashes
 * Fixed potential bug with getting tables in large multisites
