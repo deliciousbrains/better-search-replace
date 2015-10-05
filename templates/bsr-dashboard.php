@@ -16,10 +16,15 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 // Determines which tab to display.
 $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'bsr_search_replace';
 
-if ( 'bsr_search_replace' !== $active_tab ) {
-	$action = 'action="' . get_admin_url() . 'options.php' . '"';
-} else {
-	$action = '';
+switch( $active_tab ) {
+	case 'bsr_settings':
+		$action = 'action="' . get_admin_url() . 'options.php' . '"';
+		break;
+	case 'bsr_help':
+		$action = 'action="' . get_admin_url() . 'admin-post.php' . '"';
+		break;
+	default:
+		$action = '';
 }
 
 ?>
