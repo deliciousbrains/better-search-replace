@@ -32,6 +32,7 @@ switch( $active_tab ) {
 <div class="wrap">
 
 	<h1 id="bsr-title"><?php _e( 'Better Search Replace', 'better-search-replace' ); ?></h1>
+	<?php settings_errors(); ?>
 
 	<div id="bsr-error-wrap"></div>
 
