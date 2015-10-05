@@ -96,6 +96,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = 1.2.4 =
+* Added "Settings saved" notice when saving settings
 * Fixed bug with wp_magic_quotes interfering with some search strings
 
 = 1.2.3 =
