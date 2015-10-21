@@ -71,6 +71,7 @@ class BSR_Admin {
 				'no_search' 	=> __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
 				'no_tables' 	=> __( 'Please select the tables that you want to update.', 'better-search-replace' ),
 				'unknown' 		=> __( 'An error occurred processing your request. Try decreasing the "Max Page Size", or contact support.', 'better-search-replace' ),
+				'processing'	=> __( 'Processing...', 'better-search-replace' )
 			) );
 		}
 	}

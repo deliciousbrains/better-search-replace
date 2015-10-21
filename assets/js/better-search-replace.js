@@ -88,6 +88,7 @@
 					bsr_error_wrap.html('');
 					search_replace_submit.addClass( 'bsr-disabled button-disabled' );
 					$( '#bsr-submit-wrap' ).append('<div class="bsr-processing-wrap"><div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div></div>');
+					$('.bsr-progress-wrap').append( '<p class="description bsr-description">' + bsr_object_vars.processing + '</p>' );
 					bsr_process_step( 'process_search_replace', 0, 0, data );
 				}
 
