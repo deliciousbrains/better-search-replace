@@ -150,6 +150,16 @@ class BSR_AJAX {
 				$page = 0;
 			}
 
+			// Check if isset() again as the step may have changed since last check.
+			if ( isset( $args['select_tables'][$step] ) ) {
+				$message = sprintf(
+					__( 'Processing table %d of %d: %s', 'better-search-replace' ),
+					$step + 1,
+					count( $args['select_tables'] ),
+					esc_html( $args['select_tables'][$step] )
+				);
+			}
+
 			$args['completed_pages']++;
 			$percentage = $args['completed_pages'] / $args['total_pages'] * 100 . '%';
 
@@ -167,6 +177,10 @@ class BSR_AJAX {
 			'url' 				=> get_admin_url() . 'tools.php?page=better-search-replace&tab=bsr_search_replace&result=true',
 			'bsr_data' 			=> http_build_query( $args )
 		);
+
+		if ( isset( $message ) ) {
+			$result['message'] = $message;
+		}
 
 		// Send output as JSON for processing via AJAX.
 		echo json_encode( $result );

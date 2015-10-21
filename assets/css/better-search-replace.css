@@ -11,10 +11,12 @@
 .bsr-old-val { background-color: #fdd; }
 .bsr-new-val { background-color: #cfc; }
 .bsr-change { width: 400px !important; }
-#bsr-slider { width: 23em; }
-.bsr-progress-wrap { width: 100%; height: 12px; background-color: #eee; margin-top: 15px; }
+.bsr-slider { width: 23em; }
+.bsr-progress-wrap { width: 95%; height: 12px; background-color: #ddd; }
 .bsr-progress { width: 0%; height: 100%; background-color: #0073aa; }
 #bsr-search-replace-wrap { margin-top: 10px; }
-.bsr-description { margin-bottom: 15px; }
+.bsr-description { display: block; margin-top: 6px !important; color: #444 !important; }
 #bsr-nav-tab-wrapper { margin-top: 0 !important; padding: 0 0 0 10px !important; font-size: 23px !important; }
 #bsr-help-heading { font-size: 1.3em !important; padding: 0 !important; }
+.bsr-processing-wrap { background: #f4f4f4; padding: 16px 16px 32px; overflow: auto; border-top: 1px solid #eae9e9; margin: 20px -12px -12px -12px; }
+.bsr-spinner { margin: -3px 0 0 0; }

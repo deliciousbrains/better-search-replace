@@ -6,7 +6,7 @@
 	 */
 	function bsr_init() {
 		bsr_search_replace();
-		bsr_update_slider();
+		bsr_update_sliders();
 	}
 
 	/**
@@ -42,8 +42,7 @@
 						bsr_update_progress_bar( '0%', 0 );
 						bsr_process_step( response.next_action, 0, 0, response.bsr_data );
 					} else {
-						$('.bsr-spinner').remove();
-						$('.bsr-progress-wrap').remove();
+						$('.bsr-processing-wrap').remove();
 						$('.bsr-disabled').removeClass('bsr-disabled button-disabled' );
 						window.location = response.url;
 					}
@@ -55,8 +54,7 @@
 
 			}
 		}).fail(function (response) {
-			$('.bsr-spinner').remove();
-			$('.bsr-progress-wrap').remove();
+			$('.bsr-processing-wrap').remove();
 			$('.bsr-disabled').removeClass('bsr-disabled button-disabled' );
 			$('#bsr-error-wrap').html( '<div class="error"><p>' + bsr_object_vars.unknown + '</p></div>' );
 			if ( window.console && window.console.log ) {
@@ -89,7 +87,7 @@
 
 					bsr_error_wrap.html('');
 					search_replace_submit.addClass( 'bsr-disabled button-disabled' );
-					$( '#bsr-submit-wrap' ).append('<div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div>');
+					$( '#bsr-submit-wrap' ).append('<div class="bsr-processing-wrap"><div class="spinner is-active bsr-spinner"></div><div class="bsr-progress-wrap"><div class="bsr-progress"></div></div></div>');
 					bsr_process_step( 'process_search_replace', 0, 0, data );
 				}
 
@@ -114,14 +112,14 @@
 	/**
 	 * Updates the "Max Page Size" slider.
 	 */
-	function bsr_update_slider( percentage ) {
-		$('#bsr-slider').slider({
+	function bsr_update_sliders( percentage ) {
+		$('#bsr-page-size-slider').slider({
 			value: bsr_object_vars.page_size,
 			range: "min",
 			min: 1000,
 			max: 50000,
 			step: 1000,
-			change: function( event, ui ) {
+			slide: function( event, ui ) {
 				$('#bsr-page-size-value').text( ui.value );
 				$('#bsr_page_size').val( ui.value );
 			}

@@ -65,7 +65,7 @@ class BSR_Admin {
 			wp_enqueue_script( 'thickbox' );
 
 			wp_localize_script( 'better-search-replace', 'bsr_object_vars', array(
-				'page_size' 	=> get_option( 'bsr_page_size' ) ? get_option( 'bsr_page_size' ) : 20000,
+				'page_size' 	=> get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000,
 				'endpoint' 		=> BSR_AJAX::get_endpoint(),
 				'ajax_nonce' 	=> wp_create_nonce( 'bsr_ajax_nonce' ),
 				'no_search' 	=> __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
