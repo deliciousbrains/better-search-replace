@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Better Search Replace package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.2.2\n"
+"Project-Id-Version: Better Search Replace 1.2.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/better-search-"
 "replace\n"
-"POT-Creation-Date: 2015-09-09 01:51:36+00:00\n"
+"POT-Creation-Date: 2015-10-21 07:13:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,13 +28,17 @@ msgid ""
 "\", or contact support."
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (Better Search Replace 1.2.2)  #-#-#-#-#
+#: includes/class-bsr-admin.php:74
+msgid "Processing..."
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Better Search Replace 1.2.5)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: includes/class-bsr-admin.php:85 templates/bsr-dashboard.php:29
+#: includes/class-bsr-admin.php:86 templates/bsr-dashboard.php:34
 msgid "Better Search Replace"
 msgstr ""
 
-#: includes/class-bsr-admin.php:105
+#: includes/class-bsr-admin.php:106
 msgid ""
 "<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, "
 "<strong>%d</strong> cells were found that need to be updated, and <strong>"
@@ -43,7 +47,7 @@ msgid ""
 "to run the search/replace.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:112
+#: includes/class-bsr-admin.php:113
 msgid ""
 "<p>During the search/replace, <strong>%d</strong> tables were searched, with "
 "<strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a "
@@ -51,58 +55,74 @@ msgid ""
 "a> for more details.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:212
+#: includes/class-bsr-admin.php:213
 msgid "Table"
 msgstr ""
 
-#: includes/class-bsr-admin.php:212
+#: includes/class-bsr-admin.php:213
 msgid "Changes Found"
 msgstr ""
 
-#: includes/class-bsr-admin.php:212
+#: includes/class-bsr-admin.php:213
 msgid "Rows Updated"
 msgstr ""
 
-#: includes/class-bsr-admin.php:212
+#: includes/class-bsr-admin.php:213
 msgid "Time"
 msgstr ""
 
-#: includes/class-bsr-admin.php:233
+#: includes/class-bsr-admin.php:234
 msgid ""
 "Want even more details, easy database migrations, and saved search/replace "
 "profiles?"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:235
 msgid "Learn more about the pro version"
 msgstr ""
 
-#: includes/class-bsr-admin.php:279
+#: includes/class-bsr-admin.php:280
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/class-bsr-db.php:81
+#: includes/class-bsr-ajax.php:156
+msgid "Processing table %d of %d: %s"
+msgstr ""
+
+#: includes/class-bsr-db.php:88
 msgid "(%s MB)"
 msgstr ""
 
-#: includes/class-bsr-db.php:251
+#: includes/class-bsr-db.php:288
 msgid "Error updating row: %d."
 msgstr ""
 
-#: includes/class-bsr-db.php:257
-msgid "Row %d has no primary key, manual change needed."
-msgstr ""
-
-#: templates/bsr-dashboard.php:36
+#: templates/bsr-dashboard.php:48
 msgid "Search/Replace"
 msgstr ""
 
-#: templates/bsr-dashboard.php:37
+#: templates/bsr-dashboard.php:49
 msgid "Settings"
 msgstr ""
 
-#: templates/bsr-dashboard.php:38
+#: templates/bsr-dashboard.php:50
 msgid "Help"
+msgstr ""
+
+#: templates/bsr-dashboard.php:72
+msgid "Like this plugin?"
+msgstr ""
+
+#: templates/bsr-dashboard.php:75
+msgid "Rate it on WordPress.org"
+msgstr ""
+
+#: templates/bsr-dashboard.php:76
+msgid "Follow us on Twitter"
+msgstr ""
+
+#: templates/bsr-dashboard.php:77
+msgid "Get the pro version"
 msgstr ""
 
 #: templates/bsr-help.php:17

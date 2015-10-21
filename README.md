@@ -57,6 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.2.5 ###
+* Improved progress bar info and styles
+* Small cleanup
+
 ### 1.2.4 ###
 * Added "Settings saved" notice when saving settings
 * Fixed bug with wp_magic_quotes interfering with some search strings
