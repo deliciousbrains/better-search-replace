@@ -41,9 +41,6 @@ class BSR_DB {
 		$this->wpdb = $wpdb;
 
 		$this->page_size = $this->get_page_size();
-
-		$upload_dir = wp_upload_dir();
-		$this->file = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'bsr_db_backup.sql';
 	}
 
 	/**
