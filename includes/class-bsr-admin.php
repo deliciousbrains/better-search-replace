@@ -200,7 +200,7 @@ class BSR_Admin {
 
 			$results 		= get_transient( 'bsr_results' );
 			$styles_url 	= get_admin_url() . "load-styles.php?c=0&dir=ltr&load=dashicons,admin-bar,wp-admin,buttons,wp-auth-check";
-			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=1.1';
+			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
 
 			?>
 			<link href="<?php echo esc_url( $styles_url ); ?>" rel="stylesheet" type="text/css">
