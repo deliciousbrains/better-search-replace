@@ -319,7 +319,7 @@ class BSR_DB {
 	 * @param  boolean 		$serialised 		Does the array passed via $data need serialising.
 	 * @param  boolean 		$case_insensitive 	If we should ignore case.
 	 *
-	 * @return array	The original array with all elements replaced as needed.
+	 * @return string|array	The original array with all elements replaced as needed.
 	 */
 	public function recursive_unserialize_replace( $from = '', $to = '', $data = '', $serialised = false, $case_insensitive = false ) {
 		try {
