@@ -95,6 +95,9 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
+= 1.2.6 =
+* Removed unused code/small cleanup
+
 = 1.2.5 =
 * Improved progress bar info and styles
 * Small cleanup

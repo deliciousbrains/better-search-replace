@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.3
+**Tested up to:** 4.3.1
 
 **Stable tag:** trunk
 
@@ -56,6 +56,9 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.2.6 ###
+* Removed unused code/small cleanup
 
 ### 1.2.5 ###
 * Improved progress bar info and styles
