@@ -9,7 +9,7 @@
  */
 
 // Prevent direct access.
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'BSR_PATH' ) ) exit;
 
 class BSR_Compatibility {
 
