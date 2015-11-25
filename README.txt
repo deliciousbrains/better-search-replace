@@ -95,6 +95,9 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
+= 1.2.8 - November 25, 2015 =
+* Fix: Bug with report details
+
 = 1.2.7 - November 24, 2015 =
 * Fix: Untranslateable string
 * Tweak: Check BSR_PATH instead of ABSPATH to be consistent
