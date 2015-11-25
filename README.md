@@ -57,11 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
-### 2.0.1 - October 30, 2015 ###
+### 1.2.7 - November 24, 2015 ###
 * Fix: Untranslateable string
 * Tweak: Check BSR_PATH instead of ABSPATH to be consistent
 * Tested with 4.4
-
 
 ### 1.2.6 ###
 * Removed unused code/small cleanup
