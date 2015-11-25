@@ -34,7 +34,7 @@ When moving your WordPress site to a new domain or server, you will likely run i
 * Save or load custom profiles for quickly repeating a search/replace in the future
 * Support and updates for 1 year
 
-[Learn more about Better Search Replace Pro](https://expandedfronts.com/products/better-search-replace-pro/)
+**[Learn more about Better Search Replace Pro](https://expandedfronts.com/products/better-search-replace-pro/)**
 
 
 The search/replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
@@ -56,6 +56,12 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 2.0.1 - October 30, 2015 ###
+* Fix: Untranslateable string
+* Tweak: Check BSR_PATH instead of ABSPATH to be consistent
+* Tested with 4.4
+
 
 ### 1.2.6 ###
 * Removed unused code/small cleanup
