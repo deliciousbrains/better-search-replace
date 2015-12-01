@@ -310,11 +310,11 @@ class BSR_DB {
 	 * unserialising any subordinate arrays and performing the replace on those too.
 	 *
 	 * @access private
-	 * @param  string 		$from       		String we're looking to replace.
-	 * @param  string 		$to         		What we want it to be replaced with
-	 * @param  array  		$data       		Used to pass any subordinate arrays back to in.
-	 * @param  boolean 		$serialised 		Does the array passed via $data need serialising.
-	 * @param  boolean 		$case_insensitive 	If we should ignore case.
+	 * @param  string 			$from       		String we're looking to replace.
+	 * @param  string 			$to         		What we want it to be replaced with
+	 * @param  array  			$data       		Used to pass any subordinate arrays back to in.
+	 * @param  boolean 			$serialised 		Does the array passed via $data need serialising.
+	 * @param  sting|boolean 	$case_insensitive 	Set to 'on' if we should ignore case, false otherwise.
 	 *
 	 * @return string|array	The original array with all elements replaced as needed.
 	 */
@@ -322,13 +322,13 @@ class BSR_DB {
 		try {
 
 			if ( is_string( $data ) && ( $unserialized = @unserialize( $data ) ) !== false ) {
-				$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true );
+				$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true, $case_insensitive );
 			}
 
 			elseif ( is_array( $data ) ) {
 				$_tmp = array( );
 				foreach ( $data as $key => $value ) {
-					$_tmp[ $key ] = $this->recursive_unserialize_replace( $from, $to, $value, false );
+					$_tmp[ $key ] = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 				}
 
 				$data = $_tmp;
@@ -340,7 +340,7 @@ class BSR_DB {
 				$_tmp 	= $data;
 				$props 	= get_object_vars( $data );
 				foreach ( $props as $key => $value ) {
-					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false );
+					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 				}
 
 				$data = $_tmp;
