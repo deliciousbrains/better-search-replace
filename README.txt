@@ -97,6 +97,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 = 1.2.9 - December 8, 2015 =
 * Fix: Bug with case-insensitive searches in serialized objects
+* Fix: Bug with early skip due to lack of primary key
 
 = 1.2.8 - November 25, 2015 =
 * Fix: Bug with report details

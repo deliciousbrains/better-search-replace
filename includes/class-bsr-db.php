@@ -199,7 +199,7 @@ class BSR_DB {
 		// Bail out early if there isn't a primary key.
 		if ( null === $primary_key ) {
 			$table_report['skipped'] = true;
-			return array( true, $table_report );
+			return array( 'table_complete' => true, 'table_report' => $table_report );
 		}
 
 		$current_row 	= 0;
