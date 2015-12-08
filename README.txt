@@ -95,7 +95,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= 1.2.9 - December 7, 2015 =
+= 1.2.9 - December 8, 2015 =
 * Fix: Bug with case-insensitive searches in serialized objects
 
 = 1.2.8 - November 25, 2015 =
