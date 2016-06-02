@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.5
+**Tested up to:** 4.5.2
 
 **Stable tag:** trunk
 
@@ -56,6 +56,9 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.2.10 - June 2, 2016 ###
+* Fix: CSS not loaded on details page
 
 ### 1.2.9 - December 8, 2015 ###
 * Fix: Bug with case-insensitive searches in serialized objects
