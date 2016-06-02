@@ -9,7 +9,7 @@ __Please Note:__ GitHub is for bug reports and contributions only - if you have 
 ## Getting Started
 
 * Submit a ticket for your issue, assuming one does not already exist.
-  * Raise it on the [Issue Tracker](https://github.com/expandedfronts/Better-Search-Replace/issues)
+  * Raise it on the [Issue Tracker](https://github.com/deliciousbrains/Better-Search-Replace/issues)
   * Clearly describe the issue including steps to reproduce the bug.
   * Make sure you fill in the earliest version that you know has the issue as well as the version of WordPress you're using.
 

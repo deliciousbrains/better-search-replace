@@ -11,11 +11,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Better Search Replace
- * Plugin URI:        http://expandedfronts.com/better-search-replace
+ * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
  * Version:           1.2.10
- * Author:            Expanded Fronts
- * Author URI:        http://expandedfronts.com
+ * Author:            Delicious Brains
+ * Author URI:        https://bettersearchreplace.com
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       better-search-replace
