@@ -199,11 +199,13 @@ class BSR_Admin {
 		if ( get_transient( 'bsr_results' ) ) {
 
 			$results 		= get_transient( 'bsr_results' );
-			$styles_url 	= get_admin_url() . "load-styles.php?c=0&dir=ltr&load=dashicons,admin-bar,wp-admin,buttons,wp-auth-check";
+			$min		    = defined( 'SCRIPT_DEBUG' ) ? '.min' : '';
+			$admin_url	    = get_admin_url();
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
 
 			?>
-			<link href="<?php echo esc_url( $styles_url ); ?>" rel="stylesheet" type="text/css">
+			<link href="<?php echo esc_url( $admin_url . '/css/list-tables' . $min . '.css' ); ?>" rel="stylesheet" type="text/css" />
+			<link href="<?php echo esc_url( $admin_url . '/css/common' . $min . '.css' ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
 			<div class="container" style="padding:10px;">
