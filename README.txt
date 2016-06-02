@@ -1,8 +1,8 @@
 === Better Search Replace ===
-Contributors: ExpandedFronts, mattshaw
+Contributors: deliciousbrains, mattshaw
 Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
-Tested up to: 4.4
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ When moving your WordPress site to a new domain or server, you will likely run i
 > * Save or load custom profiles for quickly repeating a search/replace in the future
 > * Support and updates for 1 year
 >
-> **[Learn more about Better Search Replace Pro](https://expandedfronts.com/products/better-search-replace-pro/)**
+> **[Learn more about Better Search Replace Pro](https://bettersearchreplace.com/)**
 
 The search and replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
@@ -40,7 +40,7 @@ The search and replace functionality is heavily based on interconnect/it's great
 
 **Want to contribute?**
 
-Feel free to open an issue or submit a pull request on [GitHub](https://github.com/ExpandedFronts/Better-Search-Replace).
+Feel free to open an issue or submit a pull request on [GitHub](https://github.com/deliciousbrains/better-search-replace/).
 
 == Installation ==
 
