@@ -199,13 +199,11 @@ class BSR_Admin {
 		if ( get_transient( 'bsr_results' ) ) {
 
 			$results 		= get_transient( 'bsr_results' );
-			$min		    = defined( 'SCRIPT_DEBUG' ) ? '.min' : '';
-			$admin_url	    = get_admin_url();
+			$min 			= ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
 
 			?>
-			<link href="<?php echo esc_url( $admin_url . '/css/list-tables' . $min . '.css' ); ?>" rel="stylesheet" type="text/css" />
-			<link href="<?php echo esc_url( $admin_url . '/css/common' . $min . '.css' ); ?>" rel="stylesheet" type="text/css" />
+			<link href="<?php echo esc_url( get_admin_url( null, 'css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
 			<div class="container" style="padding:10px;">
