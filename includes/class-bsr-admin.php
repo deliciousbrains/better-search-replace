@@ -163,7 +163,7 @@ class BSR_Admin {
 		$tables 	= BSR_DB::get_tables();
 		$sizes 		= BSR_DB::get_sizes();
 
-		echo '<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;">';
+		echo '<select id="select_tables" name="select_tables[]" multiple="multiple" style="width:25em;" size="15">';
 
 		foreach ( $tables as $table ) {
 
