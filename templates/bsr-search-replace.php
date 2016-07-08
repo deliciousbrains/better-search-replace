@@ -26,12 +26,12 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 			<tr>
 				<td><label for="search_for"><strong><?php _e( 'Search for', 'better-search-replace' ); ?></strong></label></td>
-				<td><input id="search_for" class="regular-text" type="text" name="search_for" value="<?php BSR_Admin::prefill_value( 'search_for' ); ?>" /></td>
+				<td><textarea id="search_for" class="regular-text" name="search_for" rows="5" cols="50"><?php BSR_Admin::prefill_value( 'search_for' ); ?></textarea></td>
 			</tr>
 
 			<tr>
 				<td><label for="replace_with"><strong><?php _e( 'Replace with', 'better-search-replace' ); ?></strong></label></td>
-				<td><input id="replace_with" class="regular-text" type="text" name="replace_with" value="<?php BSR_Admin::prefill_value( 'replace_with' ); ?>" /></td>
+				<td><textarea id="replace_with" class="regular-text" name="replace_with" rows="5" cols="50"><?php BSR_Admin::prefill_value( 'replace_with' ); ?></textarea></td>
 			</tr>
 
 			<tr>
