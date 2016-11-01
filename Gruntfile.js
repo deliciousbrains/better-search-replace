@@ -11,8 +11,8 @@ module.exports = function(grunt) {
 					potHeaders: {
 						poedit: true,
 						'report-msgid-bugs-to': 'http://wordpress.org/support/plugin/better-search-replace',
-						'last-translator': 'Expanded Fronts <support@expandedfronts.com>',
-						'language-team': 'Expanded Fronts <support@expandedfronts.com>'
+						'last-translator': 'Delicious Brains <mayday@bettersearchreplace.com>',
+						'language-team': 'Delicious Brains <mayday@bettersearchreplace.com>'
 					},
 					type: 'wp-plugin',
 					updateTimestamp: true,

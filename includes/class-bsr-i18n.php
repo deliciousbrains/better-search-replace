@@ -9,7 +9,6 @@
  * @since      1.0.0
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/includes
- * @author     Expanded Fronts <support@expandedfronts.com>
  */
 
 // Prevent direct access.
