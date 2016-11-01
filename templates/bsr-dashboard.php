@@ -123,7 +123,7 @@ switch( $active_tab ) {
 				<div class="bsr-review-details">
 					<h3>"Worked Beautifully"</h3>
 					<img class="bsr-review-avatar" src="<?php echo BSR_URL . 'assets/img/phil-gravatar.jpeg'; ?>" />
-					<span class="bsr-review-author">@philraymond<br><?php _e( 'via WordPress.org', 'better-search-replace' ); ?></span>
+					<a href="https://wordpress.org/support/topic/worked-beautifully-10/"><span class="bsr-review-author">@philraymond<br><?php _e( 'via WordPress.org', 'better-search-replace' ); ?></span></a>
 				</div>
 			</div>
 
