@@ -32,7 +32,7 @@
 #bsr-upgrade ul li { margin: 5px 0 10px 0; }
 #bsr-upgrade ul li span { margin-left: -31px; font-size: 26px; margin-right: 6px; }
 #bsr-upgrade-form { background-color: #fff; padding: 20px; }
-#bsr-upgrade-form h1 { margin-top: 0; padding: 0; font-weight: bold; }
+#bsr-upgrade-form h1 { margin-top: 0; padding: 0; font-weight: bold; color: #444; }
 #bsr-upgrade-form input[type="text"], input[type="email"] { width: 90%; margin-bottom: 10px; }
 #bsr-upgrade-form .promise { color: #a5a5a5; }
 .bsr-stars { width: 100px; margin: 15px auto 0 auto; }
