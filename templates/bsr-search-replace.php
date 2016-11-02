@@ -14,7 +14,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 ?>
 
-<div id="bsr-search-replace-wrap" class="postbox">
+<div id="bsr-search-replace-wrap">
 
 	<div class="inside">
 
