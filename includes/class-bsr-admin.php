@@ -239,7 +239,7 @@ class BSR_Admin {
 				</table>
 
 				<p style="text-align:center;"><strong><?php _e( 'Want even more details, easy database migrations, and saved search/replace profiles?', 'better-search-replace' ); ?><br>
-				<a href="https://bettersearchreplace.com" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
+				<a href="https://bettersearchreplace.com/?utm_source=insideplugin&utm_medium=web&utm_content=results-modal&utm_campaign=pro-upsell" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
 
 			</div>
 			<?php
