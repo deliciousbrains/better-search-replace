@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://expandedfronts.com/better-search-replace
+ * @link       https://bettersearchreplace.com
  * @since      1.0.0
  *
  * @package    Better_Search_Replace
@@ -22,7 +22,6 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
  *
  * @package    Better_Search_Replace
  * @subpackage Better_Search_Replace/includes
- * @author     Expanded Fronts <support@expandedfronts.com>
  */
 class BSR_Loader {
 
