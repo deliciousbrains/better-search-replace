@@ -57,9 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
-### 1.3 - November 9, 2016 ###
+### 1.3 - November 10, 2016 ###
 * Improvement: Updated sidebar and added pro version discount
 * Fix: Outdated links to old website
+* Fix: Prevent requests to invalid tabs
 
 ### 1.2.10 - June 2, 2016 ###
 * Fix: CSS not loaded on details page

@@ -95,7 +95,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= 1.3 - November 9, 2016 =
+= 1.3 - November 10, 2016 =
 * Improvement: Updated sidebar and added pro version discount
 * Fix: Outdated links to old website
 * Fix: Prevent requests to invalid tabs
