@@ -1,17 +1,13 @@
 {
     "name": "better-search-replace",
-    "version": "1.2.9",
+    "version": "1.3",
     "description": "A simple plugin to update URLs or other text in a database.",
     "main": "better-search-replace.php",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://mgshaw@github.com/ExpandedFronts/better-search-replace.git"
-    },
     "private": true,
-    "author": "Expanded Fronts, LLC",
+    "author": "Delicious Brains",
     "license": "GPL-3.0",
     "devDependencies": {
         "grunt": "~0.4.2",

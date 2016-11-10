@@ -2,7 +2,7 @@
 /**
  * Displays the main "Search/Replace" tab.
  *
- * @link       http://expandedfronts.com/better-search-replace/
+ * @link       https://bettersearchreplace.com
  * @since      1.1
  *
  * @package    Better_Search_Replace
@@ -14,7 +14,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 ?>
 
-<div id="bsr-search-replace-wrap" class="postbox">
+<div id="bsr-search-replace-wrap">
 
 	<div class="inside">
 

@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.5.2
+**Tested up to:** 4.6.1
 
 **Stable tag:** trunk
 
@@ -56,6 +56,11 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.3 - November 10, 2016 ###
+* Improvement: Updated sidebar and added pro version discount
+* Fix: Outdated links to old website
+* Fix: Prevent requests to invalid tabs
 
 ### 1.2.10 - June 2, 2016 ###
 * Fix: CSS not loaded on details page

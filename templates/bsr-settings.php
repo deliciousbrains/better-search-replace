@@ -2,7 +2,7 @@
 /**
  * Displays the main "Settings" tab.
  *
- * @link       http://expandedfronts.com/better-search-replace/
+ * @link       https://bettersearchreplace.com
  * @since      1.1
  *
  * @package    Better_Search_Replace
