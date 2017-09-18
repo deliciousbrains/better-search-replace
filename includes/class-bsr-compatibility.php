@@ -38,8 +38,8 @@ class BSR_Compatibility {
 		// Plugin Configuration
 		$return .= "\n" . '-- Better Search Replace Configuration' . "\n\n";
 		$return .= 'Plugin Version:           ' . BSR_VERSION . "\n";
-		$page_size = get_option( 'bsr_page_size' ) ? get_option( 'bsr_page_size' ) : '50000';
-		$return .= 'Max Page Size:            ' . $page_size . "\n";
+		$db      = new BSR_DB();
+		$return .= 'Max Page Size:            ' . $db->get_page_size() . "\n";
 
 		// Server Configuration
 		$return .= "\n" . '-- Server Configuration' . "\n\n";

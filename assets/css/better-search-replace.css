@@ -41,3 +41,4 @@
 .bsr-review-avatar { border-radius: 90%; width: 65px; height: auto; float: left; margin-right: 15px; margin-left: 50px; }
 .bsr-review-author { display: block; padding-top: 12px; }
 #bsr-tabs { width: 100%; min-width: 463px; float: left; margin-bottom: 20px; }
+#bsr-table-select { width:25em; height: 180px; }

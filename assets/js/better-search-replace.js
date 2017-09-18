@@ -79,7 +79,7 @@
 
 				if ( ! $( '#search_for' ).val() ) {
 					bsr_error_wrap.html( '<div class="error"><p>' + bsr_object_vars.no_search + '</p></div>' );
-				} else if ( ! $( '#select_tables' ).val() ) {
+				} else if ( ! $( '#bsr-table-select' ).val() ) {
 					bsr_error_wrap.html( '<div class="error"><p>' + bsr_object_vars.no_tables + '</p></div>' );
 				} else {
 					var str 	= $( '.bsr-action-form' ).serialize();
