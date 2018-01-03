@@ -2,7 +2,7 @@
 Contributors: deliciousbrains, mattshaw
 Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
-Tested up to: 4.8.1
+Tested up to: 4.9.1
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -94,6 +94,10 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.3.2 - January 3, 2018 =
+* Fix: Only one table searched on some environments (props @Ov3rfly)
+* Tweak: Update text in sidebar
 
 = 1.3.1 - September 14, 2017 =
 * Security: Check if data is serialized before unserializing it
