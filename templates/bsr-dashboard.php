@@ -112,7 +112,7 @@ switch( $active_tab ) {
 				</div>
 
 				<p class="promise">
-					<?php _e( 'We promise we will not use your email for anything else and you can unsubscribe with 1-click anytime.', 'better-search-replace' ); ?>
+					<?php _e( 'You\'ll also receive our awesome weekly posts from the Delicious Brains blog. Unsubscribe anytime.', 'better-search-replace' ); ?>
 				</p>
 			</form>
 
