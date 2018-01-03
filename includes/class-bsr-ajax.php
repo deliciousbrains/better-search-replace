@@ -174,7 +174,7 @@ class BSR_AJAX {
 			'page' 				=> $page,
 			'percentage'		=> $percentage,
 			'url' 				=> get_admin_url() . 'tools.php?page=better-search-replace&tab=bsr_search_replace&result=true',
-			'bsr_data' 			=> http_build_query( $args )
+			'bsr_data' 			=> build_query( $args )
 		);
 
 		if ( isset( $message ) ) {
