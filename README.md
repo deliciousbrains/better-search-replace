@@ -57,6 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.3.2 - January 3, 2018 ###
+* Fix: Only one table searched on some environments (props @Ov3rfly)
+* Tweak: Update text in sidebar
+
 ### 1.3 - November 10, 2016 ###
 * Improvement: Updated sidebar and added pro version discount
 * Fix: Outdated links to old website
