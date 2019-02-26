@@ -26,5 +26,6 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 <p class="submit">
 	<input type="hidden" name="action" value="bsr_download_sysinfo" />
+	<?php wp_nonce_field( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' ); ?>
 	<?php submit_button( __( 'Download System Info', 'better-search-replace' ), 'primary', 'bsr-download-sysinfo', false ); ?>
 </p>

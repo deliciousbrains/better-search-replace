@@ -107,7 +107,7 @@ class BSR_DB {
 	 */
 	public function get_pages_in_table( $table ) {
 		$table 	= esc_sql( $table );
-		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM $table" );
+		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM `$table`" );
 		$pages 	= ceil( $rows / $this->page_size );
 		return absint( $pages );
 	}
@@ -207,7 +207,7 @@ class BSR_DB {
 		$end 			= $this->page_size;
 
 		// Grab the content of the table.
-		$data = $this->wpdb->get_results( "SELECT * FROM $table LIMIT $start, $end", ARRAY_A );
+		$data = $this->wpdb->get_results( "SELECT * FROM `$table` LIMIT $start, $end", ARRAY_A );
 
 		// Loop through the data.
 		foreach ( $data as $row ) {
@@ -251,7 +251,7 @@ class BSR_DB {
 						}
 					}
 
-					if ( '_transient_bsr_results' === $data_to_fix || 'bsr_profiles' === $data_to_fix || 'bsr_update_site_url' === $data_to_fix ) {
+					if ( '_transient_bsr_results' === $data_to_fix || 'bsr_profiles' === $data_to_fix || 'bsr_update_site_url' === $data_to_fix || 'bsr_data' === $data_to_fix ) {
 						$should_skip = true;
 					}
 

@@ -43,22 +43,22 @@ switch( $active_tab ) {
 		<div id="bsr-tabs">
 
 			<h2 id="bsr-nav-tab-wrapper" class="nav-tab-wrapper">
-			    <a href="?page=better-search-replace&tab=bsr_search_replace" class="nav-tab <?php echo $active_tab == 'bsr_search_replace' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Search/Replace', 'better-search-replace' ); ?></a>
-			    <a href="?page=better-search-replace&tab=bsr_settings" class="nav-tab <?php echo $active_tab == 'bsr_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Settings', 'better-search-replace' ); ?></a>
-			    <a href="?page=better-search-replace&tab=bsr_help" class="nav-tab <?php echo $active_tab == 'bsr_help' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Help', 'better-search-replace' ); ?></a>
+				<a href="?page=better-search-replace&tab=bsr_search_replace" class="nav-tab <?php echo $active_tab == 'bsr_search_replace' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Search/Replace', 'better-search-replace' ); ?></a>
+				<a href="?page=better-search-replace&tab=bsr_settings" class="nav-tab <?php echo $active_tab == 'bsr_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Settings', 'better-search-replace' ); ?></a>
+				<a href="?page=better-search-replace&tab=bsr_help" class="nav-tab <?php echo $active_tab == 'bsr_help' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Help', 'better-search-replace' ); ?></a>
 			</h2>
 
 			<form class="bsr-action-form" <?php echo $action; ?> method="POST">
 
-			<?php
+				<?php
 				// Include the correct tab template.
-				$bsr_template = str_replace( '_', '-', $active_tab ) . '.php';
+				$bsr_template = str_replace( '_', '-', sanitize_file_name( $active_tab ) ) . '.php';
 				if ( file_exists( BSR_PATH . 'templates/' . $bsr_template ) ) {
 					include BSR_PATH . 'templates/' . $bsr_template;
 				} else {
 					include BSR_PATH . 'templates/bsr-search-replace.php';
 				}
-			?>
+				?>
 
 			</form>
 
