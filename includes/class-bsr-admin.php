@@ -144,7 +144,7 @@ class BSR_Admin {
 			if ( 'checkbox' === $type && 'on' === $values[$value] ) {
 				echo 'checked';
 			} else {
-				echo str_replace( '#BSR_BACKSLASH#', '\\', esc_attr( $values[$value] ) );
+				echo str_replace( '#BSR_BACKSLASH#', '\\', esc_attr( htmlentities( $values[$value] ) ) );
 			}
 
 		}
@@ -196,7 +196,6 @@ class BSR_Admin {
 	public function load_details() {
 
 		if ( get_transient( 'bsr_results' ) ) {
-
 			$results 		= get_transient( 'bsr_results' );
 			$min 			= ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
@@ -259,6 +258,8 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function download_sysinfo() {
+		check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' );
+
 		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
 		if ( ! current_user_can( $cap ) ) {
 			return;

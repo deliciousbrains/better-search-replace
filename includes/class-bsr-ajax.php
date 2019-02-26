@@ -99,41 +99,39 @@ class BSR_AJAX {
 	 * @access public
 	 */
 	public function process_search_replace() {
-
 		// Bail if not authorized.
 		if ( ! check_admin_referer( 'bsr_ajax_nonce', 'bsr_ajax_nonce' ) ) {
 			return;
 		}
 
-		$args = array();
-
-		if ( isset( $_POST['bsr_data'] ) ) {
-			parse_str( $_POST['bsr_data'], $args );
-		}
-
-
 		// Initialize the DB class.
-		$db 				= new BSR_DB();
-		$step 				= isset( $_POST['bsr_step' ] ) ? absint( $_POST['bsr_step'] ) : 0;
-		$page 				= isset( $_POST['bsr_page'] ) ? absint( $_POST['bsr_page'] ) : 0;
-
-		// Build the arguements for this run.
-		$args = array(
-			'select_tables' 	=> isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
-			'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
-			'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
-			'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
-			'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
-			'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
-			'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
-		);
-
-		$args['total_pages'] = isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $args['select_tables'] );
+		$db   = new BSR_DB();
+		$step = isset( $_POST['bsr_step' ] ) ? absint( $_POST['bsr_step'] ) : 0;
+		$page = isset( $_POST['bsr_page'] ) ? absint( $_POST['bsr_page'] ) : 0;
 
 		// Any operations that should only be performed at the beginning.
 		if ( $step === 0 && $page === 0 ) {
+			$args = array();
+			parse_str( $_POST['bsr_data'], $args );
+
+			// Build the arguements for this run.
+			$args = array(
+				'select_tables' 	=> isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
+				'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
+				'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
+				'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
+				'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
+				'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
+				'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
+			);
+
+			$args['total_pages'] = isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $args['select_tables'] );
+
 			// Clear the results of the last run.
 			delete_transient( 'bsr_results' );
+			delete_option( 'bsr_data' );
+		} else {
+			$args = get_option( 'bsr_data' );
 		}
 
 		// Start processing data.
@@ -167,6 +165,8 @@ class BSR_AJAX {
 			$step 		= 'done';
 			$percentage = '100%';
 		}
+
+		update_option( 'bsr_data', $args );
 
 		// Store results in an array.
 		$result = array(
