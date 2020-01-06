@@ -74,8 +74,8 @@ switch( $active_tab ) {
 					<h1><?php _e( 'Upgrade to Pro', 'better-search-replace' ); ?></h1>
 
 					<ul>
-						<li><span class="dashicons dashicons-yes"></span> <?php _e( 'Backup to an SQL file', 'better-search-replace' ); ?></li>
-						<li><span class="dashicons dashicons-yes"></span> <?php _e( 'Import an SQL file and run a find/replace on it', 'better-search-replace' ); ?></li>
+						<li><span class="dashicons dashicons-yes"></span> <?php _e( 'Backup to a SQL file', 'better-search-replace' ); ?></li>
+						<li><span class="dashicons dashicons-yes"></span> <?php _e( 'Import a SQL file and run a find/replace on it', 'better-search-replace' ); ?></li>
 						<li><span class="dashicons dashicons-yes"></span> <?php _e( 'Detailed report of exactly what was replaced', 'better-search-replace' ); ?></li>
 					</ul>
 
