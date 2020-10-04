@@ -110,19 +110,19 @@ class BSR_AJAX {
 		$page = isset( $_POST['bsr_page'] ) ? absint( $_POST['bsr_page'] ) : 0;
 
 		// Any operations that should only be performed at the beginning.
-		if ( $step === 0 && $page === 0 ) {
+		if ( 0 === $step && 0 === $page ) {
 			$args = array();
 			parse_str( $_POST['bsr_data'], $args );
 
 			// Build the arguements for this run.
 			$args = array(
-				'select_tables' 	=> isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
-				'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
-				'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
-				'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
-				'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
-				'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
-				'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
+				'select_tables'    => isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
+				'case_insensitive' => isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
+				'replace_guids'    => isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
+				'dry_run'          => isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
+				'search_for'       => isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
+				'replace_with'     => isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
+				'completed_pages'  => isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 			);
 
 			$args['total_pages'] = isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $args['select_tables'] );
@@ -162,7 +162,7 @@ class BSR_AJAX {
 
 		} else {
 			$db->maybe_update_site_url();
-			$step 		= 'done';
+			$step       = 'done';
 			$percentage = '100%';
 		}
 
@@ -170,11 +170,11 @@ class BSR_AJAX {
 
 		// Store results in an array.
 		$result = array(
-			'step' 				=> $step,
-			'page' 				=> $page,
-			'percentage'		=> $percentage,
-			'url' 				=> get_admin_url() . 'tools.php?page=better-search-replace&tab=bsr_search_replace&result=true',
-			'bsr_data' 			=> build_query( $args )
+			'step'       => $step,
+			'page'       => $page,
+			'percentage' => $percentage,
+			'url'        => get_admin_url() . 'tools.php?page=better-search-replace&tab=bsr_search_replace&result=true',
+			'bsr_data'   => build_query( $args )
 		);
 
 		if ( isset( $message ) ) {
@@ -206,21 +206,21 @@ class BSR_AJAX {
 		$results = get_transient( 'bsr_results' ) ? get_transient( 'bsr_results') : array();
 
 		// Grab any values from the run args.
-		$results['search_for'] 			= isset( $args['search_for'] ) ? $args['search_for'] : '';
-		$results['replace_with'] 		= isset( $args['replace_with'] ) ? $args['replace_with'] : '';
-		$results['dry_run'] 			= isset( $args['dry_run'] ) ? $args['dry_run'] : 'off';
-		$results['case_insensitive'] 	= isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off';
-		$results['replace_guids'] 		= isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off';
+		$results['search_for']       = isset( $args['search_for'] ) ? $args['search_for'] : '';
+		$results['replace_with']     = isset( $args['replace_with'] ) ? $args['replace_with'] : '';
+		$results['dry_run']          = isset( $args['dry_run'] ) ? $args['dry_run'] : 'off';
+		$results['case_insensitive'] = isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off';
+		$results['replace_guids']    = isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off';
 
 		// Sum the values of the new and existing reports.
-		$results['change'] 	= isset( $results['change'] ) ? $results['change'] + $report['change'] : $report['change'];
+		$results['change']  = isset( $results['change'] ) ? $results['change'] + $report['change'] : $report['change'];
 		$results['updates'] = isset( $results['updates'] ) ? $results['updates'] + $report['updates'] : $report['updates'];
 
 		// Append the table report, or create a new one if necessary.
 		if ( isset( $results['table_reports'] ) && isset( $results['table_reports'][$table] ) ) {
-			$results['table_reports'][$table]['change'] 	= $results['table_reports'][$table]['change'] + $report['change'];
-			$results['table_reports'][$table]['updates'] 	= $results['table_reports'][$table]['updates'] + $report['updates'];
-			$results['table_reports'][$table]['end'] 		= $report['end'];
+			$results['table_reports'][$table]['change']  = $results['table_reports'][$table]['change'] + $report['change'];
+			$results['table_reports'][$table]['updates'] = $results['table_reports'][$table]['updates'] + $report['updates'];
+			$results['table_reports'][$table]['end']     = $report['end'];
 		} else {
 			$results['table_reports'][$table] = $report;
 		}

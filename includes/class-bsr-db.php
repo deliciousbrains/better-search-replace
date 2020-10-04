@@ -54,10 +54,10 @@ class BSR_DB {
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
 			if ( is_main_site() ) {
-				$tables 	= $wpdb->get_col( 'SHOW TABLES' );
+				$tables = $wpdb->get_col( 'SHOW TABLES' );
 			} else {
-				$blog_id 	= get_current_blog_id();
-				$tables 	= $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->base_prefix . absint( $blog_id ) . "\_%'" );
+				$blog_id = get_current_blog_id();
+				$tables  = $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->base_prefix . absint( $blog_id ) . "\_%'" );
 			}
 
 		} else {
@@ -106,9 +106,9 @@ class BSR_DB {
 	 * @return int
 	 */
 	public function get_pages_in_table( $table ) {
-		$table 	= esc_sql( $table );
-		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM `$table`" );
-		$pages 	= ceil( $rows / $this->page_size );
+		$table = esc_sql( $table );
+		$rows  = $this->wpdb->get_var( "SELECT COUNT(*) FROM `$table`" );
+		$pages = ceil( $rows / $this->page_size );
 		return absint( $pages );
 	}
 
@@ -126,7 +126,7 @@ class BSR_DB {
 			$pages = $this->get_pages_in_table( $table );
 
 			// Always include 1 page in case we have to create schemas, etc.
-			if ( $pages == 0 ) {
+			if ( 0 == $pages ) {
 				$pages = 1;
 			}
 
@@ -143,14 +143,14 @@ class BSR_DB {
 	 * @return array
 	 */
 	public function get_columns( $table ) {
-		$primary_key 	= null;
-		$columns 		= array();
-		$fields  		= $this->wpdb->get_results( 'DESCRIBE ' . $table );
+		$primary_key = null;
+		$columns     = array();
+		$fields      = $this->wpdb->get_results( 'DESCRIBE ' . $table );
 
 		if ( is_array( $fields ) ) {
 			foreach ( $fields as $column ) {
 				$columns[] = $column->Field;
-				if ( $column->Key == 'PRI' ) {
+				if ( 'PRI' == $column->Key ) {
 					$primary_key = $column->Field;
 				}
 			}
@@ -176,21 +176,21 @@ class BSR_DB {
 	public function srdb( $table, $page, $args ) {
 
 		// Load up the default settings for this chunk.
-		$table 			= esc_sql( $table );
-		$current_page 	= absint( $page );
-		$pages 			= $this->get_pages_in_table( $table );
-		$done 			= false;
+		$table        = esc_sql( $table );
+		$current_page = absint( $page );
+		$pages        = $this->get_pages_in_table( $table );
+		$done         = false;
 
-		$args['search_for'] 	= str_replace( '#BSR_BACKSLASH#', '\\', $args['search_for'] );
-		$args['replace_with'] 	= str_replace( '#BSR_BACKSLASH#', '\\', $args['replace_with'] );
+		$args['search_for']   = str_replace( '#BSR_BACKSLASH#', '\\', $args['search_for'] );
+		$args['replace_with'] = str_replace( '#BSR_BACKSLASH#', '\\', $args['replace_with'] );
 
 		$table_report = array(
-			'change' 	=> 0,
-			'updates' 	=> 0,
-			'start' 	=> microtime( true ),
-			'end'		=> microtime( true ),
-			'errors' 	=> array(),
-			'skipped' 	=> false
+			'change'  => 0,
+			'updates' => 0,
+			'start'   => microtime( true ),
+			'end'     => microtime( true ),
+			'errors'  => array(),
+			'skipped' => false
 		);
 
 		// Get a list of columns in this table.
@@ -202,9 +202,9 @@ class BSR_DB {
 			return array( 'table_complete' => true, 'table_report' => $table_report );
 		}
 
-		$current_row 	= 0;
-		$start 			= $page * $this->page_size;
-		$end 			= $this->page_size;
+		$current_row = 0;
+		$start       = $page * $this->page_size;
+		$end         = $this->page_size;
 
 		// Grab the content of the table.
 		$data = $this->wpdb->get_results( "SELECT * FROM `$table` LIMIT $start, $end", ARRAY_A );
@@ -213,8 +213,8 @@ class BSR_DB {
 		foreach ( $data as $row ) {
 			$current_row++;
 			$update_sql = array();
-			$where_sql 	= array();
-			$upd 		= false;
+			$where_sql  = array();
+			$upd        = false;
 
 			foreach( $columns as $column ) {
 
@@ -240,8 +240,8 @@ class BSR_DB {
 
 					// If the Site URL needs to be updated, let's do that last.
 					if ( isset( $update_later ) && true === $update_later ) {
-						$update_later 	= false;
-						$edited_data 	= $this->recursive_unserialize_replace( $args['search_for'], $args['replace_with'], $data_to_fix, false, $args['case_insensitive'] );
+						$update_later = false;
+						$edited_data  = $this->recursive_unserialize_replace( $args['search_for'], $args['replace_with'], $data_to_fix, false, $args['case_insensitive'] );
 
 						if ( $edited_data != $data_to_fix ) {
 							$table_report['change']++;
@@ -274,11 +274,11 @@ class BSR_DB {
 			}
 
 			// Determine what to do with updates.
-			if ( $args['dry_run'] === 'on' ) {
+			if ( 'on' === $args['dry_run'] ) {
 				// Don't do anything if a dry run
 			} elseif ( $upd && ! empty( $where_sql ) ) {
 				// If there are changes to make, run the query.
-				$sql 	= 'UPDATE ' . $table . ' SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
+				$sql    = 'UPDATE ' . $table . ' SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
 				$result = $this->wpdb->query( $sql );
 
 				if ( ! $result ) {
@@ -338,7 +338,7 @@ class BSR_DB {
 			// Submitted by Tina Matter
 			elseif ( is_object( $data ) ) {
 				// $data_class = get_class( $data );
-				$_tmp = $data; // new $data_class( );
+				$_tmp  = $data; // new $data_class( );
 				$props = get_object_vars( $data );
 				foreach ( $props as $key => $value ) {
 					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );

@@ -63,7 +63,7 @@ class BSR_Compatibility {
 		$plugins = get_plugins();
 		$active_plugins = get_option( 'active_plugins', array() );
 		foreach( $plugins as $plugin_path => $plugin ) {
-			if( !in_array( $plugin_path, $active_plugins ) )
+			if ( ! in_array( $plugin_path, $active_plugins ) )
 				continue;
 			$return .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 		}
@@ -71,19 +71,19 @@ class BSR_Compatibility {
 		// WordPress inactive plugins
 		$return .= "\n" . '-- WordPress Inactive Plugins' . "\n\n";
 		foreach( $plugins as $plugin_path => $plugin ) {
-			if( in_array( $plugin_path, $active_plugins ) )
+			if ( in_array( $plugin_path, $active_plugins ) )
 				continue;
 			$return .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 		}
 
-		if( is_multisite() ) {
+		if ( is_multisite() ) {
 			// WordPress Multisite active plugins
 			$return .= "\n" . '-- Network Active Plugins' . "\n\n";
 			$plugins = wp_get_active_network_plugins();
 			$active_plugins = get_site_option( 'active_sitewide_plugins', array() );
 			foreach( $plugins as $plugin_path ) {
 				$plugin_base = plugin_basename( $plugin_path );
-				if( !array_key_exists( $plugin_base, $active_plugins ) )
+				if ( ! array_key_exists( $plugin_base, $active_plugins ) )
 					continue;
 				$plugin  = get_plugin_data( $plugin_path );
 				$return .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
