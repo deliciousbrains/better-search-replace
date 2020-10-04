@@ -64,13 +64,13 @@ class BSR_Admin {
 			wp_enqueue_script( 'thickbox' );
 
 			wp_localize_script( 'better-search-replace', 'bsr_object_vars', array(
-				'page_size' 	=> get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000,
-				'endpoint' 		=> BSR_AJAX::get_endpoint(),
-				'ajax_nonce' 	=> wp_create_nonce( 'bsr_ajax_nonce' ),
-				'no_search' 	=> __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
-				'no_tables' 	=> __( 'Please select the tables that you want to update.', 'better-search-replace' ),
-				'unknown' 		=> __( 'An error occurred processing your request. Try decreasing the "Max Page Size", or contact support.', 'better-search-replace' ),
-				'processing'	=> __( 'Processing...', 'better-search-replace' )
+				'page_size'  => get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000,
+				'endpoint'   => BSR_AJAX::get_endpoint(),
+				'ajax_nonce' => wp_create_nonce( 'bsr_ajax_nonce' ),
+				'no_search'  => __( 'No search string was defined, please enter a URL or string to search for.', 'better-search-replace' ),
+				'no_tables'  => __( 'Please select the tables that you want to update.', 'better-search-replace' ),
+				'unknown'    => __( 'An error occurred processing your request. Try decreasing the "Max Page Size", or contact support.', 'better-search-replace' ),
+				'processing' => __( 'Processing...', 'better-search-replace' )
 			) );
 		}
 	}
@@ -101,7 +101,7 @@ class BSR_Admin {
 
 		if ( isset( $_GET['result'] ) && $result = get_transient( 'bsr_results' ) ) {
 
-			if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
+			if ( isset( $result['dry_run'] ) && 'on' === $result['dry_run'] ) {
 				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>', 'better-search-replace' ),
 					$result['tables'],
 					$result['change'],
@@ -159,8 +159,8 @@ class BSR_Admin {
 	public static function load_tables() {
 
 		// Get the tables and their sizes.
-		$tables 	= BSR_DB::get_tables();
-		$sizes 		= BSR_DB::get_sizes();
+		$tables = BSR_DB::get_tables();
+		$sizes  = BSR_DB::get_sizes();
 
 		echo '<select id="bsr-table-select" name="select_tables[]" multiple="multiple" style="width:25em;">';
 
@@ -196,9 +196,9 @@ class BSR_Admin {
 	public function load_details() {
 
 		if ( get_transient( 'bsr_results' ) ) {
-			$results 		= get_transient( 'bsr_results' );
-			$min 			= ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
-			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
+			$results    = get_transient( 'bsr_results' );
+			$min        = ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
+			$bsr_styles = BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
 
 			?>
 			<link href="<?php echo esc_url( get_admin_url( null, 'css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
@@ -215,11 +215,11 @@ class BSR_Admin {
 						foreach ( $results['table_reports'] as $table_name => $report ) {
 							$time = $report['end'] - $report['start'];
 
-							if ( $report['change'] !== 0 ) {
+							if ( 0 !== $report['change'] ) {
 								$report['change'] = '<strong>' . $report['change'] . '</strong>';
 							}
 
-							if ( $report['updates'] !== 0 ) {
+							if ( 0 !== $report['updates'] ) {
 								$report['updates'] = '<strong>' . $report['updates'] . '</strong>';
 							}
 

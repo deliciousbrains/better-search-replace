@@ -15,7 +15,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 // Other settings.
 $page_size 	= get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000;
 
- ?>
+?>
 
 <?php settings_fields( 'bsr_settings_fields' ); ?>
 

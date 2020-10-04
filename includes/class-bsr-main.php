@@ -57,8 +57,8 @@ class Better_Search_Replace {
 	 * @since    1.0
 	 */
 	public function __construct() {
-		$this->plugin_name 	= 'better-search-replace';
-		$this->version 		= BSR_VERSION;
+		$this->plugin_name = 'better-search-replace';
+		$this->version     = BSR_VERSION;
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
