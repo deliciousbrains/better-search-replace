@@ -337,21 +337,23 @@ class BSR_DB {
 
 			// Submitted by Tina Matter
 			elseif ( is_object( $data ) ) {
-				// $data_class = get_class( $data );
-				$_tmp = $data; // new $data_class( );
-				$props = get_object_vars( $data );
-				foreach ( $props as $key => $value ) {
-					$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
-				}
+				if ('__PHP_Incomplete_Class' !== get_class($data)) {
+					$_tmp = $data;
+					$props = get_object_vars( $data );
+					foreach ( $props as $key => $value ) {
+						$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
+					}
 
-				$data = $_tmp;
-				unset( $_tmp );
+					$data = $_tmp;
+					unset( $_tmp );
+				}
 			}
 
 			elseif ( is_serialized_string( $data ) ) {
-				if ( $data = $this->unserialize( $data ) !== false ) {
-					$data = $this->str_replace( $from, $to, $data, $case_insensitive );
-					$data = serialize( $data );
+				$unserialized = $this->unserialize( $data );
+
+				if ( $unserialized !== false ) {
+					$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true, $case_insensitive );
 				}
 			}
 

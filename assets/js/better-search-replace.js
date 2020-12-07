@@ -71,7 +71,7 @@
 
 		var search_replace_submit = $( '#bsr-submit' );
 		var bsr_error_wrap = $( '#bsr-error-wrap' );
-		search_replace_submit.click( function( e ) {
+		search_replace_submit.on( 'click', function( e ) {
 
 			e.preventDefault();
 

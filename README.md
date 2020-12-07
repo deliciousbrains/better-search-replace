@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 4.6.1
+**Tested up to:** 5.6
 
 **Stable tag:** trunk
 
@@ -56,6 +56,10 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.3.4 - December 7, 2020 ###
+* Improvement: WordPress 5.6 and PHP 8 compatible
+* Fix: Strings that have been serialized twice showing up as false-positives
 
 ### 1.3.3 - February 26, 2019 ###
 * Fix: Some special characters interfering with search/replace
