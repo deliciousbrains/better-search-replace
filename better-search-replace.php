@@ -51,9 +51,16 @@ if ( ! defined( 'WPINC' ) ) {
  * @since    1.0.0
  */
 function run_better_search_replace() {
+    
+    // Check the plugin install state and user permissions to determine the best capability to use for filtering
+    if( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS && current_user_can( apply_filters( 'bsr_capability', 'manage_options' ) ) ) {
+        $capability = 'manage_options';	
+    } else {
+        $capability = 'install_plugins';
+    }
 
 	// Allows for overriding the capability required to run the plugin.
-	$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+	$cap = apply_filters( 'bsr_capability', $capability );
 
 	// Only load for admins.
 	if ( current_user_can( $cap ) ) {

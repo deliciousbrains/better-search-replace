@@ -81,7 +81,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', $this->get_capability_filter() );
 		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
@@ -260,7 +260,7 @@ class BSR_Admin {
 	public function download_sysinfo() {
 		check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' );
 
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', $this->get_capability_filter() );
 		if ( ! current_user_can( $cap ) ) {
 			return;
 		}
@@ -290,6 +290,18 @@ class BSR_Admin {
 		}
 
   		return $links;
+	}
+	
+	/**
+	 * Checks the plugin install state and user permissions to determine the best capability to use for filtering
+	 * @access public
+	 */
+	public function get_capability_filter() {
+		if( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS && current_user_can( apply_filters( 'bsr_capability', 'manage_options' ) ) ) {
+			return 'manage_options';	
+		}
+		
+		return 'install_plugins';
 	}
 
 }
