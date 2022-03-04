@@ -43,9 +43,15 @@ if ( 'bsr_settings' === $active_tab ) {
 
 	<div class="header">
 
-	<a href="?page=better-search-replace&tab=bsr_search_replace">
-		<img href="?page=better-search-replace&tab=bsr_search_replace" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/logo-bsr.svg'; ?>" class="logo">
-	</a>
+		<div class="content">
+			<a href="?page=better-search-replace&tab=bsr_search_replace">
+				<img href="?page=better-search-replace&tab=bsr_search_replace" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/logo-bsr.svg'; ?>" class="logo">
+			</a>
+			<a class="upgrade-notice">
+				<img href="#" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-upgrade.svg'; ?>">
+				Upgrade now and get 50% off
+			</a>
+		</div>
 
 	<?php settings_errors(); ?>
 

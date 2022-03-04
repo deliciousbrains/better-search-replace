@@ -69,6 +69,7 @@
 .wrap {
   margin: 0;
   padding: 0;
+  overflow-x: auto!important;
 }
 
 #wpcontent {
@@ -205,13 +206,6 @@
 
 /*HEADER STYLING----------------------------*/
 
-.update-nag, notice-warning-inline {
-  margin: var(--spacer-md) var(--spacer-lg) 0 var(--spacer-lg);
-}
-
-.bsr-notice-container {
-    padding: 0 var(--spacer-lg);
-}
 
 .header {
   background: var(--color-header);
@@ -226,6 +220,42 @@
 
 .logo {
   width: 72px;
+}
+
+.header .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.upgrade-notice {
+  color: var(--color-accent);
+  cursor: pointer;
+  line-height: 1.3;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.upgrade-notice:hover {
+  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+.upgrade-notice img {
+  width: 16px;
+  height: 16px;
+  margin-right: var(--spacer-xs);
+}
+
+.update-nag, notice-warning-inline {
+  margin: var(--spacer-md) var(--spacer-lg) 0 var(--spacer-lg);
+}
+
+.bsr-notice-container {
+  padding: var(--spacer-sm) var(--spacer-lg) 0 var(--spacer-lg);
+  max-width: 900px;
 }
 
 #setting-error-settings_updated {
@@ -389,6 +419,13 @@
   padding-bottom: 120px;
 }
 
+.ui-sidebar-wrapper {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 48px;
+}
+
 #bsr-search-replace-wrap {
   background: transparent;
   border: 0;
@@ -411,7 +448,8 @@
 .inside {
   margin: 0!important;
   padding: 0!important;
-  max-width: 900px;
+  width: 100%;
+  min-width: 640px;
   display: flex;
   flex-direction: column;
   row-gap: var(--spacer-lg);
@@ -608,15 +646,16 @@ p.submit {
 
 .helper-message {
     font-size: 14px;
+    color: var(--color-body-text);
     line-height: 1.4em;
     padding: 10px 16px;
-    border-radius: 3px;
+    border-radius: var(--panel-border-radius);
     background-color: #fff;
     position: absolute;
     width: 500px;
     z-index: 9999;
     display: none;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    box-shadow: 4px 0px 20px rgba(0,0,0,0.20);
 }
 
 .helper-message.right:after {
@@ -676,6 +715,10 @@ p.submit {
 }
 
 /*INPUT STYLING----------------------------*/
+
+input#submit {
+  min-height: 40px!important;
+}
 
 label {
   font-size: 14px;
@@ -823,4 +866,76 @@ select option {
   .select {
     width: 100%!important;
   }
+}
+
+
+/*SIDEBAR STYLING----------------------------*/
+
+.upgrade-sidebar {
+  max-width: 290px;
+  height: fit-content;
+  background: linear-gradient(176.44deg, #0F5858 2.92%, #10585C 23.02%, #145469 42.98%, #0D3458 71.92%, #062645 99.66%);
+  border-radius: var(--panel-border-radius);
+}
+
+.upgrade-sidebar .content {
+  padding: 0 var(--spacer-md);
+}
+
+.upgrade-sidebar .content h3 {
+  color: var(--color-white);
+  font-size: 24px;
+}
+
+.upgrade-sidebar .content p {
+  line-height: 1.6;
+  color: var(--color-white);
+  font-size: 16px;
+}
+
+.upgrade-sidebar ul {
+  padding: var(--spacer-md) 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.upgrade-sidebar ul li {
+  display: flex;
+  column-gap: var(--spacer-sm);
+  align-items: flex-start;
+}
+
+.upgrade-sidebar ul li p {
+  font-size: 13.5px!important;
+  opacity: .8;
+  margin: 0;
+}
+
+.upgrade-offer-text {
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 14.5px!important;
+}
+
+.upgrade-offer-text span {
+  color: var(--color-accent);
+}
+
+.button-row {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacer-sm) 0 var(--spacer-lg) 0;
+  text-align: center;
+}
+
+.button-row button {
+  font-size: 13.5px!important;
+  font-weight: 600!important;
+  text-transform: uppercase;
+  letter-spacing: 2px!important;
+  border: 0!important;
+  padding: 0 var(--spacer-lg)!important;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,.25);
 }
