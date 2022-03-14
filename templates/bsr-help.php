@@ -47,7 +47,7 @@ if ( false !== $bsr_license_key ) {
 	                    <?php
 	                    printf(
 	                            __( '<a href="%s" style="font-weight:bold;">Upgrade</a> to gain access to premium features and priority email support.', 'better-search-replace' ),
-	                            'https://bettersearchreplace.com/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=pro-upsell'
+	                            'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=bsr-to-migrate'
 	                    );
 	                    ?>
 	                </p>
