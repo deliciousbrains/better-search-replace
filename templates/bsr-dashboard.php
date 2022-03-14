@@ -47,9 +47,10 @@ if ( 'bsr_settings' === $active_tab ) {
 			<a href="?page=better-search-replace&tab=bsr_search_replace">
 				<img href="?page=better-search-replace&tab=bsr_search_replace" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/logo-bsr.svg'; ?>" class="logo">
 			</a>
-			<a class="upgrade-notice">
-				<img href="#" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-upgrade.svg'; ?>">
-				Upgrade now and get 50% off
+			<a href="https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=header&utm_campaign=bsr-to-migrate
+" target="_blank" class="upgrade-notice">
+				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-upgrade.svg'; ?>">
+				<?php _e( 'Upgrade now and get 50% off', 'better-search-replace' ); ?>
 			</a>
 		</div>
 
