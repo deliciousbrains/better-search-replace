@@ -82,41 +82,10 @@ if ( false !== $bsr_license_key ) {
 		</div>
 	</div>
 
-	<div class="upgrade-sidebar">
-		<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/mdb-birds.svg'; ?>">
-		<div class="content">
-			<h3>Upgrade</h3>
-			<p>Gain access to more database and migration features</p>
-
-			<ul>
-				<li>
-					<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
-					<p>Preview database changes before they are saved</p>
-				</li>
-				<li>
-					<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
-					<p>Use regular expressions for complex string replacements</p>
-				</li>
-				<li>
-					<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
-					<p>Migrate full sites including themes, plugins, media, and database.</p>
-				</li>
-				<li>
-					<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
-					<p>Export and import WordPress databases</p>
-				</li>
-				<li>
-					<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
-					<p>Email support</p>
-				</li>
-			</ul>
-
-			<p class="upgrade-offer-text">Get up to <span>50% off</span> your first year!</p>
-
-			<div class="button-row">
-				<button href="#" class="button button-primary button-sm">Upgrade Now</button>
-			</div>
-		</div>
-	</div>
+	<?php
+	if ( file_exists( BSR_PATH . 'templates/sidebar.php' ) ) {
+		include_once BSR_PATH . 'templates/sidebar.php';
+	}
+	?>
 
 </div>

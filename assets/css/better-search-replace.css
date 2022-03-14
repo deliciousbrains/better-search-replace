@@ -930,7 +930,7 @@ select option {
   text-align: center;
 }
 
-.button-row button {
+.button-row a {
   font-size: 13.5px!important;
   font-weight: 600!important;
   text-transform: uppercase;
