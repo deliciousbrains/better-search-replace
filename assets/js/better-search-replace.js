@@ -129,16 +129,19 @@
 
 	bsr_init();
 
-	$( 'body' ).on( 'mouseover', '.tooltip', function( e ) {
-		var icon = $( this );
-		var bubble = $( this ).next();
+	function toggle_tooltip( icon ) {
+		var icon = $( icon );
+		var bubble = icon.next();
 
 		// Close any that are already open
 		$( '.helper-message' ).not( bubble ).hide();
 
-		let iconWidth = icon.width();
-
 		var position = icon.position();
+
+		if ( icon.parent()[0].nodeName === 'TD' ) {
+			position = icon.offset();
+		}
+
 		if ( bubble.hasClass( 'left' ) ) {
 			bubble.css({
 				'left': ( position.left - bubble.width() - icon.width() - 29 ) + 'px',
@@ -157,6 +160,25 @@
 		}
 
 		bubble.toggle();
+	}
+
+	$('body').on('thickbox:iframe:loaded', function(){
+		var $iframeBody = $( '#TB_window iframe' ).contents().find( 'body' );
+
+		$iframeBody.on( 'mouseover', '.tooltip', function( e ) {
+			e.preventDefault();
+			$iframeBody.find( '.helper-message' ).hide();
+			toggle_tooltip( this );
+			e.stopPropagation();
+		});
+
+		$iframeBody.on( 'mouseleave', 'td', function( e ) {
+			$iframeBody.find( '.helper-message' ).hide();
+		});
+	});
+
+	$( 'body' ).on( 'mouseover', '.tooltip', function( e ) {
+		toggle_tooltip( this );
 	} );
 
 	$( 'body' ).on( 'mouseleave', '.tooltip', function( e ) {
@@ -170,6 +192,6 @@
 	setTimeout(function() {
 		$( '#setting-error-settings_updated' ).prependTo( '.inside' ).css( 'display', 'block' );
 		$( '.bsr-updated' ).prependTo( '.inside' ).css( 'display', 'block' );
-	}, 20);
+	}, 30);
 
 })( jQuery );

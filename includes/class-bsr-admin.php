@@ -56,7 +56,7 @@ class BSR_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 		if ( 'tools_page_better-search-replace' === $hook ) {
-            $min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			wp_enqueue_style( 'better-search-replace', BSR_URL . "assets/css/better-search-replace$min.css", array(), $this->version, 'all' );
 			wp_enqueue_style( 'jquery-style', BSR_URL . 'assets/css/jquery-ui.min.css', array(), $this->version, 'all' );
@@ -206,31 +206,38 @@ class BSR_Admin {
 			<link href="<?php echo esc_url( get_admin_url( null, '/css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
-            <div style="padding: 32px; background-color: var(--color-white);">
-                <table id="bsr-results-table" class="widefat">
-                    <thead>
-                        <tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ( $results['table_reports'] as $table_name => $report ) {
-                            $time = $report['end'] - $report['start'];
+			<div style="padding: 32px; background-color: var(--color-white);">
+				<table id="bsr-results-table" class="widefat">
+					<thead>
+						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
+					</thead>
+					<tbody>
+					<?php
+						foreach ( $results['table_reports'] as $table_name => $report ) {
+							$time = $report['end'] - $report['start'];
 
-                            if ( $report['change'] != 0 ) {
-                                $report['change'] = '<strong>' . $report['change'] . '</strong>';
-                            }
+							if ( $report['change'] != 0 ) {
+								$report['change'] = '<a class="tooltip">' . $report['change'] . '</a>';
 
-                            if ( $report['updates'] != 0 ) {
-                                $report['updates'] = '<strong>' . $report['updates'] . '</strong>';
-                            }
+								$upgrade_link = sprintf(
+									__( '<a href="%s" target="_blank">Upgrade now</a> to view detailed results.', 'better-search-replace'),
+									'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
+								);
 
-                            echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
-                        }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-            <?php
+								$report['change'] .= '<span class="helper-message right">' . $upgrade_link . '</span>';
+							}
+
+							if ( $report['updates'] != 0 ) {
+								$report['updates'] = '<strong>' . $report['updates'] . '</strong>';
+							}
+
+							echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
+						}
+					?>
+					</tbody>
+				</table>
+			</div>
+			<?php
 		}
 	}
 
@@ -278,7 +285,7 @@ class BSR_Admin {
 			);
 		}
 
-  		return $links;
+		return $links;
 	}
 
 }

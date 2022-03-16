@@ -154,6 +154,11 @@
   color: var(--color-header)!important;
 }
 
+#bsr-results-table td .tooltip {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 #bsr-back-to-overview {
   padding: 16px!important;
 }
@@ -652,7 +657,7 @@ p.submit {
     border-radius: var(--panel-border-radius);
     background-color: #fff;
     position: absolute;
-    width: 500px;
+    max-width: 500px;
     z-index: 9999;
     display: none;
     box-shadow: 4px 0px 20px rgba(0,0,0,0.20);
