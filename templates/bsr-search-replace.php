@@ -123,11 +123,11 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 	</div><!-- /.inside -->
 
-        <?php
-		if ( file_exists( BSR_PATH . 'templates/sidebar.php' ) ) {
-            include_once BSR_PATH . 'templates/sidebar.php';
-		}
-        ?>
+	<?php
+	if ( file_exists( BSR_PATH . 'templates/sidebar.php' ) ) {
+		include_once BSR_PATH . 'templates/sidebar.php';
+	}
+	?>
 
 	<!-- /.ui-sidebar-wrapper -->
 	</div>
