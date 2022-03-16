@@ -14,12 +14,6 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 
 $bsr_docs_url    = 'https://bettersearchreplace.com/docs/';
 $bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
-$bsr_license_key = get_option( 'bsr_license_key' );
-
-if ( false !== $bsr_license_key ) {
-	$bsr_support_url .= '?key=' . esc_attr( $bsr_license_key );
-}
-
 ?>
 
 <div class="ui-sidebar-wrapper">
@@ -36,29 +30,29 @@ if ( false !== $bsr_license_key ) {
 
 				<div>
 					<p>
-	                    <?php
-	                    printf(
-	                            __( 'Free support is available on the <a href="%s">plugin support forums</a>.', 'better-search-replace' ),
-	                        $bsr_support_url
-	                    )
-	                    ?>
-	                </p>
-	                <p>
-	                    <?php
-	                    printf(
-	                            __( '<a href="%s" style="font-weight:bold;">Upgrade</a> to gain access to premium features and priority email support.', 'better-search-replace' ),
-	                            'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=bsr-to-migrate'
-	                    );
-	                    ?>
-	                </p>
-	                <p>
-	                    <?php
-	                    printf(
-	                            __( 'Found a bug or have a feature request? Please submit an issue on <a href="%s">GitHub</a>!', 'better-search-replace' ),
-	                            'https://github.com/deliciousbrains/better-search-replace'
-	                    );
-	                    ?>
-	                </p>
+						<?php
+						printf(
+							__( 'Free support is available on the <a href="%s">plugin support forums</a>.', 'better-search-replace' ),
+							$bsr_support_url
+						)
+						?>
+					</p>
+					<p>
+						<?php
+						printf(
+							__( '<a href="%s" style="font-weight:bold;">Upgrade</a> to gain access to premium features and priority email support.', 'better-search-replace' ),
+							'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=bsr-to-migrate'
+						);
+						?>
+					</p>
+					<p>
+						<?php
+						printf(
+							__( 'Found a bug or have a feature request? Please submit an issue on <a href="%s">GitHub</a>!', 'better-search-replace' ),
+							'https://github.com/deliciousbrains/better-search-replace'
+						);
+						?>
+					</p>
 				</div>
 
 				<!--System Info-->
