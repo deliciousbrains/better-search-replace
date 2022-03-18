@@ -92,8 +92,7 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 						<input id="replace_guids" type="checkbox" name="replace_guids" <?php BSR_Admin::prefill_value( 'replace_guids', 'checkbox' ); ?> />
 					</div>
 					<div class="col">
-					  <label for="replace_guids" class="replace_guids"><strong><?php _e( 'Replace GUIDs', 'better-search-replace' ); ?></strong><a href="https://wordpress.org/support/article/changing-the-site-url/#important-guid-note
-" target="_blank"><img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-help.svg'; ?>"></a></label>
+					  <label for="replace_guids" class="replace_guids"><strong><?php _e( 'Replace GUIDs', 'better-search-replace' ); ?></strong><a href="https://wordpress.org/support/article/changing-the-site-url/#important-guid-note" target="_blank"><img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-help.svg'; ?>"></a></label>
 						<label for="replace_guids"><span class="description"><?php _e( 'If left unchecked, all database columns titled \'guid\' will be skipped.', 'better-search-replace' ); ?></span></label>
 					</div>
 				</label>
