@@ -83,7 +83,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
@@ -256,7 +256,7 @@ class BSR_Admin {
 	public function download_sysinfo() {
 		check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' );
 
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 		if ( ! current_user_can( $cap ) ) {
 			return;
 		}
