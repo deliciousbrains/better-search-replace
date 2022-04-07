@@ -160,6 +160,10 @@
   text-decoration: underline;
 }
 
+#bsr-results-table td .helper-message {
+    max-width: 220px;
+}
+
 #bsr-results-table td .helper-message a {
     font-weight: bold;
 }
@@ -667,6 +671,7 @@ p.submit {
     z-index: 9999;
     display: none;
     box-shadow: 4px 0px 20px rgba(0,0,0,0.20);
+    text-align: left;
 }
 
 .helper-message.right:after {
