@@ -206,7 +206,7 @@ class BSR_Admin {
 			<link href="<?php echo esc_url( get_admin_url( null, '/css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
-			<div style="padding: 32px; background-color: var(--color-white); height: 100%;">
+			<div style="padding: 32px; background-color: var(--color-white); min-height: 100%;">
 				<table id="bsr-results-table" class="widefat">
 					<thead>
 						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
