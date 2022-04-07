@@ -26,7 +26,7 @@
 
 		<div class="button-row">
 			<a href="https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=sidebar&utm_campaign=bsr-to-migrate
-" class="button button-primary button-sm"><?php _e( 'Upgrade Now', 'better-search-replace' ); ?></a>
+" class="button button-primary button-sm" target="_blank"><?php _e( 'Upgrade Now', 'better-search-replace' ); ?></a>
 		</div>
 	</div>
 </div>
