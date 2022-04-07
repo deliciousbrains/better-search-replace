@@ -199,8 +199,10 @@
 			$bsr_notices.prependTo( '.bsr-inner-notice-container' ).css( 'display', 'block' );
 		}
 
-		$( '.bsr-inner-notice-container .notice-dismiss' ).on( 'click', function ( e ) {;
-			$( '.bsr-inner-notice-container' ).remove();
+		$( '.bsr-inner-notice-container .notice-dismiss' ).on( 'click', function ( e ) {
+			if ( ! $bsr_notices.length ) {
+				$( '.bsr-inner-notice-container' ).remove();
+			}
 		});
 	}, 75);
 
