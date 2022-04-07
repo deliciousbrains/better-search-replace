@@ -12,7 +12,7 @@
 				<p><?php _e( 'Use regular expressions for complex string replacements', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
-				<p><?php _e( 'Migrate full sites including themes, plugins, media, and database.', 'better-search-replace' ); ?></p>
+				<p><?php _e( 'Migrate full sites including themes, plugins, media, and database', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
 				<p><?php _e( 'Export and import WordPress databases', 'better-search-replace' ); ?></p>
