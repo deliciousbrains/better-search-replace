@@ -190,8 +190,20 @@
 		.css( 'display', 'block' );
 
 	setTimeout(function() {
-		$( '#setting-error-settings_updated' ).prependTo( '.inside' ).css( 'display', 'block' );
-		$( '.bsr-updated' ).prependTo( '.inside' ).css( 'display', 'block' );
-	}, 30);
+		const $settings_saved_notice = $( '#setting-error-settings_updated' );
+		const $bsr_notices = $( '.bsr-updated' );
+
+		if ( $settings_saved_notice.length || $bsr_notices.length ) {
+			$( '<div class="bsr-inner-notice-container"></div>' ).prependTo( '.inside' );
+			$settings_saved_notice.prependTo( '.bsr-inner-notice-container' ).css( 'display', 'block' );
+			$bsr_notices.prependTo( '.bsr-inner-notice-container' ).css( 'display', 'block' );
+		}
+
+		$( '.bsr-inner-notice-container .notice-dismiss' ).on( 'click', function ( e ) {;
+			$( '.bsr-inner-notice-container' ).remove();
+		});
+	}, 75);
+
+
 
 })( jQuery );

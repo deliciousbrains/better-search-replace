@@ -263,7 +263,8 @@
   max-width: 900px;
 }
 
-#setting-error-settings_updated {
+#setting-error-settings_updated,
+.bsr-updated {
     display: none;
 }
 
