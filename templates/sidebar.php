@@ -6,23 +6,18 @@
 
 		<ul>
 			<li>
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
 				<p><?php _e( 'Preview database changes before they are saved', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
 				<p><?php _e( 'Use regular expressions for complex string replacements', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
 				<p><?php _e( 'Migrate full sites including themes, plugins, media, and database.', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
 				<p><?php _e( 'Export and import WordPress databases', 'better-search-replace' ); ?></p>
 			</li>
 			<li>
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/icon-checkmark.svg'; ?>">
 				<p><?php _e( 'Email support', 'better-search-replace' ); ?></p>
 			</li>
 		</ul>

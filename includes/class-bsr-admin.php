@@ -220,7 +220,7 @@ class BSR_Admin {
 								$report['change'] = '<a class="tooltip">' . $report['change'] . '</a>';
 
 								$upgrade_link = sprintf(
-									__( '<a href="%s" target="_blank">Upgrade now</a> to view detailed results.', 'better-search-replace'),
+									__( '<a href="%s" target="_blank">UPGRADE</a>  to view details on the exact changes that will be made.', 'better-search-replace'),
 									'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
 								);
 
