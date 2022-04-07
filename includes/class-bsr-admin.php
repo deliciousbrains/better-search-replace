@@ -56,10 +56,12 @@ class BSR_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 		if ( 'tools_page_better-search-replace' === $hook ) {
-			wp_enqueue_style( 'better-search-replace', BSR_URL . 'assets/css/better-search-replace.css', array(), $this->version, 'all' );
+			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_style( 'better-search-replace', BSR_URL . "assets/css/better-search-replace$min.css", array(), $this->version, 'all' );
 			wp_enqueue_style( 'jquery-style', BSR_URL . 'assets/css/jquery-ui.min.css', array(), $this->version, 'all' );
 			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'better-search-replace', BSR_URL . 'assets/js/better-search-replace.min.js', array( 'jquery' ), $this->version, true );
+			wp_enqueue_script( 'better-search-replace', BSR_URL . "assets/js/better-search-replace$min.js", array( 'jquery' ), $this->version, true );
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
 
@@ -81,7 +83,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
@@ -117,7 +119,7 @@ class BSR_Admin {
 				);
 			}
 
-			echo '<div class="updated">' . $msg . '</div>';
+			echo '<div class="updated bsr-updated" style="display: none;">' . $msg . '</div>';
 
 		}
 
@@ -162,7 +164,7 @@ class BSR_Admin {
 		$tables 	= BSR_DB::get_tables();
 		$sizes 		= BSR_DB::get_sizes();
 
-		echo '<select id="bsr-table-select" name="select_tables[]" multiple="multiple" style="width:25em;">';
+		echo '<select id="bsr-table-select" name="select_tables[]" multiple="multiple" style="">';
 
 		foreach ( $tables as $table ) {
 
@@ -201,11 +203,10 @@ class BSR_Admin {
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
 
 			?>
-			<link href="<?php echo esc_url( get_admin_url( null, 'css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
+			<link href="<?php echo esc_url( get_admin_url( null, '/css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
-			<div class="container" style="padding:10px;">
-
+			<div style="padding: 32px; background-color: var(--color-white); min-height: 100%;">
 				<table id="bsr-results-table" class="widefat">
 					<thead>
 						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
@@ -215,31 +216,26 @@ class BSR_Admin {
 						foreach ( $results['table_reports'] as $table_name => $report ) {
 							$time = $report['end'] - $report['start'];
 
-							if ( $report['change'] !== 0 ) {
-								$report['change'] = '<strong>' . $report['change'] . '</strong>';
+							if ( $report['change'] != 0 ) {
+								$report['change'] = '<a class="tooltip">' . $report['change'] . '</a>';
+
+								$upgrade_link = sprintf(
+									__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
+									'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
+								);
+
+								$report['change'] .= '<span class="helper-message right">' . $upgrade_link . '</span>';
 							}
 
-							if ( $report['updates'] !== 0 ) {
+							if ( $report['updates'] != 0 ) {
 								$report['updates'] = '<strong>' . $report['updates'] . '</strong>';
 							}
 
-							printf(
-								'<tr><td class="bsr-first">%s</td><td class="bsr-second">%s</td><td class="bsr-third">%s</td><td class="bsr-fourth">%s %s</td></tr>',
-								$table_name,
-								$report['change'],
-								$report['updates'],
-								round( $time, 3 ),
-								__( 'seconds', 'better-search-replace' )
-							);
-
+							echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
 						}
 					?>
 					</tbody>
 				</table>
-
-				<p style="text-align:center;"><strong><?php _e( 'Want even more details, easy database migrations, and saved search/replace profiles?', 'better-search-replace' ); ?><br>
-				<a href="https://bettersearchreplace.com/?utm_source=insideplugin&utm_medium=web&utm_content=results-modal&utm_campaign=pro-upsell" target="_blank"><?php _e( 'Learn more about the pro version', 'better-search-replace' ); ?></a></strong></p>
-
 			</div>
 			<?php
 		}
@@ -260,7 +256,7 @@ class BSR_Admin {
 	public function download_sysinfo() {
 		check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' );
 
-		$cap = apply_filters( 'bsr_capability', 'install_plugins' );
+		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 		if ( ! current_user_can( $cap ) ) {
 			return;
 		}
@@ -289,7 +285,7 @@ class BSR_Admin {
 			);
 		}
 
-  		return $links;
+		return $links;
 	}
 
 }

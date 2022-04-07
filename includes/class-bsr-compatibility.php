@@ -43,7 +43,8 @@ class BSR_Compatibility {
 
 		// Server Configuration
 		$return .= "\n" . '-- Server Configuration' . "\n\n";
-		$return .= 'Operating System:         ' . php_uname( 's' ) . "\n";
+		$os = self::get_os();
+		$return .= 'Operating System:         ' . $os['name'] . "\n";
 		$return .= 'PHP Version:              ' . PHP_VERSION . "\n";
 		$return .= 'MySQL Version:            ' . $wpdb->db_version() . "\n";
 
@@ -92,6 +93,19 @@ class BSR_Compatibility {
 
 		$return .= "\n" . '### End System Info ###';
 		return $return;
+	}
+
+	/**
+	 * Determines the current operating system.
+	 * @access public
+	 * @return array
+	 */
+	public static function get_os() {
+		$os 		= array();
+		$uname 		= php_uname( 's' );
+		$os['code'] = strtoupper( substr( $uname, 0, 3 ) );
+		$os['name'] = $uname;
+		return $os;
 	}
 
 }
