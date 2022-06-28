@@ -341,6 +341,7 @@ class BSR_DB {
 					$_tmp = $data;
 					$props = get_object_vars( $data );
 					foreach ( $props as $key => $value ) {
+						$key = trim( $key );
 						$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 					}
 
