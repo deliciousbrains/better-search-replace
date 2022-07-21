@@ -106,6 +106,9 @@ class BSR_DB {
 	 * @return int
 	 */
 	public function get_pages_in_table( $table ) {
+		if ( false === $this->table_exists( $table ) ) {
+			return 0;
+		}
 		$table 	= esc_sql( $table );
 		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM `$table`" );
 		$pages 	= ceil( $rows / $this->page_size );
@@ -145,6 +148,11 @@ class BSR_DB {
 	public function get_columns( $table ) {
 		$primary_key 	= null;
 		$columns 		= array();
+
+		if ( false === $this->table_exists( $table ) ) {
+			return [ $primary_key, $columns ];
+		}
+
 		$fields  		= $this->wpdb->get_results( 'DESCRIBE ' . $table );
 
 		if ( is_array( $fields ) ) {
@@ -448,4 +456,7 @@ class BSR_DB {
 		return $data;
 	}
 
+	private function table_exists($table) {
+		return in_array($table, $this->get_tables());
+	}
 }
