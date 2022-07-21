@@ -456,6 +456,13 @@ class BSR_DB {
 		return $data;
 	}
 
+	/**
+	 * Checks whether a tables exists in DB.
+	 *
+	 * @param $table
+	 *
+	 * @return bool
+	 */
 	private function table_exists($table) {
 		return in_array($table, $this->get_tables());
 	}
