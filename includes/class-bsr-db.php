@@ -109,9 +109,11 @@ class BSR_DB {
 		if ( false === $this->table_exists( $table ) ) {
 			return 0;
 		}
+
 		$table 	= esc_sql( $table );
 		$rows 	= $this->wpdb->get_var( "SELECT COUNT(*) FROM `$table`" );
 		$pages 	= ceil( $rows / $this->page_size );
+
 		return absint( $pages );
 	}
 
@@ -150,7 +152,7 @@ class BSR_DB {
 		$columns 		= array();
 
 		if ( false === $this->table_exists( $table ) ) {
-			return [ $primary_key, $columns ];
+			return array( $primary_key, $columns );
 		}
 
 		$fields  		= $this->wpdb->get_results( 'DESCRIBE ' . $table );
@@ -457,13 +459,13 @@ class BSR_DB {
 	}
 
 	/**
-	 * Checks whether a tables exists in DB.
+	 * Checks whether a table exists in DB.
 	 *
 	 * @param $table
 	 *
 	 * @return bool
 	 */
-	private function table_exists($table) {
-		return in_array($table, $this->get_tables());
+	private function table_exists( $table ) {
+		return in_array( $table, $this->get_tables() );
 	}
 }

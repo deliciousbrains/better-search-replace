@@ -246,9 +246,10 @@ class BSR_AJAX {
 	 */
 	private function escape_selected_tables( $selected_tables ) {
 		if ( ! is_array( $selected_tables ) ) {
-			return [];
+			return array();
 		}
-		$escaped_array = [];
+
+		$escaped_array = array();
 		foreach ( $selected_tables as $table ) {
 			$escaped_table = esc_sql( trim($table) );
 			if ( ! empty( $escaped_table ) ) {
