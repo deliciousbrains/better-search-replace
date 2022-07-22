@@ -114,9 +114,9 @@ class BSR_AJAX {
 			$args = array();
 			parse_str( $_POST['bsr_data'], $args );
 
-			// Build the arguements for this run.
+			// Build the arguments for this run.
 			$args = array(
-				'select_tables' 	=> isset( $args['select_tables'] ) ? $this->escape_selected_tables($args['select_tables']) : array(),
+				'select_tables' 	=> isset( $args['select_tables'] ) ? array_map( 'trim', $args['select_tables'] ) : array(),
 				'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
 				'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
 				'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
@@ -237,28 +237,6 @@ class BSR_AJAX {
 
 	}
 
-	/**
-	 * Escapes all entries of the selected tables array, to prevent SQL injection attacks.
-	 *
-	 * @param array $selected_tables
-	 *
-	 * @return array
-	 */
-	private function escape_selected_tables( $selected_tables ) {
-		if ( ! is_array( $selected_tables ) ) {
-			return array();
-		}
-
-		$escaped_array = array();
-		foreach ( $selected_tables as $table ) {
-			$escaped_table = esc_sql( trim($table) );
-			if ( ! empty( $escaped_table ) ) {
-				$escaped_array[] = $escaped_table;
-			}
-		}
-
-		return $escaped_array;
-	}
 }
 
 $bsr_ajax = new BSR_AJAX;
