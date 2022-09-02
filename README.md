@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 5.6
+**Tested up to:** 6.0.1
 
 **Stable tag:** trunk
 
@@ -56,6 +56,13 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.4.1 - July 25, 2022 ###
+* Security: Selected tables are now confirmed to exist before processing the request
+
+### 1.4 - April 7, 2022 ###
+* New: Better Search Replace has a brand new user interface
+* Improvement: Default capability required to use the plugin has changed from "install_plugins" to "manage_options" for compatibility with DISALLOW_FILE_MODS
 
 ### 1.3.4 - December 7, 2020 ###
 * Improvement: WordPress 5.6 and PHP 8 compatible

@@ -114,15 +114,19 @@ class BSR_AJAX {
 			$args = array();
 			parse_str( $_POST['bsr_data'], $args );
 
-			// Build the arguements for this run.
+			// Build the arguments for this run.
+			if ( ! isset( $args['select_tables'] ) || ! is_array( $args['select_tables'] ) ) {
+				$args['select_tables'] = array();
+			}
+
 			$args = array(
-				'select_tables' 	=> isset( $args['select_tables'] ) ? $args['select_tables'] : array(),
-				'case_insensitive' 	=> isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
-				'replace_guids' 	=> isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
-				'dry_run' 			=> isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
-				'search_for' 		=> isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
-				'replace_with' 		=> isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
-				'completed_pages' 	=> isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
+				'select_tables'    => array_map( 'trim', $args['select_tables'] ),
+				'case_insensitive' => isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
+				'replace_guids'    => isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off',
+				'dry_run'          => isset( $args['dry_run'] ) ? $args['dry_run'] : 'off',
+				'search_for'       => isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
+				'replace_with'     => isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
+				'completed_pages'  => isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
 			);
 
 			$args['total_pages'] = isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $args['select_tables'] );
