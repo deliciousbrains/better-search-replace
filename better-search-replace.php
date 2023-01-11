@@ -14,7 +14,7 @@
  * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
  * Version:           1.4.2
- * Author:            Delicious Brains
+ * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
