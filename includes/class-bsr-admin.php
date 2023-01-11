@@ -92,6 +92,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages_callback() {
+		require_once BSR_PATH . 'includes/class-bsr-templates-helper.php';
 		require_once BSR_PATH . 'templates/bsr-dashboard.php';
 	}
 
