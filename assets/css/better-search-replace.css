@@ -844,6 +844,9 @@ select option {
   display:none;
 }
 
+#wpfooter p {
+  font-style: italic;
+}
 
 /*BREAKPOINT STYLING----------------------------*/
 

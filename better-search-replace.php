@@ -70,6 +70,9 @@ function run_better_search_replace() {
 		// Defines the current version of the plugin.
 		define( 'BSR_VERSION', '1.4.2' );
 
+		// Defines the name of the plugin.
+		define( 'BSR_NAME', 'Better Search Replace' );
+
 		/**
 		 * The core plugin class that is used to define internationalization,
 		 * dashboard-specific hooks, and public-facing site hooks.
