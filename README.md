@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 6.0.1
+**Tested up to:** 6.3.1
 
 **Stable tag:** trunk
 
@@ -56,6 +56,13 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.4.3 - September 5, 2023 ###
+* New: Links to plugin documentation, support, feedback, and changelog are now available in the footer of WP Admin
+* Improvement: PHP 8.2 and Better Search Replace are now compatible
+
+### 1.4.2 - January 11, 2023 ###
+* Security: Arbitrary tab templates in the `templates` directory can no longer be loaded using a query parameter.
 
 ### 1.4.1 - July 25, 2022 ###
 * Security: Selected tables are now confirmed to exist before processing the request
