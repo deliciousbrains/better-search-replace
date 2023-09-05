@@ -1,11 +1,11 @@
-# Copyright (C) 2023 Delicious Brains
+# Copyright (C) 2023 WP Engine
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.4.2\n"
+"Project-Id-Version: Better Search Replace 1.4.3\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2023-01-11 16:40:34+00:00\n"
+"POT-Creation-Date: 2023-09-05 12:30:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -104,6 +104,24 @@ msgstr ""
 
 #: includes/class-bsr-db.php:295
 msgid "Error updating row: %d."
+msgstr ""
+
+#: includes/class-bsr-plugin-footer.php:51
+#. translators: %1$s is a link to BSR's website, and %2$s is a link to WP
+#. Engine's website.
+msgid "%1$s is developed and maintained by %2$s."
+msgstr ""
+
+#: includes/class-bsr-plugin-footer.php:79
+msgid "Documentation"
+msgstr ""
+
+#: includes/class-bsr-plugin-footer.php:82
+msgid "Support"
+msgstr ""
+
+#: includes/class-bsr-plugin-footer.php:89
+msgid "Feedback"
 msgstr ""
 
 #: templates/bsr-dashboard.php:53
@@ -257,5 +275,5 @@ msgid "A small plugin for running a search/replace on your WordPress database."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Delicious Brains"
+msgid "WP Engine"
 msgstr ""
