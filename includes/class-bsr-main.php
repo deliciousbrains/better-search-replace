@@ -80,6 +80,8 @@ class Better_Search_Replace {
 		require_once BSR_PATH . 'includes/class-bsr-ajax.php';
 		require_once BSR_PATH . 'includes/class-bsr-db.php';
 		require_once BSR_PATH . 'includes/class-bsr-compatibility.php';
+		require_once BSR_PATH . 'includes/class-bsr-plugin-footer.php';
+		require_once BSR_PATH . 'includes/class-bsr-utils.php';
 		$this->loader = new BSR_Loader();
 	}
 
@@ -107,7 +109,8 @@ class Better_Search_Replace {
 	private function define_admin_hooks() {
 
 		// Initialize the admin class.
-		$plugin_admin = new BSR_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin  = new BSR_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_footer = new BSR_Plugin_Footer();
 
 		/// Register the admin pages and scripts.
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -118,6 +121,10 @@ class Better_Search_Replace {
 		$this->loader->add_action( 'admin_post_bsr_view_details', $plugin_admin, 'load_details' );
 		$this->loader->add_action( 'admin_post_bsr_download_sysinfo', $plugin_admin, 'download_sysinfo' );
 		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'meta_upgrade_link', 10, 2 );
+
+		// Footer Actions
+		$this->loader->add_filter( 'update_footer', $plugin_footer, 'update_footer', 20);
+		$this->loader->add_filter( 'admin_footer_text', $plugin_footer, 'admin_footer_text', 20);
 	}
 
 	/**
