@@ -95,7 +95,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= 1.4.2 - December 14, 2023 =
+= 1.4.4 - December 14, 2023 =
 * Fix: Objects with numerical properties are now skipped to avoid causing errors
 
 = 1.4.3 - September 5, 2023 =
