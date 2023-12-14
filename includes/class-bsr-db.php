@@ -352,7 +352,7 @@ class BSR_DB {
 					$props = get_object_vars( $data );
 					foreach ( $props as $key => $value ) {
 						// Integer properties are crazy and the best thing we can do is to just ignore them.
-						// see http://stackoverflow.com/a/10333200 and https://github.com/deliciousbrains/wp-migrate-db-pro/issues/853
+						// see http://stackoverflow.com/a/10333200
 						if (is_int($key)) {
 							continue;
 						}
