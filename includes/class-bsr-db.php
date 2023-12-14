@@ -351,6 +351,18 @@ class BSR_DB {
 					$_tmp = $data;
 					$props = get_object_vars( $data );
 					foreach ( $props as $key => $value ) {
+						// Integer properties are crazy and the best thing we can do is to just ignore them.
+						// see http://stackoverflow.com/a/10333200
+						if (is_int($key)) {
+							continue;
+						}
+
+						// Skip any representation of a protected property
+						// https://github.com/deliciousbrains/better-search-replace/issues/71#issuecomment-1369195244
+						if (is_string($key) && 1 === preg_match("/^([\\][0])?/im", $key)) {
+							continue;
+						}
+
 						$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 					}
 
