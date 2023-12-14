@@ -95,6 +95,9 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
+= 1.4.2 - December 14, 2023 =
+* Fix: Objects with numerical properties are now skipped to avoid causing errors
+
 = 1.4.3 - September 5, 2023 =
 * New: Links to plugin documentation, support, feedback, and changelog are now available in the footer of WP Admin
 * Improvement: PHP 8.2 and Better Search Replace are now compatible
