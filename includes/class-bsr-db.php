@@ -330,7 +330,9 @@ class BSR_DB {
 	 */
 	public function recursive_unserialize_replace( $from = '', $to = '', $data = '', $serialised = false, $case_insensitive = false ) {
 		try {
-
+			if (  is_serialized( $data ) && false !== strpos( $data, 'O:13:"WP_HTML_Token"' ) ) {
+				return $data;
+			}
 			if ( is_string( $data ) && ! is_serialized_string( $data ) && ( $unserialized = $this->unserialize( $data ) ) !== false ) {
 				$data = $this->recursive_unserialize_replace( $from, $to, $unserialized, true, $case_insensitive );
 			}
