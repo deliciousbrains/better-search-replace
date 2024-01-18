@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 6.3.1
+**Tested up to:** 6.4
 
 **Stable tag:** trunk
 
