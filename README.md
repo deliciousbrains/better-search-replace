@@ -57,6 +57,9 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.4.4 - December 14, 2023 ###
+* Fix: Numerical properties of objects are now skipped to avoid causing errors
+
 ### 1.4.3 - September 5, 2023 ###
 * New: Links to plugin documentation, support, feedback, and changelog are now available in the footer of WP Admin
 * Improvement: PHP 8.2 and Better Search Replace are now compatible
