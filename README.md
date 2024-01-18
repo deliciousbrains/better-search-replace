@@ -57,6 +57,10 @@ Upload Method:
 
 ## Changelog ##
 
+### 1.4.5 - January 18, 2024 ###
+* Security: Unserializing an object during search and replace operations now passes `'allowed_classes' => false` to avoid instantiating the object and potentially running malicious code stored in the database (thanks to Wordfence for responsible disclosure on December 18, 2023 followed by development and testing of the fix by WP Engine)
+* Fix: A regression in version 1.4.4 which caused some search results to be skipped has been fixed to ensure only numeric keyed objects are skipped
+
 ### 1.4.4 - December 14, 2023 ###
 * Fix: Numerical properties of objects are now skipped to avoid causing errors
 
