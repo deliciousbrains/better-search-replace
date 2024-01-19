@@ -13,7 +13,7 @@
  * Plugin Name:       Better Search Replace
  * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
- * Version:           1.4.2
+ * Version:           1.4.5
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
  * License:           GPL-3.0
@@ -37,8 +37,8 @@
  */
 
 // If this file was called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
 /**
@@ -50,38 +50,35 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since    1.0.0
  */
-function run_better_search_replace() {
+function run_better_search_replace()
+{
+    // Allows for overriding the capability required to run the plugin.
+    $cap = apply_filters('bsr_capability', 'manage_options');
 
-	// Allows for overriding the capability required to run the plugin.
-	$cap = apply_filters( 'bsr_capability', 'manage_options' );
+    // Only load for admins.
+    if (current_user_can($cap)) {
+        // Defines the path to the main plugin file.
+        define('BSR_FILE', __FILE__);
 
-	// Only load for admins.
-	if ( current_user_can( $cap ) ) {
+        // Defines the path to be used for includes.
+        define('BSR_PATH', plugin_dir_path(BSR_FILE));
 
-		// Defines the path to the main plugin file.
-		define( 'BSR_FILE', __FILE__ );
+        // Defines the URL to the plugin.
+        define('BSR_URL', plugin_dir_url(BSR_FILE));
 
-		// Defines the path to be used for includes.
-		define( 'BSR_PATH', plugin_dir_path( BSR_FILE ) );
+        // Defines the current version of the plugin.
+        define('BSR_VERSION', '1.4.5');
 
-		// Defines the URL to the plugin.
-		define( 'BSR_URL', plugin_dir_url( BSR_FILE ) );
+        // Defines the name of the plugin.
+        define('BSR_NAME', 'Better Search Replace');
 
-		// Defines the current version of the plugin.
-		define( 'BSR_VERSION', '1.4.2' );
-
-		// Defines the name of the plugin.
-		define( 'BSR_NAME', 'Better Search Replace' );
-
-		/**
-		 * The core plugin class that is used to define internationalization,
-		 * dashboard-specific hooks, and public-facing site hooks.
-		 */
-		require BSR_PATH . 'includes/class-bsr-main.php';
-		$plugin = new Better_Search_Replace();
-		$plugin->run();
-
-	}
-
+        /**
+         * The core plugin class that is used to define internationalization,
+         * dashboard-specific hooks, and public-facing site hooks.
+         */
+        require BSR_PATH . 'includes/class-bsr-main.php';
+        $plugin = new Better_Search_Replace();
+        $plugin->run();
+    }
 }
-add_action( 'after_setup_theme', 'run_better_search_replace' );
+add_action('after_setup_theme', 'run_better_search_replace');

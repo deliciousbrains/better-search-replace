@@ -2,8 +2,8 @@
 Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
-Tested up to: 6.1.1
-Stable tag: 1.4.2
+Tested up to: 6.4
+Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,6 +94,17 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.4.5 - January 18, 2024 =
+* Security: Unserializing an object during search and replace operations now passes `'allowed_classes' => false` to avoid instantiating the object and potentially running malicious code stored in the database (thanks to Wordfence for responsible disclosure on December 18, 2023 followed by development and testing of the fix by WP Engine)
+* Fix: A regression in version 1.4.4 which caused some search results to be skipped has been fixed to ensure only numeric keyed objects are skipped
+
+= 1.4.4 - December 14, 2023 =
+* Fix: Objects with numerical properties are now skipped to avoid causing errors
+
+= 1.4.3 - September 5, 2023 =
+* New: Links to plugin documentation, support, feedback, and changelog are now available in the footer of WP Admin
+* Improvement: PHP 8.2 and Better Search Replace are now compatible
 
 = 1.4.2 - January 11, 2023 =
 * Security: Arbitrary tab templates in the `templates` directory can no longer be loaded using a query parameter.

@@ -5,7 +5,7 @@
 
 **Requires at least:** 3.0.1
 
-**Tested up to:** 6.0.1
+**Tested up to:** 6.4
 
 **Stable tag:** trunk
 
@@ -56,6 +56,20 @@ Upload Method:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Changelog ##
+
+### 1.4.5 - January 18, 2024 ###
+* Security: Unserializing an object during search and replace operations now passes `'allowed_classes' => false` to avoid instantiating the object and potentially running malicious code stored in the database (thanks to Wordfence for responsible disclosure on December 18, 2023 followed by development and testing of the fix by WP Engine)
+* Fix: A regression in version 1.4.4 which caused some search results to be skipped has been fixed to ensure only numeric keyed objects are skipped
+
+### 1.4.4 - December 14, 2023 ###
+* Fix: Numerical properties of objects are now skipped to avoid causing errors
+
+### 1.4.3 - September 5, 2023 ###
+* New: Links to plugin documentation, support, feedback, and changelog are now available in the footer of WP Admin
+* Improvement: PHP 8.2 and Better Search Replace are now compatible
+
+### 1.4.2 - January 11, 2023 ###
+* Security: Arbitrary tab templates in the `templates` directory can no longer be loaded using a query parameter.
 
 ### 1.4.1 - July 25, 2022 ###
 * Security: Selected tables are now confirmed to exist before processing the request
