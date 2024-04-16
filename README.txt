@@ -95,6 +95,10 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
+= 1.4.6 - April 16, 2024 =
+* Changed: Serialized text strings are now only deserialized when containing a match, resulting in faster performance
+* Security: Table names are now escaped when displaying search results
+
 = 1.4.5 - January 18, 2024 =
 * Security: Unserializing an object during search and replace operations now passes `'allowed_classes' => false` to avoid instantiating the object and potentially running malicious code stored in the database (thanks to Wordfence for responsible disclosure on December 18, 2023 followed by development and testing of the fix by WP Engine)
 * Fix: A regression in version 1.4.4 which caused some search results to be skipped has been fixed to ensure only numeric keyed objects are skipped
