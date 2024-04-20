@@ -218,7 +218,7 @@ class BSR_Admin {
 							$time = $report['end'] - $report['start'];
 
 							if ( $report['change'] != 0 ) {
-								$report['change'] = '<a class="tooltip">' . $report['change'] . '</a>';
+								$report['change'] = '<a class="tooltip">' . esc_html( $report['change'] ). '</a>';
 
 								$upgrade_link = sprintf(
 									__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
@@ -229,10 +229,10 @@ class BSR_Admin {
 							}
 
 							if ( $report['updates'] != 0 ) {
-								$report['updates'] = '<strong>' . $report['updates'] . '</strong>';
+								$report['updates'] = '<strong>' . esc_html( $report['updates'] ) . '</strong>';
 							}
 
-							echo '<tr><td class="bsr-first">' . $table_name . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
+							echo '<tr><td class="bsr-first">' . esc_html( $table_name ) . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
 						}
 					?>
 					</tbody>
