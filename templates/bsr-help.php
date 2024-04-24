@@ -68,7 +68,7 @@ $bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
 					<p class="submit">
 						<input type="hidden" name="action" value="bsr_download_sysinfo" />
 						<?php wp_nonce_field( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' ); ?>
-						<input type="submit" name="bsr-download-sysinfo" id="bsr-download-sysinfo" class="button button-secondary button-sm" value="Download System Info">
+						<input type="submit" name="bsr-download-sysinfo" id="bsr-download-sysinfo" class="button button-secondary button-sm" value="<?php esc_attr_e( 'Download System Info', 'better-search-replace' ); ?>">
 					</p>
 				</div>
 
