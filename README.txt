@@ -95,6 +95,9 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
+= 1.4.7 - May 30, 2024 =
+* Fixed: The case-insensitive setting once again allows case-insensitive strings to be matched within serialized data, fixing a regression introduced in version 1.4.6
+
 = 1.4.6 - April 17, 2024 =
 * Changed: Serialized text strings are now only deserialized when containing a match, resulting in faster performance
 * Security: Table names are now escaped when displaying search results
