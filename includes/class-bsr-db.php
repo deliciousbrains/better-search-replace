@@ -330,9 +330,12 @@ class BSR_DB {
 	 */
 	public function recursive_unserialize_replace( $from = '', $to = '', $data = '', $serialised = false, $case_insensitive = false ) {
 		try {
-			// If search string doesn't exist in data, do an early return.
-			if ( is_string( $data ) && false === strpos( $data, $from ) ) {
-				return $data;
+			// Exit early if $data is a string but has no search matches.
+			if ( is_string( $data ) ) {
+				$has_match = $case_insensitive ? false !== stripos( $data, $from ) : false !== strpos( $data, $from );
+				if ( ! $has_match ) {
+					return $data;
+				}
 			}
 
 			if ( is_string( $data ) && ! is_serialized_string( $data ) && ( $unserialized = $this->unserialize( $data ) ) !== false ) {
@@ -360,13 +363,13 @@ class BSR_DB {
 						if ( is_int( $key ) ) {
 							continue;
 						}
- 
+
 						// Skip any representation of a protected property
 						// https://github.com/deliciousbrains/better-search-replace/issues/71#issuecomment-1369195244
 						if ( is_string( $key ) && 1 === preg_match( "/^(\\\\0).+/im", preg_quote( $key ) ) ) {
 							continue;
 						}
- 
+
 						$_tmp->$key = $this->recursive_unserialize_replace( $from, $to, $value, false, $case_insensitive );
 					}
 

@@ -57,6 +57,9 @@ Upload Method:
 
 ## Changelog ##
 
+### Unreleased ###
+* Fix: Regression in 1.4.6, case-insensitive search and replace now works as expected in serialized strings.
+
 ### 1.4.6 - April 17, 2024 ###
 * Changed: Serialized text strings are now only deserialized when containing a match, resulting in faster performance
 * Security: Table names are now escaped when displaying search results
