@@ -13,7 +13,7 @@
  * Plugin Name:       Better Search Replace
  * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
- * Version:           1.4.6
+ * Version:           1.4.7
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
  * License:           GPL-3.0
@@ -67,7 +67,7 @@ function run_better_search_replace()
         define('BSR_URL', plugin_dir_url(BSR_FILE));
 
         // Defines the current version of the plugin.
-        define('BSR_VERSION', '1.4.6');
+        define('BSR_VERSION', '1.4.7');
 
         // Defines the name of the plugin.
         define('BSR_NAME', 'Better Search Replace');
