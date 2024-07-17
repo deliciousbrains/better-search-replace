@@ -962,3 +962,8 @@ select option {
   padding: 0 var(--spacer-lg)!important;
   box-shadow: 0 4px 4px 0 rgba(0,0,0,.25);
 }
+
+.upgrade-sidebar .content .button-row a {
+    text-wrap: balance;
+    line-height: 1.3;
+}
