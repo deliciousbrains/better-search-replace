@@ -95,7 +95,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= 1.4.8 - August 29, 2024 =
+= 1.4.8 - September 3, 2024 =
 * No changes as this was a pro-only release for Better Search Replace Pro
 
 = 1.4.7 - May 30, 2024 =
