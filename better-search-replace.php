@@ -16,6 +16,7 @@
  * Version:           1.4.9-alpha.1
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
+ * Update URI:        false
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       better-search-replace
