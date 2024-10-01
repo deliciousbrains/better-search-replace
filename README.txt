@@ -97,6 +97,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 = Unreleased =
 * New: Plugin updates are now retrieved from WP Engine's own plugin updates service
+* New: Dependencies have been updated
 
 = 1.4.8 - September 3, 2024 =
 * No changes as this was a pro-only release for Better Search Replace Pro
