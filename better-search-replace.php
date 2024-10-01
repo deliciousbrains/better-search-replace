@@ -82,3 +82,28 @@ function run_better_search_replace()
     }
 }
 add_action('after_setup_theme', 'run_better_search_replace');
+
+/**
+ * Initialize the checking for plugin updates.
+ */
+function bsr_check_for_upgrades() {
+	if ( ! class_exists( '\WpeSecureUpdater\PluginUpdaterClass\PluginUpdater' ) ) {
+
+		$properties = array(
+			// The plugin_name must match the plugin's "Name" in the Plugin Header.
+			// And the value in "https://wpe-plugin-updates.wpengine.com/plugins.json".
+			'plugin_name'   => 'Better Search Replace',
+
+			// The plugin_author must match the plugin's "Author" in the Plugin Header.
+			// And the value in "https://wpe-plugin-updates.wpengine.com/plugins.json".
+			'plugin_author' => 'WP Engine',
+
+			// This must match the key in "https://wpe-plugin-updates.wpengine.com/plugins.json".
+			'plugin_slug'   => 'better-search-replace',
+		);
+
+		require_once __DIR__ . '/includes/class-bsr-plugin-updater.php';
+		new DeliciousBrains\Better_Search_Replace\BSR_Plugin_Updater( $properties );
+	}
+}
+add_action( 'admin_init', 'bsr_check_for_upgrades', 1 );
