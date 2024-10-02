@@ -1,7 +1,7 @@
 <?php
 /**
  * The PluginUpdater class which can be used to pull plugin updates from a new location.
- * @package your-plugin-package-name
+ * @package better-search-replace
  */
 
 namespace DeliciousBrains\Better_Search_Replace;
