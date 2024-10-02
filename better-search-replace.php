@@ -16,6 +16,7 @@
  * Version:           1.4.9-alpha.1
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
+ * Update URI:        false
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       better-search-replace
@@ -82,3 +83,19 @@ function run_better_search_replace()
     }
 }
 add_action('after_setup_theme', 'run_better_search_replace');
+
+/**
+ * Initialize the checking for plugin updates.
+ */
+function bsr_check_for_upgrades() {
+	$properties = array(
+		// This must match the key in "https://wpe-plugin-updates.wpengine.com/plugins.json".
+		'plugin_slug'     => 'better-search-replace',
+		// This must be the result of calling plugin_basename( __FILE__ ) IN YOUR MAIN PLUGIN's FILE.
+		'plugin_basename' => plugin_basename( __FILE__ ),
+	);
+
+	require_once __DIR__ . '/includes/class-bsr-plugin-updater.php';
+	new DeliciousBrains\Better_Search_Replace\BSR_Plugin_Updater( $properties );
+}
+add_action( 'admin_init', 'bsr_check_for_upgrades' );
