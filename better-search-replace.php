@@ -3,7 +3,7 @@
  * Better Search Replace
  *
  * This plugin improves upon the database search/replace functionality offered
- * by some other plugins- offering serialization support, the ability to
+ * by some other plugins, offering serialization support, the ability to
  * select specific tables, and the ability to run a dry run.
  *
  * @since             1.0.0
@@ -89,9 +89,7 @@ add_action('after_setup_theme', 'run_better_search_replace');
  */
 function bsr_check_for_upgrades() {
 	$properties = array(
-		// This must match the key in "https://wpe-plugin-updates.wpengine.com/plugins.json".
 		'plugin_slug'     => 'better-search-replace',
-		// This must be the result of calling plugin_basename( __FILE__ ) IN YOUR MAIN PLUGIN's FILE.
 		'plugin_basename' => plugin_basename( __FILE__ ),
 	);
 
