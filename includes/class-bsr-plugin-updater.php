@@ -42,13 +42,9 @@ class BSR_Plugin_Updater {
 	 */
 	public function __construct( $properties ) {
 		if (
-			// This must match the key in "https://wpe-plugin-updates.wpengine.com/plugins.json".
 			empty( $properties['plugin_slug'] ) ||
-
-			// This must be the result of calling plugin_basename( __FILE__ ); in the main plugin root file.
 			empty( $properties['plugin_basename'] )
 		) {
-			// If any of the values we require were not passed, throw a fatal.
 			error_log( 'WPE Secure Plugin Updater received a malformed request.' );
 			return;
 		}
@@ -197,7 +193,7 @@ class BSR_Plugin_Updater {
 
 			// Cache the response.
 			update_option( $this->properties['plugin_update_transient_exp_name'], $this->cache_time, false );
-			update_option( $this->properties['plugin_update_transient_name'], $response, $this->cache_time );
+			update_option( $this->properties['plugin_update_transient_name'], $response, false );
 		}
 
 		$decoded_response = json_decode( $response );

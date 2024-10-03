@@ -96,7 +96,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = Unreleased =
-* New: Plugin updates are now retrieved from WP Engine's own plugin updates service
+* Security: The plugin now uses its own update mechanism from WP Engine servers
 * New: Dependencies have been updated
 
 = 1.4.8 - September 3, 2024 =
