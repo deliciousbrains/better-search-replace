@@ -3,7 +3,7 @@
  * Better Search Replace
  *
  * This plugin improves upon the database search/replace functionality offered
- * by some other plugins- offering serialization support, the ability to
+ * by some other plugins, offering serialization support, the ability to
  * select specific tables, and the ability to run a dry run.
  *
  * @since             1.0.0
@@ -13,9 +13,10 @@
  * Plugin Name:       Better Search Replace
  * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
- * Version:           1.4.7
+ * Version:           1.4.9
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
+ * Update URI:        false
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       better-search-replace
@@ -67,7 +68,7 @@ function run_better_search_replace()
         define('BSR_URL', plugin_dir_url(BSR_FILE));
 
         // Defines the current version of the plugin.
-        define('BSR_VERSION', '1.4.7');
+        define('BSR_VERSION', '1.4.9');
 
         // Defines the name of the plugin.
         define('BSR_NAME', 'Better Search Replace');
@@ -82,3 +83,17 @@ function run_better_search_replace()
     }
 }
 add_action('after_setup_theme', 'run_better_search_replace');
+
+/**
+ * Initialize the checking for plugin updates.
+ */
+function bsr_check_for_upgrades() {
+	$properties = array(
+		'plugin_slug'     => 'better-search-replace',
+		'plugin_basename' => plugin_basename( __FILE__ ),
+	);
+
+	require_once __DIR__ . '/includes/class-bsr-plugin-updater.php';
+	new DeliciousBrains\Better_Search_Replace\BSR_Plugin_Updater( $properties );
+}
+add_action( 'admin_init', 'bsr_check_for_upgrades' );
