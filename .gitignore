@@ -14,9 +14,13 @@ $RECYCLE.BIN/
 .project
 .metadata
 build/
-builds/
 tmp/
 tests/clover.xml
 
 # Node
 node_modules
+
+# Artifacts
+builds/
+assets/css/better-search-replace.min.css
+assets/js/better-search-replace.min.*
