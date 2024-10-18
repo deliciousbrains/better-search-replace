@@ -45,10 +45,12 @@ node_modules: package.json
 product-info:
 	php build-cfg/utils/create-json.php README.txt better-search-replace.php > builds/info.json
 
+.PHONY: clean
 clean:
 	rm -rf builds
 	rm -f $(CSS_OBJ)
 	rm -f $(JS_OBJ) $(JS_MAP)
 
+.PHONY: clean-all
 clean-all: clean
 	rm -rf node_modules
