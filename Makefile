@@ -38,8 +38,15 @@ zip: all
 .PHONY: package
 package: zip
 
+.PHONY: install
+install: node_modules
+
 node_modules: package.json
 	yarn install
+
+.PHONY: update-deps
+update-deps:
+	yarn upgrade
 
 .PHONY: product-info
 product-info:
