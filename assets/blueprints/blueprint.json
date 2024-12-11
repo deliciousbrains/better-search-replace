@@ -1,0 +1,15 @@
+{
+	"preferredVersions": {
+		"php": "latest",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"plugins": [
+		"better-search-replace"
+	],
+	"login": true,
+	"landingPage": "/wp-admin/admin.php?page=better-search-replace",
+	"steps": []
+}
