@@ -96,6 +96,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = Unreleased =
+* Fix: Improved security and stability
 
 = 1.4.9 - October 4, 2024 =
 * Security: The plugin now uses its own update mechanism from WP Engine servers

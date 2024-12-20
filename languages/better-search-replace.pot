@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Better Search Replace 1.4.10-dev\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2024-10-07 15:44:34+00:00\n"
+"POT-Creation-Date: 2024-12-20 11:43:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,54 +47,54 @@ msgstr ""
 msgid "Better Search Replace"
 msgstr ""
 
-#: includes/class-bsr-admin.php:108
+#: includes/class-bsr-admin.php:125
 msgid ""
-"<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, "
-"<strong>%d</strong> cells were found that need to be updated, and "
-"<strong>%d</strong> changes were made.</p><p><a href=\"%s\" "
+"<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, "
+"<strong>%2$d</strong> cells were found that need to be updated, and "
+"<strong>%3$d</strong> changes were made.</p><p><a href=\"%4$s\" "
 "class=\"thickbox\" title=\"Dry Run Details\">Click here</a> for more "
 "details, or use the form below to run the search/replace.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:115
+#: includes/class-bsr-admin.php:136
 msgid ""
-"<p>During the search/replace, <strong>%d</strong> tables were searched, "
-"with <strong>%d</strong> cells changed in <strong>%d</strong> "
-"updates.</p><p><a href=\"%s\" class=\"thickbox\" title=\"Search/Replace "
+"<p>During the search/replace, <strong>%1$d</strong> tables were searched, "
+"with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> "
+"updates.</p><p><a href=\"%4$s\" class=\"thickbox\" title=\"Search/Replace "
 "Details\">Click here</a> for more details.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:213
+#: includes/class-bsr-admin.php:234
 msgid "Table"
 msgstr ""
 
-#: includes/class-bsr-admin.php:213
+#: includes/class-bsr-admin.php:234
 msgid "Changes Found"
 msgstr ""
 
-#: includes/class-bsr-admin.php:213
+#: includes/class-bsr-admin.php:234
 msgid "Rows Updated"
 msgstr ""
 
-#: includes/class-bsr-admin.php:213
+#: includes/class-bsr-admin.php:234
 msgid "Time"
 msgstr ""
 
-#: includes/class-bsr-admin.php:224
+#: includes/class-bsr-admin.php:245
 msgid ""
 "<a href=\"%s\" target=\"_blank\">UPGRADE</a> to view details on the exact "
 "changes that will be made."
 msgstr ""
 
-#: includes/class-bsr-admin.php:235
+#: includes/class-bsr-admin.php:256
 msgid " seconds"
 msgstr ""
 
-#: includes/class-bsr-admin.php:285
+#: includes/class-bsr-admin.php:303
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/class-bsr-ajax.php:157
+#: includes/class-bsr-ajax.php:159
 msgid "Processing table %d of %d: %s"
 msgstr ""
 
