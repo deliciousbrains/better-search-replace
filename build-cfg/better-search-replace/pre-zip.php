@@ -10,7 +10,7 @@ if ( 'Y' == strtoupper( trim( fgets( STDIN ) ) ) ) {
 	system( 'svn co -q http://svn.wp-plugins.org/better-search-replace svn' );
 	system( 'rm -R svn/trunk' );
 	system( 'mkdir svn/trunk' );
-	system( "rsync -r $plugin_slug/* svn/trunk/" );
+	system( "rsync -r --filter '- ext/' $plugin_slug/* svn/trunk/" );
 	system( 'svn stat svn/ | grep \'^\?\' | awk \'{print $2}\' | xargs -I x svn add x@' );
 	system( 'svn stat svn/ | grep \'^\!\' | awk \'{print $2}\' | xargs -I x svn rm --force x@' );
 	system( 'svn stat svn/' );

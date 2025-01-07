@@ -1,4 +1,4 @@
-PHP_SRC := better-search-replace.php $(wildcard includes/*.php)
+PHP_SRC := better-search-replace.php $(wildcard includes/*.php) $(wildcard ext/*.php)
 POT_OBJ := languages/better-search-replace.pot
 CSS_DIR := assets/css
 CSS_ALL := $(wildcard $(CSS_DIR)/*.css)

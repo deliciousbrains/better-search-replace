@@ -42,43 +42,45 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since 1.0.0
- */
-function run_better_search_replace() {
-	if ( bsr_enabled_for_user() ) {
-		// Defines the path to the main plugin file.
-		define( 'BSR_FILE', __FILE__ );
+if ( ! function_exists( 'bsr_init' ) ) {
+	// Defines the path to the main plugin file.
+	define( 'BSR_FILE', __FILE__ );
 
-		// Defines the path to be used for includes.
-		define( 'BSR_PATH', plugin_dir_path( BSR_FILE ) );
+	// Defines the path to be used for includes.
+	define( 'BSR_PATH', plugin_dir_path( BSR_FILE ) );
 
-		// Defines the URL to the plugin.
-		define( 'BSR_URL', plugin_dir_url( BSR_FILE ) );
+	// Defines the URL to the plugin.
+	define( 'BSR_URL', plugin_dir_url( BSR_FILE ) );
 
-		// Defines the current version of the plugin.
-		define( 'BSR_VERSION', '1.4.10-dev' );
+	// Defines the current version of the plugin.
+	define( 'BSR_VERSION', '1.4.10-dev' );
 
-		// Defines the name of the plugin.
-		define( 'BSR_NAME', 'Better Search Replace' );
+	// Defines the name of the plugin.
+	define( 'BSR_NAME', 'Better Search Replace' );
 
-		/**
-		 * The core plugin class that is used to define internationalization,
-		 * dashboard-specific hooks, and public-facing site hooks.
-		 */
-		require BSR_PATH . 'includes/class-bsr-main.php';
-		$plugin = new Better_Search_Replace();
-		$plugin->run();
+	/**
+	 * Begins execution of the plugin.
+	 *
+	 * Since everything within the plugin is registered via hooks,
+	 * then kicking off the plugin from this point in the file does
+	 * not affect the page life cycle.
+	 *
+	 * @since 1.0.0
+	 */
+	function bsr_init() {
+		if ( bsr_enabled_for_user() ) {
+			/**
+			 * The core plugin class that is used to define internationalization,
+			 * dashboard-specific hooks, and public-facing site hooks.
+			 */
+			require BSR_PATH . 'includes/class-bsr-main.php';
+			$plugin = new Better_Search_Replace();
+			$plugin->run();
+		}
 	}
-}
 
-add_action( 'after_setup_theme', 'run_better_search_replace' );
+	add_action( 'after_setup_theme', 'bsr_init' );
+}
 
 if ( ! function_exists( 'bsr_enabled_for_user' ) ) {
 	/**
@@ -94,17 +96,6 @@ if ( ! function_exists( 'bsr_enabled_for_user' ) ) {
 	}
 }
 
-/**
- * Initialize the checking for plugin updates.
- */
-function bsr_check_for_upgrades() {
-	$properties = array(
-		'plugin_slug'     => 'better-search-replace',
-		'plugin_basename' => plugin_basename( __FILE__ ),
-	);
-
-	require_once __DIR__ . '/includes/class-bsr-plugin-updater.php';
-	new DeliciousBrains\Better_Search_Replace\BSR_Plugin_Updater( $properties );
+if ( file_exists( BSR_PATH . 'ext/bsr-ext-functions.php' ) ) {
+	require_once BSR_PATH . 'ext/bsr-ext-functions.php';
 }
-
-add_action( 'admin_init', 'bsr_check_for_upgrades' );
