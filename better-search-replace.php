@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! function_exists( 'bsr_init' ) ) {
+if ( ! function_exists( 'run_better_search_replace' ) ) {
 	// Defines the path to the main plugin file.
 	define( 'BSR_FILE', __FILE__ );
 
@@ -67,7 +67,7 @@ if ( ! function_exists( 'bsr_init' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	function bsr_init() {
+	function run_better_search_replace() {
 		if ( bsr_enabled_for_user() ) {
 			/**
 			 * The core plugin class that is used to define internationalization,
@@ -79,7 +79,7 @@ if ( ! function_exists( 'bsr_init' ) ) {
 		}
 	}
 
-	add_action( 'after_setup_theme', 'bsr_init' );
+	add_action( 'after_setup_theme', 'run_better_search_replace' );
 }
 
 if ( ! function_exists( 'bsr_enabled_for_user' ) ) {
