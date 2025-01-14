@@ -11,6 +11,8 @@ if ( 'Y' == strtoupper( trim( fgets( STDIN ) ) ) ) {
 	system( 'rm -R svn/trunk' );
 	system( 'mkdir svn/trunk' );
 	system( "rsync -r --filter '- ext/' $plugin_slug/* svn/trunk/" );
+	system( "cat svn/trunk/better-search-replace.php | grep -v '* Update URI:' > svn/trunk/better-search-replace.php.tmp" );
+	system( 'mv svn/trunk/better-search-replace.php.tmp svn/trunk/better-search-replace.php' );
 	system( 'svn stat svn/ | grep \'^\?\' | awk \'{print $2}\' | xargs -I x svn add x@' );
 	system( 'svn stat svn/ | grep \'^\!\' | awk \'{print $2}\' | xargs -I x svn rm --force x@' );
 	system( 'svn stat svn/' );
