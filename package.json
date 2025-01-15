@@ -1,6 +1,6 @@
 {
   "name": "better-search-replace",
-  "version": "1.3.6",
+  "version": "1.4.10",
   "description": "A simple plugin for updating URLs or other text in a database.",
   "main": "index.js",
   "repository": "https://github.com/deliciousbrains/better-search-replace",

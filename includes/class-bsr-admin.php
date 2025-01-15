@@ -98,32 +98,53 @@ class BSR_Admin {
 
 	/**
 	 * Renders the result or error onto the better-search-replace admin page.
-	 * @access public
 	 */
 	public static function render_result() {
-
-		if ( isset( $_GET['result'] ) && $result = get_transient( 'bsr_results' ) ) {
-
-			if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
-				$msg = sprintf( __( '<p><strong>DRY RUN:</strong> <strong>%d</strong> tables were searched, <strong>%d</strong> cells were found that need to be updated, and <strong>%d</strong> changes were made.</p><p><a href="%s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>', 'better-search-replace' ),
-					$result['tables'],
-					$result['change'],
-					$result['updates'],
-					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
-				);
-			} else {
-				$msg = sprintf( __( '<p>During the search/replace, <strong>%d</strong> tables were searched, with <strong>%d</strong> cells changed in <strong>%d</strong> updates.</p><p><a href="%s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>', 'better-search-replace' ),
-					$result['tables'],
-					$result['change'],
-					$result['updates'],
-					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
-				);
-			}
-
-			echo '<div class="updated bsr-updated" style="display: none;">' . $msg . '</div>';
-
+		// Trying to show results?
+		if ( ! isset( $_GET['result'] ) ) {
+			return;
 		}
 
+		$result = get_transient( 'bsr_results' );
+
+		// Have results with required fields set with correctly typed data?
+		if (
+			empty( $result ) ||
+			! isset( $result['tables'] ) ||
+			! is_int( $result['tables'] ) ||
+			! isset( $result['change'] ) ||
+			! is_int( $result['change'] ) ||
+			! isset( $result['updates'] ) ||
+			! is_int( $result['updates'] )
+		) {
+			return;
+		}
+
+		if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
+			$msg = sprintf(
+				__(
+					'<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, <strong>%2$d</strong> cells were found that need to be updated, and <strong>%3$d</strong> changes were made.</p><p><a href="%4$s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>',
+					'better-search-replace'
+				),
+				$result['tables'],
+				$result['change'],
+				$result['updates'],
+				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+			);
+		} else {
+			$msg = sprintf(
+				__(
+					'<p>During the search/replace, <strong>%1$d</strong> tables were searched, with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> updates.</p><p><a href="%4$s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>',
+					'better-search-replace'
+				),
+				$result['tables'],
+				$result['change'],
+				$result['updates'],
+				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+			);
+		}
+
+		echo '<div class="updated bsr-updated" style="display: none;">' . $msg . '</div>';
 	}
 
 	/**
@@ -255,10 +276,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function download_sysinfo() {
-		check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' );
-
-		$cap = apply_filters( 'bsr_capability', 'manage_options' );
-		if ( ! current_user_can( $cap ) ) {
+		if ( ! BSR_Utils::check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' ) ) {
 			return;
 		}
 
