@@ -3,7 +3,7 @@ Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
 Tested up to: 6.7
-Stable tag: 1.4.10
+Stable tag: 1.4.11-dev
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,6 +94,8 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= Unreleased =
 
 = 1.4.10 - January 14, 2025 =
 * Fix: Improved security and stability
