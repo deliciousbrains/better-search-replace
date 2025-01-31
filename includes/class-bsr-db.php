@@ -231,7 +231,7 @@ class BSR_DB {
 				$data_to_fix = $row[ $column ];
 
 				if ( $column == $primary_key ) {
-					$where_sql[] = $column . ' = "' .  $this->mysql_escape_mimic( $data_to_fix ) . '"';
+					$where_sql[] = $column . ' = \'' .  $this->mysql_escape_mimic( $data_to_fix ) . '\'';
 					continue;
 				}
 
@@ -276,7 +276,7 @@ class BSR_DB {
 
 				// Something was changed
 				if ( $edited_data != $data_to_fix ) {
-					$update_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $edited_data ) . '"';
+					$update_sql[] = $column . ' = \'' . $this->mysql_escape_mimic( $edited_data ) . '\'';
 					$upd = true;
 					$table_report['change']++;
 				}
