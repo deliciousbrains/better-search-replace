@@ -83,7 +83,14 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
-		$cap = apply_filters( 'bsr_capability', 'manage_options' );
+		$cap = is_multisite() ? 'manage_network_options' : 'manage_options';
+
+		/**
+		 * Allows for overriding the capability required to run the plugin.
+		 *
+		 * @param string $cap
+		 */
+		$cap = apply_filters( 'bsr_capability', $cap );
 		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
 
