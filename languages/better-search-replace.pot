@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.4.10\n"
+"Project-Id-Version: Better Search Replace 1.4.11-dev\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2025-01-09 17:40:23+00:00\n"
+"POT-Creation-Date: 2025-02-13 16:06:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Better Search Replace"
 msgstr ""
 
-#: includes/class-bsr-admin.php:125
+#: includes/class-bsr-admin.php:132
 msgid ""
 "<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, "
 "<strong>%2$d</strong> cells were found that need to be updated, and "
@@ -56,7 +56,7 @@ msgid ""
 "details, or use the form below to run the search/replace.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:136
+#: includes/class-bsr-admin.php:143
 msgid ""
 "<p>During the search/replace, <strong>%1$d</strong> tables were searched, "
 "with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> "
@@ -64,33 +64,33 @@ msgid ""
 "Details\">Click here</a> for more details.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:241
 msgid "Table"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:241
 msgid "Changes Found"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:241
 msgid "Rows Updated"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:241
 msgid "Time"
 msgstr ""
 
-#: includes/class-bsr-admin.php:245
+#: includes/class-bsr-admin.php:252
 msgid ""
 "<a href=\"%s\" target=\"_blank\">UPGRADE</a> to view details on the exact "
 "changes that will be made."
 msgstr ""
 
-#: includes/class-bsr-admin.php:256
+#: includes/class-bsr-admin.php:263
 msgid " seconds"
 msgstr ""
 
-#: includes/class-bsr-admin.php:303
+#: includes/class-bsr-admin.php:310
 msgid "Upgrade to Pro"
 msgstr ""
 

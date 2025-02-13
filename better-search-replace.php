@@ -89,8 +89,14 @@ if ( ! function_exists( 'bsr_enabled_for_user' ) ) {
 	 * @return bool
 	 */
 	function bsr_enabled_for_user() {
-		// Allows for overriding the capability required to run the plugin.
-		$cap = apply_filters( 'bsr_capability', 'manage_options' );
+		$cap = is_multisite() ? 'manage_network_options' : 'manage_options';
+
+		/**
+		 * Allows for overriding the capability required to run the plugin.
+		 *
+		 * @param string $cap
+		 */
+		$cap = apply_filters( 'bsr_capability', $cap );
 
 		return current_user_can( $cap );
 	}
