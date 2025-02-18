@@ -70,11 +70,11 @@ Yes! This plugin should be compatible with any host.
 
 = Can I damage my site with this plugin? =
 
-Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always adviseable to have a backup of your database before using this plugin.
+Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always advisable to have a backup of your database before using this plugin.
 
 = How does this work on WordPress Multisite? =
 
-When running this plugin on a WordPress Multisite installation, it will only be loaded and visible for Network admins. Network admins can go to the dashboard of any subsite to run a search/replace on just the tables for that subsite, or go to the dashboard of the main/base site to run a search/replace on all tables.
+When this plugin is used in a WordPress Multisite installation, subsite administrators can only access the database tables associated with their specific subsite. Network admins can go to the dashboard of any subsite to run a search/replace on just the tables for that subsite, or go to the dashboard of the main/base site to run a search/replace on all tables. To change which users have access to the plugin, the user capability can be filtered via `bsr_capability`.
 
 = How can I use this plugin when changing URLs? =
 
