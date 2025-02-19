@@ -74,7 +74,12 @@ Yes! Entering a wrong search or replace string could damage your database. Becau
 
 = How does this work on WordPress Multisite? =
 
-When this plugin is used in a WordPress Multisite installation, subsite administrators can only access the database tables associated with their specific subsite. Network admins can go to the dashboard of any subsite to run a search/replace on just the tables for that subsite, or go to the dashboard of the main/base site to run a search/replace on all tables. To change which users have access to the plugin, the user capability can be filtered via `bsr_capability`.
+When this plugin is installed on a WordPress multisite network:
+
+* Subsite administrators can only search and replace within tables that belong to that subsite by visiting Dashboard > Tools > Better Search Replace from WP Admin of the subsite.
+* Network administrators (i.e. Super Admins) and administrators of the primary site can search and replace across all tables in the multisite network by visiting Dashboard > Tools > Better Search Replace from WP Admin of the primary site.
+
+To change which users have access to the plugin, the user capability can be modified via code using the `bsr_capability` filter.
 
 = How can I use this plugin when changing URLs? =
 
