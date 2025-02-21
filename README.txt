@@ -1,6 +1,6 @@
 === Better Search Replace ===
 Contributors: wpengine, deliciousbrains, mattshaw
-Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
+Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 3.0.1
 Tested up to: 6.7
 Stable tag: 1.4.11-dev
