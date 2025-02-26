@@ -3,7 +3,7 @@ Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 3.0.1
 Tested up to: 6.7
-Stable tag: 1.4.11-dev
+Stable tag: 1.4.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
