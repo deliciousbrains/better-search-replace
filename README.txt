@@ -1,8 +1,8 @@
 === Better Search Replace ===
 Contributors: wpengine, deliciousbrains, mattshaw
-Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
+Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 3.0.1
-Tested up to: 6.7
+Tested up to: 6.8
 Stable tag: 1.4.11-dev
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -70,7 +70,7 @@ Yes! This plugin should be compatible with any host.
 
 = Can I damage my site with this plugin? =
 
-Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always adviseable to have a backup of your database before using this plugin.
+Yes! Entering a wrong search or replace string could damage your database. Because of this, it is always advisable to have a backup of your database before using this plugin.
 
 = How does this work on WordPress Multisite? =
 
@@ -96,7 +96,8 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = Unreleased =
-Fix: Multisite access is now limited to network administrators
+* Fix: Improved security and stability
+* Fix: Multisite access is now limited to network administrators
 
 = 1.4.10 - January 14, 2025 =
 * Fix: Improved security and stability
