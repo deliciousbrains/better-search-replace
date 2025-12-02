@@ -120,28 +120,61 @@ class BSR_Admin {
 			return;
 		}
 
-		if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
-			$msg = sprintf(
-				__(
-					'<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, <strong>%2$d</strong> cells were found that need to be updated, and <strong>%3$d</strong> changes were made.</p><p><a href="%4$s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>',
-					'better-search-replace'
-				),
-				$result['tables'],
-				$result['change'],
-				$result['updates'],
-				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
-			);
+		$is_csv = isset( $result['is_csv'] ) && $result['is_csv'];
+
+		if ( $is_csv ) {
+			// CSV results
+			$csv_pair_count = isset( $result['csv_pair_reports'] ) ? count( $result['csv_pair_reports'] ) : 0;
+			if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
+				$msg = sprintf(
+					__(
+						'<p><strong>DRY RUN:</strong> Processed <strong>%1$d</strong> CSV pairs. <strong>%2$d</strong> tables were searched, <strong>%3$d</strong> cells were found that need to be updated, and <strong>%4$d</strong> changes were made.</p><p><a href="%5$s" class="thickbox" title="CSV Dry Run Details">Click here</a> for detailed results for each CSV pair.</p>',
+						'better-search-replace'
+					),
+					$csv_pair_count,
+					$result['tables'],
+					$result['change'],
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				);
+			} else {
+				$msg = sprintf(
+					__(
+						'<p>Processed <strong>%1$d</strong> CSV pairs. During the search/replace, <strong>%2$d</strong> tables were searched, with <strong>%3$d</strong> cells changed in <strong>%4$d</strong> updates.</p><p><a href="%5$s" class="thickbox" title="CSV Search/Replace Details">Click here</a> for detailed results for each CSV pair.</p>',
+						'better-search-replace'
+					),
+					$csv_pair_count,
+					$result['tables'],
+					$result['change'],
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				);
+			}
 		} else {
-			$msg = sprintf(
-				__(
-					'<p>During the search/replace, <strong>%1$d</strong> tables were searched, with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> updates.</p><p><a href="%4$s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>',
-					'better-search-replace'
-				),
-				$result['tables'],
-				$result['change'],
-				$result['updates'],
-				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
-			);
+			// Regular single search/replace results
+			if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
+				$msg = sprintf(
+					__(
+						'<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, <strong>%2$d</strong> cells were found that need to be updated, and <strong>%3$d</strong> changes were made.</p><p><a href="%4$s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>',
+						'better-search-replace'
+					),
+					$result['tables'],
+					$result['change'],
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				);
+			} else {
+				$msg = sprintf(
+					__(
+						'<p>During the search/replace, <strong>%1$d</strong> tables were searched, with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> updates.</p><p><a href="%4$s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>',
+						'better-search-replace'
+					),
+					$result['tables'],
+					$result['change'],
+					$result['updates'],
+					get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				);
+			}
 		}
 
 		echo '<div class="updated bsr-updated" style="display: none;">' . $msg . '</div>';
@@ -223,41 +256,98 @@ class BSR_Admin {
 			$results 		= get_transient( 'bsr_results' );
 			$min 			= ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
 			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
+			$is_csv         = isset( $results['is_csv'] ) && $results['is_csv'];
 
 			?>
 			<link href="<?php echo esc_url( get_admin_url( null, '/css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
 			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
 
 			<div style="padding: 32px; background-color: var(--color-white); min-height: 100%;">
-				<table id="bsr-results-table" class="widefat">
-					<thead>
-						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
-					</thead>
-					<tbody>
-					<?php
-						foreach ( $results['table_reports'] as $table_name => $report ) {
-							$time = $report['end'] - $report['start'];
+				<?php if ( $is_csv && isset( $results['csv_pair_reports'] ) ) : ?>
+					<!-- CSV Results -->
+					<?php foreach ( $results['csv_pair_reports'] as $index => $pair_result ) : ?>
+						<h3 style="margin-top: <?php echo $index > 0 ? '30px' : '0'; ?>;">
+							<?php printf( __( 'CSV Pair %d', 'better-search-replace' ), $index + 1 ); ?>:
+							<code><?php echo esc_html( $pair_result['search_for'] ); ?></code>
+							→
+							<code><?php echo esc_html( $pair_result['replace_with'] ); ?></code>
+						</h3>
+						<p>
+							<strong><?php _e( 'Total:', 'better-search-replace' ); ?></strong>
+							<?php echo esc_html( $pair_result['change'] ); ?> <?php _e( 'changes found', 'better-search-replace' ); ?>,
+							<?php echo esc_html( $pair_result['updates'] ); ?> <?php _e( 'rows updated', 'better-search-replace' ); ?>
+						</p>
+						<table class="widefat" style="margin-bottom: 20px;">
+							<thead>
+								<tr>
+									<th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th>
+									<th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th>
+									<th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th>
+									<th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+								foreach ( $pair_result['table_reports'] as $table_name => $report ) {
+									$time = $report['end'] - $report['start'];
 
-							if ( $report['change'] != 0 ) {
-								$report['change'] = '<a class="tooltip">' . esc_html( $report['change'] ). '</a>';
+									if ( $report['change'] != 0 ) {
+										$change_display = '<a class="tooltip">' . esc_html( $report['change'] ). '</a>';
 
-								$upgrade_link = sprintf(
-									__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
-									'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
-								);
+										$upgrade_link = sprintf(
+											__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
+											'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
+										);
 
-								$report['change'] .= '<span class="helper-message right">' . $upgrade_link . '</span>';
+										$change_display .= '<span class="helper-message right">' . $upgrade_link . '</span>';
+									} else {
+										$change_display = esc_html( $report['change'] );
+									}
+
+									if ( $report['updates'] != 0 ) {
+										$updates_display = '<strong>' . esc_html( $report['updates'] ) . '</strong>';
+									} else {
+										$updates_display = esc_html( $report['updates'] );
+									}
+
+									echo '<tr><td class="bsr-first">' . esc_html( $table_name ) . '</td><td class="bsr-second">' . $change_display . '</td><td class="bsr-third">' . $updates_display . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
+								}
+							?>
+							</tbody>
+						</table>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<!-- Regular single search/replace results -->
+					<table id="bsr-results-table" class="widefat">
+						<thead>
+							<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
+						</thead>
+						<tbody>
+						<?php
+							foreach ( $results['table_reports'] as $table_name => $report ) {
+								$time = $report['end'] - $report['start'];
+
+								if ( $report['change'] != 0 ) {
+									$report['change'] = '<a class="tooltip">' . esc_html( $report['change'] ). '</a>';
+
+									$upgrade_link = sprintf(
+										__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
+										'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
+									);
+
+									$report['change'] .= '<span class="helper-message right">' . $upgrade_link . '</span>';
+								}
+
+								if ( $report['updates'] != 0 ) {
+									$report['updates'] = '<strong>' . esc_html( $report['updates'] ) . '</strong>';
+								}
+
+								echo '<tr><td class="bsr-first">' . esc_html( $table_name ) . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
 							}
-
-							if ( $report['updates'] != 0 ) {
-								$report['updates'] = '<strong>' . esc_html( $report['updates'] ) . '</strong>';
-							}
-
-							echo '<tr><td class="bsr-first">' . esc_html( $table_name ) . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
-						}
-					?>
-					</tbody>
-				</table>
+						?>
+						</tbody>
+					</table>
+				<?php endif; ?>
 			</div>
 			<?php
 		}
