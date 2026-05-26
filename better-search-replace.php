@@ -22,6 +22,7 @@
  * Text Domain:       better-search-replace
  * Domain Path:       /languages
  * Network:           true
+ * Requires at least: 6.2
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +39,10 @@
  */
 
 // If this file was called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -67,6 +72,7 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Bootstrap entry; guarded by function_exists in bootstrap.
 	function run_better_search_replace() {
 		if ( bsr_enabled_for_user() ) {
 			/**
@@ -88,8 +94,10 @@ if ( ! function_exists( 'bsr_enabled_for_user' ) ) {
 	 *
 	 * @return bool
 	 */
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Public helper; guarded by function_exists in bootstrap.
 	function bsr_enabled_for_user() {
 		// Allows for overriding the capability required to run the plugin.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Legacy filter name; public API for capability override.
 		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 
 		return current_user_can( $cap );
