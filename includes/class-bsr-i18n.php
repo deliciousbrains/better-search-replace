@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Define the internationalization functionality.
  *
@@ -14,6 +18,7 @@
 // Prevent direct access.
 if ( ! defined( 'BSR_PATH' ) ) exit;
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound -- Historical class name; loaded by BSR_Loader.
 class BSR_i18n {
 
 	/**

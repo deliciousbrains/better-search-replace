@@ -1,8 +1,13 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Prevent direct access.
 if ( ! defined( 'BSR_PATH' ) ) exit;
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound -- Historical class name; used by admin templates.
 class BSR_Templates_Helper {
     /**
      * Returns a fully qualified path for the given active tab name
