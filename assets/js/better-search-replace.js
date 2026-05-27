@@ -7,6 +7,17 @@
 	function bsr_init() {
 		bsr_search_replace();
 		bsr_update_sliders();
+		bsr_thickbox_fix();
+	}
+
+	/**
+	 * Builds the custom admin URL with a valid bsr-ajax query value.
+	 *
+	 * @param {string} action Admin action to be passed as a query arg to endpoint.
+	 */
+	function bsr_ajax_url( action ) {
+		var base = bsr_object_vars.endpoint;
+		return base + ( base.indexOf( '?' ) !== -1 ? '&' : '?' ) + 'bsr-ajax=' + encodeURIComponent( action );
 	}
 
 	/**
@@ -16,7 +27,7 @@
 
 		$.ajax({
 			type: 'POST',
-			url: bsr_object_vars.endpoint + action,
+			url: bsr_ajax_url( action ),
 			data: {
 				bsr_ajax_nonce : bsr_object_vars.ajax_nonce,
 				action: action,
@@ -30,7 +41,7 @@
 				// Maybe display more details.
 				if ( typeof response.message != 'undefined' ) {
 					$('.bsr-description').remove();
-					$('.bsr-progress-wrap').append( '<p class="description bsr-description">' + response.message + '</p>' );
+					$( '<p class="description bsr-description"></p>' ).text( response.message ).appendTo( '.bsr-progress-wrap' );
 				}
 
 				if ( 'done' == response.step ) {
@@ -124,6 +135,44 @@
 				$('#bsr-page-size-value').text( ui.value );
 				$('#bsr_page_size').val( ui.value );
 			}
+		});
+	}
+
+	/**
+	 * Fixes the Thickbox iframe src truncation.
+	 *
+	 * Core thickbox.js truncates iframe src at the substring "TB_"; this restores the full URL when action=bsr_view_details.
+	 */
+	function bsr_thickbox_fix() {
+		document.addEventListener('DOMContentLoaded', function() {
+			if ( typeof window.tb_show !== 'function' ) {
+				return;
+			}
+
+			var origTbShow = window.tb_show;
+
+			window.tb_show = function ( caption, url, imageGroup ) {
+				origTbShow.call( this, caption, url, imageGroup );
+
+				if ( typeof url !== 'string' || url.indexOf( 'action=bsr_view_details' ) === -1 ) {
+					return;
+				}
+
+				var applySrc = function () {
+					var el = document.getElementById( 'TB_iframeContent' );
+					if ( el ) {
+						el.setAttribute( 'src', url );
+					}
+				};
+
+				if ( window.requestAnimationFrame ) {
+					window.requestAnimationFrame( function () {
+						window.requestAnimationFrame( applySrc );
+					} );
+				} else {
+					window.setTimeout( applySrc, 0 );
+				}
+			};
 		});
 	}
 
