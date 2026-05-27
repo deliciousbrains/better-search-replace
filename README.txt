@@ -101,6 +101,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = Unreleased =
+* Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
 * Fix: Improved security and stability
 
 = 1.4.10 - January 14, 2025 =
