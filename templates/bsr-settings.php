@@ -9,13 +9,18 @@
  * @subpackage Better_Search_Replace/templates
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Prevent direct/unauthorized access.
 if ( ! defined( 'BSR_PATH' ) ) exit;
 
-// Other settings.
-$page_size 	= get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000;
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template partial loaded in BSR admin context; variables are file scope, not WordPress globals.
+$page_size = get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size' ) ) : 20000;
+// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
- ?>
+?>
 
 <?php settings_fields( 'bsr_settings_fields' ); ?>
 
@@ -23,11 +28,10 @@ $page_size 	= get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size
 
   <div class="inside">
 
-	<!--Settings Panel-->
 	<div class="panel">
 
 		<div class="panel-header">
-			 <h3><?php _e( 'Settings', 'better-search-replace' ); ?></h3>
+			 <h3><?php esc_html_e( 'Settings', 'better-search-replace' ); ?></h3>
 		</div>
 
 		<div class="panel-content settings">
@@ -36,11 +40,11 @@ $page_size 	= get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size
 			<div class="row last-row">
 				<div class="input-text">
 					<div class="settings-header">
-						<label><strong><?php _e( 'Max Page Size', 'better-search-replace' ); ?></strong></label>
-						<span id="bsr-page-size-value"><?php echo absint( $page_size ); ?></span>
+						<label><strong><?php esc_html_e( 'Max Page Size', 'better-search-replace' ); ?></strong></label>
+						<span id="bsr-page-size-value"><?php echo esc_html( (string) absint( $page_size ) ); ?></span>
 					</div>
-					<input id="bsr_page_size" type="hidden" name="bsr_page_size" value="<?php echo $page_size; ?>" />
-					<p class="description"><?php _e( 'If you notice timeouts or are unable to backup/import the database, try decreasing this value.', 'better-search-replace' ); ?></p>
+					<input id="bsr_page_size" type="hidden" name="bsr_page_size" value="<?php echo esc_attr( (string) $page_size ); ?>" />
+					<p class="description"><?php esc_html_e( 'If you notice timeouts or are unable to backup/import the database, try decreasing this value.', 'better-search-replace' ); ?></p>
 					<div class="slider-wrapper">
 						<div id="bsr-page-size-slider" class="bsr-slider"></div>
 					</div>
@@ -61,5 +65,4 @@ $page_size 	= get_option( 'bsr_page_size' ) ? absint( get_option( 'bsr_page_size
 		include_once BSR_PATH . 'templates/sidebar.php';
 	}
 	?>
-  
 </div>
