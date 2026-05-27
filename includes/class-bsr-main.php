@@ -60,7 +60,6 @@ class Better_Search_Replace {
 		$this->plugin_name 	= 'better-search-replace';
 		$this->version 		= BSR_VERSION;
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 	}
 
@@ -75,7 +74,6 @@ class Better_Search_Replace {
 	 */
 	private function load_dependencies() {
 		require_once BSR_PATH . 'includes/class-bsr-loader.php';
-		require_once BSR_PATH . 'includes/class-bsr-i18n.php';
 		require_once BSR_PATH . 'includes/class-bsr-admin.php';
 		require_once BSR_PATH . 'includes/class-bsr-ajax.php';
 		require_once BSR_PATH . 'includes/class-bsr-db.php';
@@ -89,20 +87,6 @@ class Better_Search_Replace {
 		}
 		
 		$this->loader = new BSR_Loader();
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the BSR_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0
-	 * @access   private
-	 */
-	private function set_locale() {
-		$plugin_i18n = new BSR_i18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
 	}
 
 	/**
