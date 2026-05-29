@@ -1,15 +1,15 @@
-# Copyright (C) 2025 WP Engine
+# Copyright (C) 2026 WP Engine
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.4.10\n"
+"Project-Id-Version: Better Search Replace 1.4.11-dev\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2025-01-09 17:40:23+00:00\n"
+"POT-Creation-Date: 2026-05-27 16:51:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Delicious Brains <mayday@bettersearchreplace.com>\n"
 "Language-Team: Delicious Brains <mayday@bettersearchreplace.com>\n"
 "Language: en\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"X-Generator: grunt-wp-i18n 1.0.4\n"
 
 #: includes/class-bsr-admin.php:72
 msgid "No search string was defined, please enter a URL or string to search for."
@@ -102,7 +102,7 @@ msgstr ""
 msgid "(%s MB)"
 msgstr ""
 
-#: includes/class-bsr-db.php:295
+#: includes/class-bsr-db.php:296
 msgid "Error updating row: %d."
 msgstr ""
 
@@ -145,22 +145,18 @@ msgid "Help & Troubleshooting"
 msgstr ""
 
 #: templates/bsr-help.php:35
-msgid "Free support is available on the <a href=\"%s\">plugin support forums</a>."
-msgstr ""
-
-#: templates/bsr-help.php:43
 msgid ""
 "<a href=\"%s\" style=\"font-weight:bold;\" target=\"_blank\">Upgrade</a> to "
 "gain access to premium features and priority email support."
 msgstr ""
 
-#: templates/bsr-help.php:51
+#: templates/bsr-help.php:43
 msgid ""
 "Found a bug or have a feature request? Please submit an issue on <a "
 "href=\"%s\">GitHub</a>!"
 msgstr ""
 
-#: templates/bsr-help.php:61
+#: templates/bsr-help.php:53
 msgid "System Info"
 msgstr ""
 

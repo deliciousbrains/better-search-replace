@@ -154,17 +154,18 @@ class BSR_DB {
 	}
 
 	/**
-	 * Gets the columns in a table.
+	 * Gets the columns in a table and its primary key column names (composite keys supported).
+	 *
 	 * @access public
 	 * @param  string $table The table to check.
-	 * @return array
+	 * @return array First element: list of primary key column names (DESCRIBE order). Second: all column names.
 	 */
 	public function get_columns( $table ) {
-		$primary_key 	= null;
+		$primary_keys 	= null;
 		$columns 		= array();
 
 		if ( false === $this->table_exists( $table ) ) {
-			return array( $primary_key, $columns );
+			return array( $primary_keys, $columns );
 		}
 
 		$wpdb = $this->wpdb;
@@ -175,13 +176,13 @@ class BSR_DB {
 		if ( is_array( $fields ) ) {
 			foreach ( $fields as $column ) {
 				$columns[] = $column->Field;
-				if ( $column->Key == 'PRI' ) {
-					$primary_key = $column->Field;
+				if ( 'PRI' == $column->Key ) {
+					$primary_keys[] = $column->Field;
 				}
 			}
 		}
 
-		return array( $primary_key, $columns );
+		return array( $primary_keys, $columns );
 	}
 
 	/**
@@ -230,9 +231,11 @@ class BSR_DB {
 			'skipped'  => false,
 		);
 
-		list( $primary_key, $columns ) = $this->get_columns( $table );
+		// Get a list of columns in this table.
+		list( $primary_keys, $columns ) = $this->get_columns( $table );
 
-		if ( null === $primary_key ) {
+		// Bail out early if there isn't a primary key.
+		if ( empty( $primary_keys ) ) {
 			$table_report['skipped'] = true;
 			return array( 'table_complete' => true, 'table_report' => $table_report );
 		}
@@ -263,7 +266,7 @@ class BSR_DB {
 
 				$data_to_fix = $row[ $column ];
 
-				if ( $column == $primary_key ) {
+				if ( in_array( $column, $primary_keys, true ) ) {
 					$where_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $data_to_fix ) . '"';
 					continue;
 				}
