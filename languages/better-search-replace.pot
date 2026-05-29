@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.4.10\n"
+"Project-Id-Version: Better Search Replace 1.4.11-dev\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
 "POT-Creation-Date: 2026-05-27 16:51:55+00:00\n"

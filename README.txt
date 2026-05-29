@@ -3,7 +3,8 @@ Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 6.2
 Tested up to: 6.9
-Stable tag: 1.4.10
+Requires PHP: 8.1
+Stable tag: 1.4.11-dev
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,6 +95,8 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 == Changelog ==
 
 = Unreleased =
+* New: Requires WordPress 6.2+
+* New: Requires PHP 8.1+
 * Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
 * Fix: Improved security and stability
 
