@@ -1,9 +1,14 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! function_exists( 'bsr_check_for_upgrades' ) ) {
 	/**
 	 * Initialize the checking for plugin updates.
 	 */
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Dev-only ext; not shipped to WordPress.org trunk.
 	function bsr_check_for_upgrades() {
 		$properties = array(
 			'plugin_slug'     => 'better-search-replace',

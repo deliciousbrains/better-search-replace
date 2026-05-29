@@ -9,11 +9,18 @@
  * @subpackage Better_Search_Replace/templates
  */
 
-// Prevent direct access.
-if ( ! defined( 'BSR_PATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-$bsr_docs_url    = 'https://bettersearchreplace.com/docs/';
-$bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
+// Prevent direct access.
+if ( ! defined( 'BSR_PATH' ) ) {
+	exit;
+}
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$bsr_upgrade_url     = 'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=bsr-to-migrate';
+$bsr_github_url      = 'https://github.com/deliciousbrains/better-search-replace';
+// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 ?>
 
 <div class="ui-sidebar-wrapper">
@@ -23,7 +30,7 @@ $bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
 		<div class="panel">
 
 			<div class="panel-header">
-				<h3><?php _e( 'Help & Troubleshooting', 'better-search-replace' ); ?></h3>
+				<h3><?php esc_html_e( 'Help & Troubleshooting', 'better-search-replace' ); ?></h3>
 			</div>
 
 			<div class="panel-content">
@@ -31,17 +38,23 @@ $bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
 				<div>
 					<p>
 						<?php
-						printf(
-							__( '<a href="%s" style="font-weight:bold;" target="_blank">Upgrade</a> to gain access to premium features and priority email support.', 'better-search-replace' ),
-							'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=help-tab&utm_campaign=bsr-to-migrate'
+						echo wp_kses_post(
+							sprintf(
+								/* translators: %s: URL to the upgrade page. */
+								__( '<a href="%s" style="font-weight:bold;" target="_blank" rel="noopener noreferrer">Upgrade</a> to gain access to premium features and priority email support.', 'better-search-replace' ),
+								esc_url( $bsr_upgrade_url )
+							)
 						);
 						?>
 					</p>
 					<p>
 						<?php
-						printf(
-							__( 'Found a bug or have a feature request? Please submit an issue on <a href="%s">GitHub</a>!', 'better-search-replace' ),
-							'https://github.com/deliciousbrains/better-search-replace'
+						echo wp_kses_post(
+							sprintf(
+								/* translators: %s: URL to the GitHub repository. */
+								__( 'Found a bug or have a feature request? Please submit an issue on <a href="%s">GitHub</a>!', 'better-search-replace' ),
+								esc_url( $bsr_github_url )
+							)
 						);
 						?>
 					</p>
@@ -50,17 +63,16 @@ $bsr_support_url = 'https://wordpress.org/support/plugin/better-search-replace';
 				<!--System Info-->
 				<div class="row">
 					<div class="input-text full-width">
-						<label><strong><?php _e( 'System Info', 'better-search-replace' ); ?></strong></label>
-						<textarea readonly="readonly" onclick="this.focus(); this.select()" name='bsr-sysinfo'><?php echo BSR_Compatibility::get_sysinfo(); ?></textarea>
+						<label><strong><?php esc_html_e( 'System Info', 'better-search-replace' ); ?></strong></label>
+						<textarea readonly="readonly" onclick="this.focus(); this.select()" name="bsr-sysinfo"><?php echo esc_textarea( BSR_Compatibility::get_sysinfo() ); ?></textarea>
 					</div>
 				</div>
 
-				<!--Submit Button-->
 				<div class="row">
 					<p class="submit">
 						<input type="hidden" name="action" value="bsr_download_sysinfo" />
 						<?php wp_nonce_field( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' ); ?>
-						<input type="submit" name="bsr-download-sysinfo" id="bsr-download-sysinfo" class="button button-secondary button-sm" value="Download System Info">
+						<input type="submit" name="bsr-download-sysinfo" id="bsr-download-sysinfo" class="button button-secondary button-sm" value="<?php echo esc_attr__( 'Download System Info', 'better-search-replace' ); ?>">
 					</p>
 				</div>
 
