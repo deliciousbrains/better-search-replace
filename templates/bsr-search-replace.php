@@ -53,6 +53,19 @@ if ( ! defined( 'BSR_PATH' ) ) exit;
 						</div>
 					</div>
 
+					<!--CSV Upload-->
+					<div class="row csv-upload">
+						<div class="input-text full-width">
+							<label for="bsr_csv_file"><strong><?php _e( 'Or upload CSV file', 'better-search-replace' ); ?></strong></label>
+							<input id="bsr_csv_file" type="file" name="bsr_csv_file" accept=".csv" />
+							<p class="description"><?php _e( 'Upload a CSV file with two columns: search_for, replace_with. This will process multiple search/replace operations in sequence.', 'better-search-replace' ); ?></p>
+							<div id="bsr-csv-preview" style="display:none; margin-top: 10px;">
+								<strong><?php _e( 'CSV Preview:', 'better-search-replace' ); ?></strong>
+								<div id="bsr-csv-preview-content" style="max-height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-top: 5px; background: #f9f9f9;"></div>
+							</div>
+						</div>
+					</div>
+
 					<!--Tables-->
 					<div class="row">
 						<div class="col full-width tables">

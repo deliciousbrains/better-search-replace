@@ -87,6 +87,7 @@ class BSR_AJAX {
 	public function add_ajax_actions() {
 		$actions = array(
 			'process_search_replace',
+			'upload_csv',
 		);
 
 		foreach ( $actions as $action ) {
@@ -119,6 +120,21 @@ class BSR_AJAX {
 				$args['select_tables'] = array();
 			}
 
+			// Check if we're processing CSV data
+			$csv_key = isset( $args['bsr_csv_key'] ) ? sanitize_text_field( $args['bsr_csv_key'] ) : '';
+			$csv_pairs = array();
+			$csv_pair_index = 0;
+
+			if ( ! empty( $csv_key ) ) {
+				$csv_pairs = BSR_CSV::get_pairs( $csv_key );
+				if ( ! empty( $csv_pairs ) ) {
+					// Use the first pair for initial run
+					$csv_pair_index = 0;
+					$args['search_for'] = stripslashes( $csv_pairs[0]['search_for'] );
+					$args['replace_with'] = stripslashes( $csv_pairs[0]['replace_with'] );
+				}
+			}
+
 			$args = array(
 				'select_tables'    => array_map( 'trim', $args['select_tables'] ),
 				'case_insensitive' => isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off',
@@ -127,6 +143,9 @@ class BSR_AJAX {
 				'search_for'       => isset( $args['search_for'] ) ? stripslashes( $args['search_for'] ) : '',
 				'replace_with'     => isset( $args['replace_with'] ) ? stripslashes( $args['replace_with'] ) : '',
 				'completed_pages'  => isset( $args['completed_pages'] ) ? absint( $args['completed_pages'] ) : 0,
+				'bsr_csv_key'      => $csv_key,
+				'csv_pair_index'   => $csv_pair_index,
+				'csv_total_pairs'  => ! empty( $csv_pairs ) ? count( $csv_pairs ) : 0,
 			);
 
 			$args['total_pages'] = isset( $args['total_pages'] ) ? absint( $args['total_pages'] ) : $db->get_total_pages( $args['select_tables'] );
@@ -167,9 +186,51 @@ class BSR_AJAX {
 			$percentage = $args['completed_pages'] / $args['total_pages'] * 100 . '%';
 
 		} else {
-			$db->maybe_update_site_url();
-			$step 		= 'done';
-			$percentage = '100%';
+			// All tables for current search/replace pair are done
+			$csv_key = isset( $args['bsr_csv_key'] ) ? $args['bsr_csv_key'] : '';
+			$csv_pair_index = isset( $args['csv_pair_index'] ) ? absint( $args['csv_pair_index'] ) : 0;
+			$csv_total_pairs = isset( $args['csv_total_pairs'] ) ? absint( $args['csv_total_pairs'] ) : 0;
+
+			// Check if we need to process another CSV pair
+			if ( ! empty( $csv_key ) && $csv_total_pairs > 0 && ( $csv_pair_index + 1 ) < $csv_total_pairs ) {
+				// Move to next CSV pair
+				$csv_pairs = BSR_CSV::get_pairs( $csv_key );
+				$csv_pair_index++;
+
+				if ( ! empty( $csv_pairs ) && isset( $csv_pairs[$csv_pair_index] ) ) {
+					// Update search/replace values for next pair
+					$args['search_for'] = stripslashes( $csv_pairs[$csv_pair_index]['search_for'] );
+					$args['replace_with'] = stripslashes( $csv_pairs[$csv_pair_index]['replace_with'] );
+					$args['csv_pair_index'] = $csv_pair_index;
+
+					// Reset for next pair
+					$step = 0;
+					$page = 0;
+					$args['completed_pages'] = 0;
+
+					$message = sprintf(
+						__( 'Processing CSV pair %d of %d: "%s" → "%s"', 'better-search-replace' ),
+						$csv_pair_index + 1,
+						$csv_total_pairs,
+						esc_html( substr( $args['search_for'], 0, 50 ) ),
+						esc_html( substr( $args['replace_with'], 0, 50 ) )
+					);
+
+					// Calculate overall percentage across all CSV pairs
+					$overall_progress = ( $csv_pair_index / $csv_total_pairs ) * 100;
+					$percentage = $overall_progress . '%';
+				}
+			} else {
+				// All done
+				$db->maybe_update_site_url();
+				$step = 'done';
+				$percentage = '100%';
+
+				// Clean up CSV data if exists
+				if ( ! empty( $csv_key ) ) {
+					BSR_CSV::delete_pairs( $csv_key );
+				}
+			}
 		}
 
 		update_option( 'bsr_data', $args );
@@ -211,12 +272,49 @@ class BSR_AJAX {
 		// Retrieve the existing transient.
 		$results = get_transient( 'bsr_results' ) ? get_transient( 'bsr_results') : array();
 
+		// Check if we're processing CSV
+		$csv_key = isset( $args['bsr_csv_key'] ) ? $args['bsr_csv_key'] : '';
+		$csv_pair_index = isset( $args['csv_pair_index'] ) ? absint( $args['csv_pair_index'] ) : 0;
+		$is_csv = ! empty( $csv_key );
+
 		// Grab any values from the run args.
 		$results['search_for'] 			= isset( $args['search_for'] ) ? $args['search_for'] : '';
 		$results['replace_with'] 		= isset( $args['replace_with'] ) ? $args['replace_with'] : '';
 		$results['dry_run'] 			= isset( $args['dry_run'] ) ? $args['dry_run'] : 'off';
 		$results['case_insensitive'] 	= isset( $args['case_insensitive'] ) ? $args['case_insensitive'] : 'off';
 		$results['replace_guids'] 		= isset( $args['replace_guids'] ) ? $args['replace_guids'] : 'off';
+		$results['is_csv']              = $is_csv;
+
+		if ( $is_csv ) {
+			// Initialize CSV pair reports if not exists
+			if ( ! isset( $results['csv_pair_reports'] ) ) {
+				$results['csv_pair_reports'] = array();
+			}
+
+			// Track report for this specific CSV pair
+			if ( ! isset( $results['csv_pair_reports'][$csv_pair_index] ) ) {
+				$results['csv_pair_reports'][$csv_pair_index] = array(
+					'search_for'    => $args['search_for'],
+					'replace_with'  => $args['replace_with'],
+					'change'        => 0,
+					'updates'       => 0,
+					'table_reports' => array(),
+				);
+			}
+
+			// Update CSV pair totals
+			$results['csv_pair_reports'][$csv_pair_index]['change'] += $report['change'];
+			$results['csv_pair_reports'][$csv_pair_index]['updates'] += $report['updates'];
+
+			// Append table report for this CSV pair
+			if ( isset( $results['csv_pair_reports'][$csv_pair_index]['table_reports'][$table] ) ) {
+				$results['csv_pair_reports'][$csv_pair_index]['table_reports'][$table]['change'] += $report['change'];
+				$results['csv_pair_reports'][$csv_pair_index]['table_reports'][$table]['updates'] += $report['updates'];
+				$results['csv_pair_reports'][$csv_pair_index]['table_reports'][$table]['end'] = $report['end'];
+			} else {
+				$results['csv_pair_reports'][$csv_pair_index]['table_reports'][$table] = $report;
+			}
+		}
 
 		// Sum the values of the new and existing reports.
 		$results['change'] 	= isset( $results['change'] ) ? $results['change'] + $report['change'] : $report['change'];
@@ -241,6 +339,48 @@ class BSR_AJAX {
 
 		return true;
 
+	}
+
+	/**
+	 * Handles CSV file upload via AJAX.
+	 * @access public
+	 */
+	public function upload_csv() {
+		// Bail if not authorized.
+		if ( ! BSR_Utils::check_admin_referer( 'bsr_ajax_nonce', 'bsr_ajax_nonce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Security check failed.', 'better-search-replace' ) ) );
+			return;
+		}
+
+		if ( ! isset( $_FILES['bsr_csv_file'] ) ) {
+			wp_send_json_error( array( 'message' => __( 'No file uploaded.', 'better-search-replace' ) ) );
+			return;
+		}
+
+		// Validate and read the CSV file
+		$content = BSR_CSV::validate_upload( $_FILES['bsr_csv_file'] );
+
+		if ( is_wp_error( $content ) ) {
+			wp_send_json_error( array( 'message' => $content->get_error_message() ) );
+			return;
+		}
+
+		// Parse the CSV content
+		$pairs = BSR_CSV::parse_csv( $content );
+
+		if ( is_wp_error( $pairs ) ) {
+			wp_send_json_error( array( 'message' => $pairs->get_error_message() ) );
+			return;
+		}
+
+		// Store the pairs and return the key
+		$key = BSR_CSV::store_pairs( $pairs );
+
+		wp_send_json_success( array(
+			'key'   => $key,
+			'count' => count( $pairs ),
+			'pairs' => $pairs,
+		) );
 	}
 
 }

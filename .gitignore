@@ -24,3 +24,13 @@ node_modules
 builds/
 assets/css/better-search-replace.min.css
 assets/js/better-search-replace.min.*
+
+# Proposal/Documentation Files (not part of the feature)
+CSV_UPLOAD_FEATURE.md
+GITHUB_ISSUE_DRAFT.md
+PROPOSAL_CHECKLIST.md
+PROPOSAL_READY.md
+CREATE_PR_GUIDE.md
+example-csv-README.md
+example-csv.csv
+quick-pr-commands.sh
