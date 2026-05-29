@@ -31,13 +31,6 @@ When moving your WordPress site to a new domain or server, you will likely run i
 
 The search and replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
 
-**Supported Languages**
-
-* English
-* French
-* German
-* Spanish
-
 **Want to contribute?**
 
 Feel free to open an issue or submit a pull request on [GitHub](https://github.com/deliciousbrains/better-search-replace/).
