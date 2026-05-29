@@ -1,7 +1,7 @@
 === Better Search Replace ===
 Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, search replace database, update database urls, update live url
-Requires at least: 3.0.1
+Requires at least: 6.2
 Tested up to: 6.9
 Stable tag: 1.4.10
 License: GPLv3 or later
@@ -30,13 +30,6 @@ When moving your WordPress site to a new domain or server, you will likely run i
 > **[Learn more about Better Search Replace Pro](https://bettersearchreplace.com/)**
 
 The search and replace functionality is heavily based on interconnect/it's great and open-source Search Replace DB script, modified to use WordPress native database functions to ensure compatibility.
-
-**Supported Languages**
-
-* English
-* French
-* German
-* Spanish
 
 **Want to contribute?**
 

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Utility functionality for the plugin
  *
@@ -16,6 +21,9 @@ if ( ! defined( 'BSR_PATH' ) ) {
 class BSR_Utils {
 	const BSR_URL = 'https://bettersearchreplace.com';
 	const WPE_URL = 'https://wpengine.com';
+
+	/** Nonce action for tools.php?page=better-search-replace screen query args (redirects, tab links). */
+	const TOOLS_SCREEN_NONCE_ACTION = 'bsr_tools_screen';
 
 	/**
 	 * Create an external link for given URL.
@@ -91,6 +99,46 @@ class BSR_Utils {
 	}
 
 	/**
+	 * Tools → Better Search Replace URL with a nonce for GET query args on that screen.
+	 *
+	 * @param array $args Query arguments (merged with page=better-search-replace).
+	 * @return string Unescaped URL; pass through esc_url() for HTML or esc_url_raw() for redirects.
+	 */
+	public static function tools_page_url( $args = array() ) {
+		$url = add_query_arg(
+			array_merge(
+				array( 'page' => 'better-search-replace' ),
+				$args
+			),
+			admin_url( 'tools.php' )
+		);
+
+		return add_query_arg( '_wpnonce', wp_create_nonce( self::TOOLS_SCREEN_NONCE_ACTION ), $url );
+	}
+
+	/**
+	 * Whether the current tools screen GET request may use BSR-specific query args (result, import, profile, etc.).
+	 * Missing nonce is allowed for backward compatibility when the user is already authorized.
+	 *
+	 * @return bool
+	 */
+	public static function validate_tools_screen_get() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Nonce is verified below when present; capability is always required.
+		if ( ! bsr_enabled_for_user() ) {
+			return false;
+		}
+		if ( ! isset( $_GET['_wpnonce'] ) ) {
+			// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
+			return true;
+		}
+
+		$valid = (bool) wp_verify_nonce( sanitize_text_field( wp_unslash( (string) $_GET['_wpnonce'] ) ), self::TOOLS_SCREEN_NONCE_ACTION );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
+
+		return $valid;
+	}
+
+	/**
 	 * Is current admin screen for bsr.
 	 *
 	 * @return bool
@@ -108,10 +156,11 @@ class BSR_Utils {
 	 *
 	 * @param int|string $action    The nonce action.
 	 * @param string     $query_arg Key to check for nonce in `$_REQUEST`.
+	 * @param bool       $die       Whether to die on failure (default false so callers can return JSON/redirects).
 	 *
 	 * @return bool
 	 */
-	public static function check_admin_referer( $action, $query_arg ) {
-		return check_admin_referer( $action, $query_arg ) && bsr_enabled_for_user();
+	public static function check_admin_referer( $action, $query_arg, $die = false ) {
+		return check_admin_referer( $action, $query_arg, $die ) && bsr_enabled_for_user();
 	}
 }

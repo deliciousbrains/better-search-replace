@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Processes compatibility functionality.
  * @since      1.0
@@ -48,7 +52,7 @@ class BSR_Compatibility {
 		$return .= 'PHP Version:              ' . PHP_VERSION . "\n";
 		$return .= 'MySQL Version:            ' . $wpdb->db_version() . "\n";
 
-		$return .= 'Server Software:          ' . $_SERVER['SERVER_SOFTWARE'] . "\n";
+		$return .= 'Server Software:          ' . self::get_server_software_for_display() . "\n";
 
 		// PHP configs... now we're getting to the important stuff
 		$return .= "\n" . '-- PHP Configuration' . "\n\n";
@@ -93,6 +97,19 @@ class BSR_Compatibility {
 
 		$return .= "\n" . '### End System Info ###';
 		return $return;
+	}
+
+	/**
+	 * Server software string for system info (safe for display in plain-text export).
+	 *
+	 * @return string
+	 */
+	private static function get_server_software_for_display() {
+		if ( ! isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
+			return '';
+		}
+
+		return sanitize_text_field( wp_unslash( (string) $_SERVER['SERVER_SOFTWARE'] ) );
 	}
 
 	/**

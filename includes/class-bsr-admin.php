@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The dashboard-specific functionality of the plugin.
  *
@@ -83,6 +87,7 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function bsr_menu_pages() {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Legacy filter name; public API for capability override.
 		$cap = apply_filters( 'bsr_capability', 'manage_options' );
 		add_submenu_page( 'tools.php', __( 'Better Search Replace', 'better-search-replace' ), __( 'Better Search Replace', 'better-search-replace' ), $cap, 'better-search-replace', array( $this, 'bsr_menu_pages_callback' ) );
 	}
@@ -100,11 +105,13 @@ class BSR_Admin {
 	 * Renders the result or error onto the better-search-replace admin page.
 	 */
 	public static function render_result() {
-		// Trying to show results?
-		if ( ! isset( $_GET['result'] ) ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Each GET branch calls BSR_Utils::validate_tools_screen_get() before use.
+		if ( ! filter_has_var( INPUT_GET, 'result' ) || ! BSR_Utils::validate_tools_screen_get() ) {
+			// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
 		$result = get_transient( 'bsr_results' );
 
 		// Have results with required fields set with correctly typed data?
@@ -120,31 +127,58 @@ class BSR_Admin {
 			return;
 		}
 
+		// TB_iframe is required for Thickbox iframe mode. Core thickbox truncates src at "TB_"; bsr_thickbox_fix() in assets/js/better-search-replace.js restores the full URL for action=bsr_view_details only.
+		$details_url = self::get_view_details_url(
+			array(
+				'TB_iframe' => 'true',
+				'width'     => '800',
+				'height'    => '500',
+			)
+		);
+
+		$result_message_allowed_html = array(
+			'p'      => array(),
+			'strong' => array(),
+			'a'      => array(
+				'href'  => true,
+				'class' => true,
+				'title' => true,
+			),
+		);
+
+		echo '<div class="updated bsr-updated" style="display: none;">';
+
 		if ( isset( $result['dry_run'] ) && $result['dry_run'] === 'on' ) {
 			$msg = sprintf(
+				/* translators: 1: number of tables, 2: cells found, 3: changes made, 4: details URL, 5: Thickbox title attribute. */
 				__(
-					'<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, <strong>%2$d</strong> cells were found that need to be updated, and <strong>%3$d</strong> changes were made.</p><p><a href="%4$s" class="thickbox" title="Dry Run Details">Click here</a> for more details, or use the form below to run the search/replace.</p>',
+					'<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, <strong>%2$d</strong> cells were found that need to be updated, and <strong>%3$d</strong> changes were made.</p><p><a href="%4$s" class="thickbox" title="%5$s">Click here</a> for more details, or use the form below to run the search/replace.</p>',
 					'better-search-replace'
 				),
-				$result['tables'],
-				$result['change'],
-				$result['updates'],
-				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				(int) $result['tables'],
+				(int) $result['change'],
+				(int) $result['updates'],
+				esc_url( $details_url ),
+				esc_attr__( 'Dry Run Details', 'better-search-replace' )
 			);
+			echo wp_kses( $msg, $result_message_allowed_html );
 		} else {
 			$msg = sprintf(
+				/* translators: 1: tables searched, 2: cells changed, 3: updates, 4: details URL, 5: Thickbox title attribute. */
 				__(
-					'<p>During the search/replace, <strong>%1$d</strong> tables were searched, with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> updates.</p><p><a href="%4$s" class="thickbox" title="Search/Replace Details">Click here</a> for more details.</p>',
+					'<p>During the search/replace, <strong>%1$d</strong> tables were searched, with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> updates.</p><p><a href="%4$s" class="thickbox" title="%5$s">Click here</a> for more details.</p>',
 					'better-search-replace'
 				),
-				$result['tables'],
-				$result['change'],
-				$result['updates'],
-				get_admin_url() . 'admin-post.php?action=bsr_view_details&TB_iframe=true&width=800&height=500'
+				(int) $result['tables'],
+				(int) $result['change'],
+				(int) $result['updates'],
+				esc_url( $details_url ),
+				esc_attr__( 'Search/Replace Details', 'better-search-replace' )
 			);
+			echo wp_kses( $msg, $result_message_allowed_html );
 		}
 
-		echo '<div class="updated bsr-updated" style="display: none;">' . $msg . '</div>';
+		echo '</div>';
 	}
 
 	/**
@@ -155,24 +189,28 @@ class BSR_Admin {
 	 */
 	public static function prefill_value( $value, $type = 'text' ) {
 
-		// Grab the correct data to prefill.
-		if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
+		if ( ! BSR_Utils::validate_tools_screen_get() ) {
+			return;
+		}
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Tools GET gated by BSR_Utils::validate_tools_screen_get().
+		if ( filter_has_var( INPUT_GET, 'result' ) && get_transient( 'bsr_results' ) ) {
 			$values = get_transient( 'bsr_results' );
 		} else {
 			$values = array();
 		}
 
 		// Prefill the value.
-		if ( isset( $values[$value] ) ) {
+		if ( isset( $values[ $value ] ) ) {
 
-			if ( 'checkbox' === $type && 'on' === $values[$value] ) {
+			if ( 'checkbox' === $type && 'on' === $values[ $value ] ) {
 				echo 'checked';
 			} else {
-				echo str_replace( '#BSR_BACKSLASH#', '\\', esc_attr( htmlentities( $values[$value] ) ) );
+				echo esc_attr( str_replace( '#BSR_BACKSLASH#', '\\', $values[ $value ] ) );
 			}
-
 		}
 
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -182,35 +220,62 @@ class BSR_Admin {
 	 */
 	public static function load_tables() {
 
-		// Get the tables and their sizes.
-		$tables 	= BSR_DB::get_tables();
-		$sizes 		= BSR_DB::get_sizes();
+		if ( ! BSR_Utils::validate_tools_screen_get() ) {
+			echo '<select id="bsr-table-select" name="select_tables[]" multiple="multiple" style=""></select>';
+			return;
+		}
+
+		$tables = BSR_DB::get_tables();
+		$sizes  = BSR_DB::get_sizes();
 
 		echo '<select id="bsr-table-select" name="select_tables[]" multiple="multiple" style="">';
 
+		$result           = null;
+		$transient_result = get_transient( 'bsr_results' );
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Tools GET gated by BSR_Utils::validate_tools_screen_get().
+		if ( filter_has_var( INPUT_GET, 'result' ) && $transient_result ) {
+			$result = $transient_result;
+		}
+
 		foreach ( $tables as $table ) {
 
-			// Try to get the size for this specific table.
-			$table_size = isset( $sizes[$table] ) ? $sizes[$table] : '';
+			$table_size = isset( $sizes[ $table ] ) ? $sizes[ $table ] : '';
+			$selected   = false;
 
-			if ( isset( $_GET['result'] ) && get_transient( 'bsr_results' ) ) {
-
-				$result = get_transient( 'bsr_results' );
-
-				if ( isset( $result['table_reports'][$table] ) ) {
-					echo "<option value='$table' selected>$table $table_size</option>";
-				} else {
-					echo "<option value='$table'>$table $table_size</option>";
-				}
-
-			} else {
-				echo "<option value='$table'>$table $table_size</option>";
+			if ( is_array( $result ) && isset( $result['table_reports'][ $table ] ) ) {
+				$selected = true;
 			}
 
+			printf(
+				'<option value="%1$s"%2$s>%3$s</option>',
+				esc_attr( $table ),
+				$selected ? ' selected="selected"' : '',
+				esc_html( $table . ' ' . $table_size )
+			);
 		}
 
 		echo '</select>';
 
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * admin-post.php URL for bsr_view_details with nonce.
+	 *
+	 * For Thickbox iframe links you may pass TB_iframe=true (and width/height). Core thickbox.js
+	 * truncates iframe src at the substring "TB_"; bsr_thickbox_fix() in assets/js/better-search-replace.js
+	 * restores the full URL when action=bsr_view_details. Do not add other query keys whose names
+	 * contain "TB_".
+	 *
+	 * @param array $extra Query arguments (action is set automatically; _wpnonce is always appended last).
+	 * @return string Raw URL; use esc_url() when printing in HTML.
+	 */
+	public static function get_view_details_url( $extra = array() ) {
+		$args = array_merge( array( 'action' => 'bsr_view_details' ), (array) $extra );
+		$url  = add_query_arg( $args, admin_url( 'admin-post.php' ) );
+
+		return add_query_arg( '_wpnonce', wp_create_nonce( 'bsr_view_details' ), $url );
 	}
 
 	/**
@@ -218,49 +283,83 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function load_details() {
-
-		if ( get_transient( 'bsr_results' ) ) {
-			$results 		= get_transient( 'bsr_results' );
-			$min 			= ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
-			$bsr_styles 	= BSR_URL . 'assets/css/better-search-replace.css?v=' . BSR_VERSION;
-
-			?>
-			<link href="<?php echo esc_url( get_admin_url( null, '/css/common' . $min . '.css' ) ); ?>" rel="stylesheet" type="text/css" />
-			<link href="<?php echo esc_url( $bsr_styles ); ?>" rel="stylesheet" type="text/css">
-
-			<div style="padding: 32px; background-color: var(--color-white); min-height: 100%;">
-				<table id="bsr-results-table" class="widefat">
-					<thead>
-						<tr><th class="bsr-first"><?php _e( 'Table', 'better-search-replace' ); ?></th><th class="bsr-second"><?php _e( 'Changes Found', 'better-search-replace' ); ?></th><th class="bsr-third"><?php _e( 'Rows Updated', 'better-search-replace' ); ?></th><th class="bsr-fourth"><?php _e( 'Time', 'better-search-replace' ); ?></th></tr>
-					</thead>
-					<tbody>
-					<?php
-						foreach ( $results['table_reports'] as $table_name => $report ) {
-							$time = $report['end'] - $report['start'];
-
-							if ( $report['change'] != 0 ) {
-								$report['change'] = '<a class="tooltip">' . esc_html( $report['change'] ). '</a>';
-
-								$upgrade_link = sprintf(
-									__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace'),
-									'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate'
-								);
-
-								$report['change'] .= '<span class="helper-message right">' . $upgrade_link . '</span>';
-							}
-
-							if ( $report['updates'] != 0 ) {
-								$report['updates'] = '<strong>' . esc_html( $report['updates'] ) . '</strong>';
-							}
-
-							echo '<tr><td class="bsr-first">' . esc_html( $table_name ) . '</td><td class="bsr-second">' . $report['change'] . '</td><td class="bsr-third">' . $report['updates'] . '</td><td class="bsr-fourth">' . round( $time, 3 ) . __( ' seconds', 'better-search-replace' ) . '</td></tr>';
-						}
-					?>
-					</tbody>
-				</table>
-			</div>
-			<?php
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Nonce verified below; Thickbox GET must not rely on referer.
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( (string) $_REQUEST['_wpnonce'] ) ), 'bsr_view_details' ) ) {
+			wp_die( esc_html__( 'Security check failed.', 'better-search-replace' ), '', array( 'response' => 403 ) );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
+
+		if ( ! bsr_enabled_for_user() ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to view this content.', 'better-search-replace' ), '', array( 'response' => 403 ) );
+		}
+
+		if ( ! get_transient( 'bsr_results' ) ) {
+			return;
+		}
+
+		$results = get_transient( 'bsr_results' );
+		$min     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style( 'common' );
+		wp_enqueue_style(
+			'better-search-replace',
+			BSR_URL . 'assets/css/better-search-replace' . $min . '.css',
+			array( 'common' ),
+			BSR_VERSION,
+			'all'
+		);
+		wp_print_styles( array( 'common', 'better-search-replace' ) );
+
+		$upgrade_url = 'https://deliciousbrains.com/better-search-replace/upgrade/?utm_source=insideplugin&utm_medium=web&utm_content=tooltip&utm_campaign=bsr-to-migrate';
+		?>
+		<div style="padding: 32px; background-color: var(--color-white); min-height: 100%;">
+			<table id="bsr-results-table" class="widefat">
+				<thead>
+					<tr>
+						<th class="bsr-first"><?php esc_html_e( 'Table', 'better-search-replace' ); ?></th>
+						<th class="bsr-second"><?php esc_html_e( 'Changes Found', 'better-search-replace' ); ?></th>
+						<th class="bsr-third"><?php esc_html_e( 'Rows Updated', 'better-search-replace' ); ?></th>
+						<th class="bsr-fourth"><?php esc_html_e( 'Time', 'better-search-replace' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				foreach ( $results['table_reports'] as $table_name => $report ) {
+					$time = $report['end'] - $report['start'];
+
+					$change_cell = '';
+					if ( 0 !== (int) $report['change'] ) {
+						$change_cell  = '<a class="tooltip">' . esc_html( (string) $report['change'] ) . '</a>';
+						$change_cell .= '<span class="helper-message right">';
+						$change_cell .= wp_kses_post(
+							sprintf(
+								/* translators: %s: URL to the upgrade page. */
+								__( '<a href="%s" target="_blank">UPGRADE</a> to view details on the exact changes that will be made.', 'better-search-replace' ),
+								esc_url( $upgrade_url )
+							)
+						);
+						$change_cell .= '</span>';
+					}
+
+					$updates_cell = '0';
+					if ( 0 !== (int) $report['updates'] ) {
+						$updates_cell = '<strong>' . esc_html( (string) $report['updates'] ) . '</strong>';
+					}
+
+					printf(
+						'<tr><td class="bsr-first">%1$s</td><td class="bsr-second">%2$s</td><td class="bsr-third">%3$s</td><td class="bsr-fourth">%4$s%5$s</td></tr>',
+						esc_html( $table_name ),
+						wp_kses_post( $change_cell ),
+						wp_kses_post( $updates_cell ),
+						esc_html( (string) round( $time, 3 ) ),
+						esc_html__( ' seconds', 'better-search-replace' )
+					);
+				}
+				?>
+				</tbody>
+			</table>
+		</div>
+		<?php
 	}
 
 	/**
@@ -276,7 +375,13 @@ class BSR_Admin {
 	 * @access public
 	 */
 	public function download_sysinfo() {
-		if ( ! BSR_Utils::check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce' ) ) {
+		if ( ! BSR_Utils::check_admin_referer( 'bsr_download_sysinfo', 'bsr_sysinfo_nonce', false ) ) {
+			return;
+		}
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- Nonce verified via BSR_Utils::check_admin_referer() above; PHPCS does not recognize the wrapper.
+		if ( ! isset( $_POST['bsr-sysinfo'] ) ) {
+			// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
@@ -285,7 +390,11 @@ class BSR_Admin {
 		header( 'Content-Type: text/plain' );
 		header( 'Content-Disposition: attachment; filename="bsr-system-info.txt"' );
 
-		echo wp_strip_all_tags( $_POST['bsr-sysinfo'] );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce verified via BSR_Utils::check_admin_referer(); isset() above; plain-text system info for download; tags stripped below.
+		$sysinfo = wp_unslash( (string) $_POST['bsr-sysinfo'] );
+
+		echo esc_html( wp_strip_all_tags( $sysinfo ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
 		die();
 	}
 
@@ -300,7 +409,9 @@ class BSR_Admin {
 		if ( $file == $plugin ) {
 			return array_merge(
 				$links,
-				array( '<a href="https://bettersearchreplace.com/?utm_source=insideplugin&utm_medium=web&utm_content=plugins-page&utm_campaign=pro-upsell">' . __( 'Upgrade to Pro', 'better-search-replace' ) . '</a>' )
+				array(
+					'<a href="' . esc_url( 'https://bettersearchreplace.com/?utm_source=insideplugin&utm_medium=web&utm_content=plugins-page&utm_campaign=pro-upsell' ) . '">' . esc_html__( 'Upgrade to Pro', 'better-search-replace' ) . '</a>',
+				)
 			);
 		}
 
