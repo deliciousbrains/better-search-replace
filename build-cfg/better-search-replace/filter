@@ -9,3 +9,4 @@
 - Makefile
 - node_modules
 - CONTRIBUTING.md
+- sonar-project.properties
