@@ -4,7 +4,7 @@ Tags: search replace, search and replace, search replace database, update databa
 Requires at least: 6.2
 Tested up to: 6.9
 Requires PHP: 8.1
-Stable tag: 1.4.11-dev
+Stable tag: 1.4.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,7 +94,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= Unreleased =
+= 1.4.11 - Undetermined =
 * New: Requires WordPress 6.2+
 * New: Requires PHP 8.1+
 * Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
