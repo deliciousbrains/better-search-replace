@@ -2,7 +2,7 @@
 Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 6.2
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 8.1
 Stable tag: 1.4.11
 License: GPLv3 or later
