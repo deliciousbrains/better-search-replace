@@ -260,6 +260,8 @@ class BSR_DB {
 			$current_row++;
 			$update_sql = array();
 			$where_sql  = array();
+			$update_values = array();
+			$where_values  = array();
 			$upd        = false;
 
 			foreach ( $columns as $column ) {
@@ -267,7 +269,9 @@ class BSR_DB {
 				$data_to_fix = $row[ $column ];
 
 				if ( in_array( $column, $primary_keys, true ) ) {
-					$where_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $data_to_fix ) . '"';
+					$where_sql[] = '%i = %s';
+					$where_values[] = $column;
+					$where_values[] = $data_to_fix;
 					continue;
 				}
 
@@ -311,7 +315,9 @@ class BSR_DB {
 
 				// Something was changed
 				if ( $edited_data != $data_to_fix ) {
-					$update_sql[] = $column . ' = "' . $this->mysql_escape_mimic( $edited_data ) . '"';
+					$update_sql[] = '%i = %s';
+					$update_values[] = $column;
+					$update_values[] = $edited_data;
 					$upd          = true;
 					$table_report['change']++;
 				}
@@ -322,11 +328,12 @@ class BSR_DB {
 				// Don't do anything if a dry run
 			} elseif ( $upd && ! empty( $where_sql ) ) {
 				// If there are changes to make, run the query.
-				$t   = esc_sql( $table );
-				$sql = 'UPDATE `' . $t . '` SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
-				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange -- Dynamic UPDATE: table allowlisted; columns from DESCRIBE; values escaped via mysql_escape_mimic().
-				$result = $wpdb->query( $sql );
-				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
+				$sql_template = 'UPDATE %i SET ' . implode( ', ', $update_sql ) . ' WHERE ' . implode( ' AND ', array_filter( $where_sql ) );
+				$prepare_args = array_merge( array( $sql_template, $table ), $update_values, $where_values );
+
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange -- Dynamic UPDATE: table and columns allowlisted; values passed through $wpdb->prepare().
+				$result = $wpdb->query( call_user_func_array( array( $wpdb, 'prepare' ), $prepare_args ) );
+				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
 
 				if ( ! $result ) {
 					$table_report['errors'][] = sprintf(
@@ -460,23 +467,6 @@ class BSR_DB {
 		return false;
 	}
 
-	/**
-	 * Mimics the mysql_real_escape_string function. Adapted from a post by 'feedr' on php.net.
-	 * @link   http://php.net/manual/en/function.mysql-real-escape-string.php#101248
-	 * @access public
-	 * @param  string $input The string to escape.
-	 * @return string
-	 */
-	public function mysql_escape_mimic( $input ) {
-	    if ( is_array( $input ) ) {
-	        return array_map( __METHOD__, $input );
-	    }
-	    if ( ! empty( $input ) && is_string( $input ) ) {
-	        return str_replace( array( '\\', "\0", "\n", "\r", "'", '"', "\x1a" ), array( '\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z' ), $input );
-	    }
-
-	    return $input;
-	}
 
 	/**
 	 * Return unserialized object or array
