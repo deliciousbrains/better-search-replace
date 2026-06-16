@@ -14,6 +14,8 @@
  * Plugin URI:        https://bettersearchreplace.com
  * Description:       A small plugin for running a search/replace on your WordPress database.
  * Version:           1.4.11
+ * Requires at least: 6.2
+ * Requires PHP:      8.1
  * Author:            WP Engine
  * Author URI:        https://bettersearchreplace.com
  * Update URI:        false
@@ -63,6 +65,87 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	define( 'BSR_NAME', 'Better Search Replace' );
 
 	/**
+	 * Check if WordPress version meets minimum requirement.
+	 *
+	 * @since 1.4.11
+	 * @return bool True if WordPress version is sufficient, false otherwise.
+	 */
+	function bsr_check_wp_version() {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '6.2', '<' ) ) {
+			add_action( 'admin_notices', 'bsr_wp_version_notice' );
+			add_action( 'network_admin_notices', 'bsr_wp_version_notice' );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if PHP version meets minimum requirement.
+	 *
+	 * @since 1.4.11
+	 * @return bool True if PHP version is sufficient, false otherwise.
+	 */
+	function bsr_check_php_version() {
+		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+			add_action( 'admin_notices', 'bsr_php_version_notice' );
+			add_action( 'network_admin_notices', 'bsr_php_version_notice' );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Display admin notice for insufficient WordPress version.
+	 *
+	 * @since 1.4.11
+	 */
+	function bsr_wp_version_notice() {
+		global $wp_version;
+		?>
+		<div class="notice notice-error">
+			<p>
+				<?php
+				printf(
+					/* translators: 1: Plugin name, 2: Required WordPress version, 3: Current WordPress version */
+					esc_html__( '%1$s requires WordPress %2$s or higher. You are currently running WordPress %3$s. Please upgrade WordPress to activate this plugin.', 'better-search-replace' ),
+					'<strong>' . esc_html( BSR_NAME ) . '</strong>',
+					'<strong>6.2</strong>',
+					'<strong>' . esc_html( $wp_version ) . '</strong>'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display admin notice for insufficient PHP version.
+	 *
+	 * @since 1.4.11
+	 */
+	function bsr_php_version_notice() {
+		?>
+		<div class="notice notice-error">
+			<p>
+				<?php
+				printf(
+					/* translators: 1: Plugin name, 2: Required PHP version, 3: Current PHP version */
+					esc_html__( '%1$s requires PHP %2$s or higher. You are currently running PHP %3$s. Please contact your web host to upgrade PHP to activate this plugin.', 'better-search-replace' ),
+					'<strong>' . esc_html( BSR_NAME ) . '</strong>',
+					'<strong>8.1</strong>',
+					'<strong>' . esc_html( PHP_VERSION ) . '</strong>'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Begins execution of the plugin.
 	 *
 	 * Since everything within the plugin is registered via hooks,
@@ -73,6 +156,11 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	 */
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Bootstrap entry; guarded by function_exists in bootstrap.
 	function run_better_search_replace() {
+		// Check version requirements before loading the plugin.
+		if ( ! bsr_check_wp_version() || ! bsr_check_php_version() ) {
+			return;
+		}
+
 		if ( bsr_enabled_for_user() ) {
 			/**
 			 * The core plugin class that is used to define internationalization,
