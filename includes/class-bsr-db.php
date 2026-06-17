@@ -258,18 +258,18 @@ class BSR_DB {
 
 		foreach ( $data as $row ) {
 			$current_row++;
-			$update_sql = array();
-			$where_sql  = array();
+			$update_sql    = array();
+			$where_sql     = array();
 			$update_values = array();
 			$where_values  = array();
-			$upd        = false;
+			$upd           = false;
 
 			foreach ( $columns as $column ) {
 
 				$data_to_fix = $row[ $column ];
 
 				if ( in_array( $column, $primary_keys, true ) ) {
-					$where_sql[] = '%i = %s';
+					$where_sql[]    = '%i = %s';
 					$where_values[] = $column;
 					$where_values[] = $data_to_fix;
 					continue;
@@ -315,10 +315,10 @@ class BSR_DB {
 
 				// Something was changed
 				if ( $edited_data != $data_to_fix ) {
-					$update_sql[] = '%i = %s';
+					$update_sql[]    = '%i = %s';
 					$update_values[] = $column;
 					$update_values[] = $edited_data;
-					$upd          = true;
+					$upd             = true;
 					$table_report['change']++;
 				}
 			}
