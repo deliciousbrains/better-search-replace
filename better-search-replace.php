@@ -65,6 +65,28 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	define( 'BSR_NAME', 'Better Search Replace' );
 
 	/**
+	 * Get plugin data from plugin header.
+	 *
+	 * @param string $header
+	 *
+	 * @return string
+	 * @since 1.4.11
+	 */
+	function bsr_get_plugin_data( $header ) {
+		$data = get_file_data( __FILE__, array(
+			'Name'        => 'Plugin Name',
+			'RequiresWP'  => 'Requires at least',
+			'RequiresPHP' => 'Requires PHP',
+		), 'plugin' );
+
+		if ( empty( $data[ $header ] ) ) {
+			return '';
+		}
+
+		return $data[ $header ];
+	}
+
+	/**
 	 * Check if WordPress version meets minimum requirement.
 	 *
 	 * @since 1.4.11
@@ -73,9 +95,10 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	function bsr_check_wp_version() {
 		global $wp_version;
 
-		if ( version_compare( $wp_version, '6.2', '<' ) ) {
+		if ( version_compare( $wp_version, bsr_get_plugin_data( 'RequiresWP' ) ) === -1 ) {
 			add_action( 'admin_notices', 'bsr_wp_version_notice' );
 			add_action( 'network_admin_notices', 'bsr_wp_version_notice' );
+
 			return false;
 		}
 
@@ -89,9 +112,10 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	 * @return bool True if PHP version is sufficient, false otherwise.
 	 */
 	function bsr_check_php_version() {
-		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+		if ( version_compare( PHP_VERSION, bsr_get_plugin_data( 'RequiresPHP' ) ) === -1 ) {
 			add_action( 'admin_notices', 'bsr_php_version_notice' );
 			add_action( 'network_admin_notices', 'bsr_php_version_notice' );
+
 			return false;
 		}
 
@@ -109,12 +133,17 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 		<div class="notice notice-error">
 			<p>
 				<?php
-				printf(
+				echo wp_kses_post(
+					sprintf(
 					/* translators: 1: Plugin name, 2: Required WordPress version, 3: Current WordPress version */
-					esc_html__( '%1$s requires WordPress %2$s or higher. You are currently running WordPress %3$s. Please upgrade WordPress to activate this plugin.', 'better-search-replace' ),
-					'<strong>' . esc_html( BSR_NAME ) . '</strong>',
-					'<strong>6.2</strong>',
-					'<strong>' . esc_html( $wp_version ) . '</strong>'
+						__(
+							'<strong>%1$s</strong> requires WordPress <strong>%2$s</strong> or higher. You are currently running WordPress <strong>%3$s</strong>. Please upgrade WordPress to activate this plugin.',
+							'better-search-replace'
+						),
+						bsr_get_plugin_data( 'Name' ),
+						bsr_get_plugin_data( 'RequiresWP' ),
+						esc_html( $wp_version )
+					)
 				);
 				?>
 			</p>
@@ -132,12 +161,17 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 		<div class="notice notice-error">
 			<p>
 				<?php
-				printf(
+				echo wp_kses_post(
+					sprintf(
 					/* translators: 1: Plugin name, 2: Required PHP version, 3: Current PHP version */
-					esc_html__( '%1$s requires PHP %2$s or higher. You are currently running PHP %3$s. Please contact your web host to upgrade PHP to activate this plugin.', 'better-search-replace' ),
-					'<strong>' . esc_html( BSR_NAME ) . '</strong>',
-					'<strong>8.1</strong>',
-					'<strong>' . esc_html( PHP_VERSION ) . '</strong>'
+						__(
+							'<strong>%1$s</strong> requires PHP <strong>%2$s</strong> or higher. You are currently running PHP <strong>%3$s</strong>. Please contact your web host to upgrade PHP to activate this plugin.',
+							'better-search-replace'
+						),
+						bsr_get_plugin_data( 'Name' ),
+						bsr_get_plugin_data( 'RequiresPHP' ),
+						esc_html( PHP_VERSION )
+					)
 				);
 				?>
 			</p>
