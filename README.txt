@@ -98,6 +98,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 * New: Requires WordPress 6.2+
 * New: Requires PHP 8.1+
 * Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
+* Fix: SQL injection vulnerability on multibyte charsets (GBK, Big5) has been resolved by replacing charset-unaware string escaping with `$wpdb->prepare()` (props to jonghan via Intigriti)
 * Fix: Improved security and stability
 
 = 1.4.10 - January 14, 2025 =
