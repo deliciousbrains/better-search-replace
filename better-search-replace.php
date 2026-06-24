@@ -191,7 +191,7 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Bootstrap entry; guarded by function_exists in bootstrap.
 	function run_better_search_replace() {
 		// Check version requirements before loading the plugin.
-		if ( ! bsr_check_wp_version() || ! bsr_check_php_version() ) {
+		if ( ! bsr_check_php_version() || ! bsr_check_wp_version() ) {
 			return;
 		}
 
