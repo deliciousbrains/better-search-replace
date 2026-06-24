@@ -89,8 +89,8 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	/**
 	 * Check if WordPress version meets minimum requirement.
 	 *
-	 * @since 1.4.11
 	 * @return bool True if WordPress version is sufficient, false otherwise.
+	 * @since 1.4.11
 	 */
 	function bsr_check_wp_version() {
 		global $wp_version;
@@ -108,8 +108,8 @@ if ( ! function_exists( 'run_better_search_replace' ) ) {
 	/**
 	 * Check if PHP version meets minimum requirement.
 	 *
-	 * @since 1.4.11
 	 * @return bool True if PHP version is sufficient, false otherwise.
+	 * @since 1.4.11
 	 */
 	function bsr_check_php_version() {
 		if ( version_compare( PHP_VERSION, bsr_get_plugin_data( 'RequiresPHP' ) ) === -1 ) {
