@@ -94,7 +94,7 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= 1.4.11 - Undetermined =
+= 1.4.11 - June 29, 2026 =
 * New: Requires WordPress 6.2+
 * New: Requires PHP 8.1+
 * Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
