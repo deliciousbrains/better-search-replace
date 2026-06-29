@@ -2,9 +2,9 @@
 Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, search replace database, update database urls, update live url
 Requires at least: 6.2
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.4.11-dev
+Stable tag: 1.4.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,10 +94,11 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 
 == Changelog ==
 
-= Unreleased =
+= 1.4.11 - June 29, 2026 =
 * New: Requires WordPress 6.2+
 * New: Requires PHP 8.1+
 * Fix: Core tables altered to have compound primary keys are now properly handled during search and replace
+* Fix: SQL injection vulnerability on multibyte charsets (GBK, Big5) has been resolved by replacing charset-unaware string escaping with `$wpdb->prepare()` (props to jonghan via Intigriti)
 * Fix: Improved security and stability
 
 = 1.4.10 - January 14, 2025 =

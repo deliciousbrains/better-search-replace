@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Search Replace 1.4.11-dev\n"
+"Project-Id-Version: Better Search Replace 1.4.11\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/better-search-replace\n"
-"POT-Creation-Date: 2026-05-27 16:51:55+00:00\n"
+"POT-Creation-Date: 2026-06-24 09:07:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,21 +25,38 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.4\n"
 
-#: includes/class-bsr-admin.php:72
+#: better-search-replace.php:139
+#. translators: 1: Plugin name, 2: Required WordPress version, 3: Current
+#. WordPress version
+msgid ""
+"<strong>%1$s</strong> requires WordPress <strong>%2$s</strong> or higher. "
+"You are currently running WordPress <strong>%3$s</strong>. Please upgrade "
+"WordPress to activate this plugin."
+msgstr ""
+
+#: better-search-replace.php:167
+#. translators: 1: Plugin name, 2: Required PHP version, 3: Current PHP version
+msgid ""
+"<strong>%1$s</strong> requires PHP <strong>%2$s</strong> or higher. You are "
+"currently running PHP <strong>%3$s</strong>. Please contact your web host "
+"to upgrade PHP to activate this plugin."
+msgstr ""
+
+#: includes/class-bsr-admin.php:76
 msgid "No search string was defined, please enter a URL or string to search for."
 msgstr ""
 
-#: includes/class-bsr-admin.php:73
+#: includes/class-bsr-admin.php:77
 msgid "Please select the tables that you want to update."
 msgstr ""
 
-#: includes/class-bsr-admin.php:74
+#: includes/class-bsr-admin.php:78
 msgid ""
 "An error occurred processing your request. Try decreasing the \"Max Page "
 "Size\", or contact support."
 msgstr ""
 
-#: includes/class-bsr-admin.php:75
+#: includes/class-bsr-admin.php:79
 msgid "Processing..."
 msgstr ""
 
@@ -47,218 +64,254 @@ msgstr ""
 msgid "Better Search Replace"
 msgstr ""
 
-#: includes/class-bsr-admin.php:125
+#: includes/class-bsr-admin.php:154
+#. translators: 1: number of tables, 2: cells found, 3: changes made, 4:
+#. details URL, 5: Thickbox title attribute.
 msgid ""
 "<p><strong>DRY RUN:</strong> <strong>%1$d</strong> tables were searched, "
 "<strong>%2$d</strong> cells were found that need to be updated, and "
 "<strong>%3$d</strong> changes were made.</p><p><a href=\"%4$s\" "
-"class=\"thickbox\" title=\"Dry Run Details\">Click here</a> for more "
-"details, or use the form below to run the search/replace.</p>"
+"class=\"thickbox\" title=\"%5$s\">Click here</a> for more details, or use "
+"the form below to run the search/replace.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:136
+#: includes/class-bsr-admin.php:162
+msgid "Dry Run Details"
+msgstr ""
+
+#: includes/class-bsr-admin.php:168
+#. translators: 1: tables searched, 2: cells changed, 3: updates, 4: details
+#. URL, 5: Thickbox title attribute.
 msgid ""
 "<p>During the search/replace, <strong>%1$d</strong> tables were searched, "
 "with <strong>%2$d</strong> cells changed in <strong>%3$d</strong> "
-"updates.</p><p><a href=\"%4$s\" class=\"thickbox\" title=\"Search/Replace "
-"Details\">Click here</a> for more details.</p>"
+"updates.</p><p><a href=\"%4$s\" class=\"thickbox\" title=\"%5$s\">Click "
+"here</a> for more details.</p>"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:176
+msgid "Search/Replace Details"
+msgstr ""
+
+#: includes/class-bsr-admin.php:288
+msgid "Security check failed."
+msgstr ""
+
+#: includes/class-bsr-admin.php:293
+msgid "Sorry, you are not allowed to view this content."
+msgstr ""
+
+#: includes/class-bsr-admin.php:319
 msgid "Table"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:320
 msgid "Changes Found"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:321
 msgid "Rows Updated"
 msgstr ""
 
-#: includes/class-bsr-admin.php:234
+#: includes/class-bsr-admin.php:322
 msgid "Time"
 msgstr ""
 
-#: includes/class-bsr-admin.php:245
+#: includes/class-bsr-admin.php:337
+#. translators: %s: URL to the upgrade page.
 msgid ""
 "<a href=\"%s\" target=\"_blank\">UPGRADE</a> to view details on the exact "
 "changes that will be made."
 msgstr ""
 
-#: includes/class-bsr-admin.php:256
+#: includes/class-bsr-admin.php:355
 msgid " seconds"
 msgstr ""
 
-#: includes/class-bsr-admin.php:303
+#: includes/class-bsr-admin.php:413
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/class-bsr-ajax.php:159
-msgid "Processing table %d of %d: %s"
+#: includes/class-bsr-ajax.php:211
+#. translators: 1: current table number, 2: total number of tables, 3: table
+#. name.
+msgid "Processing table %1$d of %2$d: %3$s"
 msgstr ""
 
-#: includes/class-bsr-db.php:85
+#: includes/class-bsr-db.php:93
+#. translators: %s: table size in megabytes.
 msgid "(%s MB)"
 msgstr ""
 
-#: includes/class-bsr-db.php:296
+#: includes/class-bsr-db.php:334
+#. translators: %d: database row number that failed to update.
 msgid "Error updating row: %d."
 msgstr ""
 
-#: includes/class-bsr-plugin-footer.php:51
+#: includes/class-bsr-plugin-footer.php:56
 #. translators: %1$s is a link to BSR's website, and %2$s is a link to WP
 #. Engine's website.
 msgid "%1$s is developed and maintained by %2$s."
 msgstr ""
 
-#: includes/class-bsr-plugin-footer.php:79
+#: includes/class-bsr-plugin-footer.php:84
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-bsr-plugin-footer.php:82
+#: includes/class-bsr-plugin-footer.php:87
 msgid "Support"
 msgstr ""
 
-#: includes/class-bsr-plugin-footer.php:89
+#: includes/class-bsr-plugin-footer.php:94
 msgid "Feedback"
 msgstr ""
 
-#: templates/bsr-dashboard.php:53
+#: templates/bsr-dashboard.php:74
 msgid "Upgrade now and get 50% off"
 msgstr ""
 
-#: templates/bsr-dashboard.php:65 templates/bsr-search-replace.php:32
+#: templates/bsr-dashboard.php:86 templates/bsr-search-replace.php:39
 msgid "Search/Replace"
 msgstr ""
 
-#: templates/bsr-dashboard.php:66 templates/bsr-settings.php:30
+#: templates/bsr-dashboard.php:87 templates/bsr-settings.php:34
 msgid "Settings"
 msgstr ""
 
-#: templates/bsr-dashboard.php:67
+#: templates/bsr-dashboard.php:88
 msgid "Help"
 msgstr ""
 
-#: templates/bsr-help.php:26
+#: templates/bsr-help.php:33
 msgid "Help & Troubleshooting"
 msgstr ""
 
-#: templates/bsr-help.php:35
+#: templates/bsr-help.php:44
+#. translators: %s: URL to the upgrade page.
 msgid ""
-"<a href=\"%s\" style=\"font-weight:bold;\" target=\"_blank\">Upgrade</a> to "
-"gain access to premium features and priority email support."
+"<a href=\"%s\" style=\"font-weight:bold;\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Upgrade</a> to gain access to premium features and priority "
+"email support."
 msgstr ""
 
-#: templates/bsr-help.php:43
+#: templates/bsr-help.php:55
+#. translators: %s: URL to the GitHub repository.
 msgid ""
 "Found a bug or have a feature request? Please submit an issue on <a "
 "href=\"%s\">GitHub</a>!"
 msgstr ""
 
-#: templates/bsr-help.php:53
+#: templates/bsr-help.php:66
 msgid "System Info"
 msgstr ""
 
-#: templates/bsr-search-replace.php:37
+#: templates/bsr-help.php:75
+msgid "Download System Info"
+msgstr ""
+
+#: templates/bsr-search-replace.php:33
+msgid "Dry Run Notice"
+msgstr ""
+
+#: templates/bsr-search-replace.php:44
 msgid ""
 "Search and replace text in the database, including serialized arrays and "
 "objects. Be sure to back up your database before running this process."
 msgstr ""
 
-#: templates/bsr-search-replace.php:46
+#: templates/bsr-search-replace.php:53
 msgid "Search for"
 msgstr ""
 
-#: templates/bsr-search-replace.php:51
+#: templates/bsr-search-replace.php:58
 msgid "Replace with"
 msgstr ""
 
-#: templates/bsr-search-replace.php:59
+#: templates/bsr-search-replace.php:66
 msgid "Select tables"
 msgstr ""
 
-#: templates/bsr-search-replace.php:61
+#: templates/bsr-search-replace.php:68
 msgid "Select multiple tables with Ctrl-Click for Windows or Cmd-Click for Mac."
 msgstr ""
 
-#: templates/bsr-search-replace.php:73
+#: templates/bsr-search-replace.php:80
 msgid "Additional Settings"
 msgstr ""
 
-#: templates/bsr-search-replace.php:84
+#: templates/bsr-search-replace.php:91
 msgid "Case-Insensitive"
 msgstr ""
 
-#: templates/bsr-search-replace.php:85
+#: templates/bsr-search-replace.php:92
 msgid "Searches are case-sensitive by default."
 msgstr ""
 
-#: templates/bsr-search-replace.php:95
+#: templates/bsr-search-replace.php:102
 msgid "Replace GUIDs"
 msgstr ""
 
-#: templates/bsr-search-replace.php:96
+#: templates/bsr-search-replace.php:103
 msgid "If left unchecked, all database columns titled 'guid' will be skipped."
 msgstr ""
 
-#: templates/bsr-search-replace.php:106
+#: templates/bsr-search-replace.php:113
 msgid "Run as dry run"
 msgstr ""
 
-#: templates/bsr-search-replace.php:107
+#: templates/bsr-search-replace.php:114
 msgid ""
 "If checked, no changes will be made to the database, allowing you to check "
 "the results beforehand."
 msgstr ""
 
-#: templates/bsr-search-replace.php:118
+#: templates/bsr-search-replace.php:125
 msgid "Run Search/Replace"
 msgstr ""
 
-#: templates/bsr-settings.php:39
+#: templates/bsr-settings.php:43
 msgid "Max Page Size"
 msgstr ""
 
-#: templates/bsr-settings.php:43
+#: templates/bsr-settings.php:47
 msgid ""
 "If you notice timeouts or are unable to backup/import the database, try "
 "decreasing this value."
 msgstr ""
 
-#: templates/sidebar.php:4
+#: templates/sidebar.php:25
 msgid "Upgrade"
 msgstr ""
 
-#: templates/sidebar.php:5
+#: templates/sidebar.php:26
 msgid "Gain access to more database and migration features"
 msgstr ""
 
-#: templates/sidebar.php:9
+#: templates/sidebar.php:30
 msgid "Preview database changes before they are saved"
 msgstr ""
 
-#: templates/sidebar.php:12
+#: templates/sidebar.php:33
 msgid "Use regular expressions for complex string replacements"
 msgstr ""
 
-#: templates/sidebar.php:15
+#: templates/sidebar.php:36
 msgid "Migrate full sites including themes, plugins, media, and database"
 msgstr ""
 
-#: templates/sidebar.php:18
+#: templates/sidebar.php:39
 msgid "Export and import WordPress databases"
 msgstr ""
 
-#: templates/sidebar.php:21
+#: templates/sidebar.php:42
 msgid "Email support"
 msgstr ""
 
-#: templates/sidebar.php:25
+#: templates/sidebar.php:46
 msgid "Get up to <span>50% off</span> your first year!"
 msgstr ""
 
-#: templates/sidebar.php:29
+#: templates/sidebar.php:49
 msgid "Upgrade Now"
 msgstr ""
 
