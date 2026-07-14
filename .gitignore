@@ -24,3 +24,6 @@ node_modules
 builds/
 assets/css/better-search-replace.min.css
 assets/js/better-search-replace.min.*
+site/
+.vale.ini
+.markdownlint-cli2.jsonc
