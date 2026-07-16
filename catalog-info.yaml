@@ -20,7 +20,7 @@ metadata:
       icon: jira
     - url: https://bettersearchreplace.com/
       title: Pro Version
-      icon: github
+      icon: externalLink
   tags:
     - wordpress
     - plugin
