@@ -71,5 +71,5 @@ update-backstage-shared-ci:
      --entrypoint update-backstage-shared-ci.sh \
      us-docker.pkg.dev/wpe-art/sdp-images/backstage-shared-ci
 
-include scripts/make/Makefile_backstage
+-include scripts/make/Makefile_backstage
 # --- end Backstage CI
