@@ -1,0 +1,70 @@
+# This file is maintained in the cloud-builders repo.
+# It is copied to other repos through: make update-backstage-shared-ci
+# See https://backstage.wpesvc.net/docs/default/resource/backstage-catalog/backstage-ci-changes/
+
+# install tools needed by Backstage make commands
+.PHONY: install-backstage-tools
+install-backstage-tools:
+	npm install -g @techdocs/cli
+
+# validate entities in catalog-info.yaml files and TechDocs. Combines validate-docs + validate-entities.
+.PHONY: validate-backstage
+validate-backstage:
+	docker run --rm --pull=always \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v `pwd`:`pwd` -w `pwd` \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
+
+# Validate TechDocs only.
+# Loops through each directory with a mkdocs.yaml file, and runs these independent steps:
+# - linting markdown
+# - linting prose
+# - validating the TechDocs build
+.PHONY: validate-docs
+validate-docs:
+	docker run --rm --pull=always \
+		-v `pwd`:`pwd` -w `pwd` \
+		--entrypoint validate-docs.sh \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
+
+# validate catalog-info.yaml files only
+.PHONY: validate-entities
+validate-entities:
+	docker run --rm --pull=always \
+		-v `pwd`:`pwd` -w `pwd` \
+		--entrypoint validate-entities.sh \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
+
+# validate catalog-info.yaml files only
+.PHONY: validate-apis
+validate-apis:
+	docker run --rm --pull=always \
+		-v `pwd`:`pwd` -w `pwd` \
+		--entrypoint validate-apis.sh \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
+
+# Test TechDocs locally, before you merge.
+# Run this from the directory of the mkdocs.yaml file that you want to serve.
+# If you are not at the base of your repo, like: make -f ../../scripts/make/Makefile_backstage serve-docs
+# This will open your browser to http://localhost:3000/docs/default/component/local/ .
+.PHONY: serve-docs
+serve-docs:
+	techdocs-cli generate
+	techdocs-cli serve
+	docker run --rm --pull=always \
+		-v `pwd`:/mydir -w /mydir \
+		--entrypoint yamlfmt \
+		us-docker.pkg.dev/wpe-art/cloud-builders/yamlfmt:2 mkdocs.yaml
+
+# Create or update the decision index given the present decisions.
+.PHONY: generate-decision-index
+generate-decision-index:
+	docker run --rm --pull=always \
+		-v `pwd`:`pwd` -w `pwd` \
+		--entrypoint generate-decision-index.sh \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
+
+# Creates a new decision, copying it from the template in /docs/decisions/template.md.
+.PHONY: new-decision
+new-decision:
+	cp docs/decisions/adr-template.md docs/decisions/NNNN-your-new-adr.md

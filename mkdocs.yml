@@ -1,0 +1,8 @@
+site_name: Better Search Replace
+site_description: Documentation for the Better Search Replace plugin.
+repo_url: https://github.com/deliciousbrains/better-search-replace
+edit_uri: blob/develop/
+docs_dir: docs
+site_dir: site
+nav:
+- Home: index.md
