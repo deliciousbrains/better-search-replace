@@ -64,12 +64,5 @@ clean-all: clean
 
 # --- begin Backstage CI
 # Ref: https://backstage.wpesvc.net/docs/default/resource/backstage-catalog/backstage-ci-changes/
-.PHONY: update-backstage-shared-ci
-update-backstage-shared-ci:
-	docker run --rm --pull=always \
-     -v `pwd`:`pwd` -w `pwd` \
-     --entrypoint update-backstage-shared-ci.sh \
-     us-docker.pkg.dev/wpe-art/sdp-images/backstage-shared-ci
-
--include scripts/make/Makefile_backstage
+include backstage/Makefile
 # --- end Backstage CI

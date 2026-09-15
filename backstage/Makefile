@@ -1,6 +1,13 @@
 # This file is maintained in the cloud-builders repo.
-# It is copied to other repos through: make update-backstage-shared-ci
 # See https://backstage.wpesvc.net/docs/default/resource/backstage-catalog/backstage-ci-changes/
+
+# Install or update per-repo Backstage shared CI elements (this file, vocab dir, .gitignore entries).
+.PHONY: update-backstage-shared-ci
+update-backstage-shared-ci:
+	docker run --rm --pull=always \
+		-v `pwd`:`pwd` -w `pwd` \
+		--entrypoint update-backstage-shared-ci.sh \
+		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci
 
 # install tools needed by Backstage make commands
 .PHONY: install-backstage-tools
@@ -44,8 +51,8 @@ validate-apis:
 		us-docker.pkg.dev/wpe-art/cloud-builders/backstage-shared-ci:1
 
 # Test TechDocs locally, before you merge.
-# Run this from the directory of the mkdocs.yaml file that you want to serve.
-# If you are not at the base of your repo, like: make -f ../../scripts/make/Makefile_backstage serve-docs
+# Run from the directory containing the mkdocs.yaml you want to serve.
+# If that directory is not the repo root: make -f <path-to>/backstage/Makefile serve-docs
 # This will open your browser to http://localhost:3000/docs/default/component/local/ .
 .PHONY: serve-docs
 serve-docs:
