@@ -92,6 +92,7 @@ The Pro version includes built-in backup functionality to help protect your data
 When running this plugin on a WordPress Multisite installation, it will only be loaded and visible for Network admins. 
 
 Network admins can:
+
 - Go to the dashboard of any subsite to run a search/replace on just the tables for that subsite
 - Go to the dashboard of the main/base site to run a search/replace on all tables
 
@@ -127,8 +128,12 @@ Want to contribute? Feel free to open an issue or submit a pull request on [GitH
 
 Better Search Replace is licensed under the General Public License v3 or later.
 
+<!-- vale Google.Acronyms = NO -->
+
 > This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 >
 > This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+<!-- vale Google.Acronyms = YES -->
 
 See `LICENSE.txt` in the plugin root directory for the full license text.
